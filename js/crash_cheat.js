@@ -3,12 +3,12 @@
  var titleTime;
  document.addEventListener('visibilitychange', function () {
      if (document.hidden) {
-         $('[rel="icon"]').attr('href', "/images/TEP.png");
+         $('[rel="icon"]').attr('href', "/images/TEP.ico");
          document.title = '╭(°A°`)╮ 页面崩溃啦 ~';
          clearTimeout(titleTime);
      }
      else {
-         $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.png");
+         $('[rel="icon"]').attr('href', "/images/favicon-32x32-next.ico");
          document.title = '(ฅ>ω<*ฅ) 噫又好了~' + OriginTitle;
          titleTime = setTimeout(function () {
              document.title = OriginTitle;

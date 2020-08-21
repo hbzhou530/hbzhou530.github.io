@@ -36,25 +36,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/07/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<a id="more"></a>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>如何做好学术报告</title>
     <url>/2020/07/28/how_to_do_Academic_report/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
@@ -362,19 +343,23 @@
       </tags>
   </entry>
   <entry>
-    <title>测试hello！</title>
-    <url>/2020/07/19/test1/</url>
-    <content><![CDATA[<p>你好！</p>
-<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
-<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
+    <title>Hello World</title>
+    <url>/2020/07/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<a id="more"></a>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>测试分类</category>
-      </categories>
-      <tags>
-        <tag>ceshi_tags1</tag>
-        <tag>tags2</tag>
-      </tags>
   </entry>
   <entry>
     <title>XMind安卓版和PC端同步BY第三方云端</title>
@@ -405,6 +390,21 @@
         <tag>XMind</tag>
         <tag>FolderSync</tag>
         <tag>OneDirve</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>测试hello！</title>
+    <url>/2020/07/19/test1/</url>
+    <content><![CDATA[<p>你好！</p>
+<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
+<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
+]]></content>
+      <categories>
+        <category>测试分类</category>
+      </categories>
+      <tags>
+        <tag>ceshi_tags1</tag>
+        <tag>tags2</tag>
       </tags>
   </entry>
 </search>
