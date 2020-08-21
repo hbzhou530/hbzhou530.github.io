@@ -1171,7 +1171,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #6cd628;
+  background: #4f6073;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2663,7 +2663,7 @@ ul.breadcrumb li + li:last-child {
   }
 }
 body {
-  background: url("https://c-ssl.duitang.com/uploads/item/201612/07/20161207211924_EWMzN.jpeg");
+  background: url("https://i.loli.net/2020/08/21/eGK9Yof4ZxycDtw.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
