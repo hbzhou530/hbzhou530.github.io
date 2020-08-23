@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="计算图级 1 master和nodel1.1 master的作用：1、每个node启动时，都需向master注册2、管理node之间的通信启动命令： 1$ roscore">
+  <meta name="description" content="计算图级 1 master和nodel1.1 master的作用：1、每个node启动时，都需向master注册2、管理node之间的通信启动命令：1$ roscore">
 <meta property="og:type" content="article">
 <meta property="og:title" content="笔记 ROS2 通信架构">
 <meta property="og:url" content="http://yoursite.com/2020/07/26/ros2-note/index.html">
-<meta property="og:site_name" content="Logging Sharing">
-<meta property="og:description" content="计算图级 1 master和nodel1.1 master的作用：1、每个node启动时，都需向master注册2、管理node之间的通信启动命令： 1$ roscore">
+<meta property="og:site_name" content="HB Zhou的博客">
+<meta property="og:description" content="计算图级 1 master和nodel1.1 master的作用：1、每个node启动时，都需向master注册2、管理node之间的通信启动命令：1$ roscore">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pics.images.ac.cn/image/5f1d6f070b52a.html">
 <meta property="og:image" content="https://pics.images.ac.cn/image/5f1d6f086b5e4.html">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>笔记 ROS2 通信架构 | Logging Sharing</title>
+  <title>笔记 ROS2 通信架构 | HB Zhou的博客</title>
   
 
 
@@ -107,9 +107,10 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Logging Sharing</h1>
+      <h1 class="site-title">HB Zhou的博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">Logging Sharing</p>
   </div>
 
   <div class="site-nav-right">
@@ -215,7 +216,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging Sharing">
+      <meta itemprop="name" content="HB Zhou的博客">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -293,251 +294,272 @@
 
       
         <p>计算图级</p>
-<h1 id="1-master和nodel"><a href="#1-master和nodel" class="headerlink" title="1 master和nodel"></a>1 master和nodel</h1><h2 id="1-1-master的作用："><a href="#1-1-master的作用：" class="headerlink" title="1.1 master的作用："></a>1.1 master的作用：</h2><p>1、每个node启动时，都需向master注册<br>2、管理node之间的通信<br>启动命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>  <img src="https://pics.images.ac.cn/image/5f1d6f070b52a.html" alt=""></p>
-<h2 id="1-2-node"><a href="#1-2-node" class="headerlink" title="1.2 node"></a>1.2 node</h2><p>1、一个进程(process)<br>2、可执行文件（通常为C++编译生成的可执行文件、Python脚本）被执行的实例<br>启动node命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun pkg_name node_name</span><br></pre></td></tr></table></figure>
-<p>rosnode命令：</p>
+<h1 id="1-master和nodel"><a href="#1-master和nodel" class="headerlink" title="1 master和nodel"></a>1 master和nodel</h1><h2 id="1-1-master的作用："><a href="#1-1-master的作用：" class="headerlink" title="1.1 master的作用："></a>1.1 master的作用：</h2><p>1、每个node启动时，都需向master注册<br>2、管理node之间的通信<br>启动命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure><br><a id="more"></a><br>  <img src="https://pics.images.ac.cn/image/5f1d6f070b52a.html" alt=""></p>
+<h2 id="1-2-node"><a href="#1-2-node" class="headerlink" title="1.2 node"></a>1.2 node</h2><p>1、一个进程(process)<br>2、可执行文件（通常为C++编译生成的可执行文件、Python脚本）被执行的实例<br>启动node命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rosrun pkg_name node_name</span><br></pre></td></tr></table></figure><br>rosnode命令：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosnode命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosnode命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosnode list</td>
-<td align="center">@列出当前运行的node信息</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosnode list</td>
+<td style="text-align:center">@列出当前运行的node信息</td>
 </tr>
 <tr>
-<td align="left">rosnode info node_name</td>
-<td align="center">@显示出node的详细信息</td>
+<td style="text-align:left">rosnode info node_name</td>
+<td style="text-align:center">@显示出node的详细信息</td>
 </tr>
 <tr>
-<td align="left">rosnode kill node_name</td>
-<td align="center">@结束某个node</td>
+<td style="text-align:left">rosnode kill node_name</td>
+<td style="text-align:center">@结束某个node</td>
 </tr>
 <tr>
-<td align="left">rosnode ping</td>
-<td align="center">测试连接节点</td>
+<td style="text-align:left">rosnode ping</td>
+<td style="text-align:center">测试连接节点</td>
 </tr>
 <tr>
-<td align="left">rosnode machine</td>
-<td align="center">列出在特定机器或列表机器上运行的节点</td>
+<td style="text-align:left">rosnode machine</td>
+<td style="text-align:center">列出在特定机器或列表机器上运行的节点</td>
 </tr>
 <tr>
-<td align="left">rosnode cleanup</td>
-<td align="center">清除不可到达节点的注册信息</td>
+<td style="text-align:left">rosnode cleanup</td>
+<td style="text-align:center">清除不可到达节点的注册信息</td>
 </tr>
-</tbody></table>
-<h1 id="2-launch文件"><a href="#2-launch文件" class="headerlink" title="2 launch文件"></a>2 launch文件</h1><p>（集成）启动master和多个node：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch [pkg_name] [file_name.launch]</span><br></pre></td></tr></table></figure>
-<p>launch文件写法，同遵循xml格式规范。如下.<br>  <img src="https://pics.images.ac.cn/image/5f1d6f086b5e4.html" alt=""></p>
+</tbody>
+</table>
+</div>
+<h1 id="2-launch文件"><a href="#2-launch文件" class="headerlink" title="2 launch文件"></a>2 launch文件</h1><p>（集成）启动master和多个node：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roslaunch [pkg_name] [file_name.launch]</span><br></pre></td></tr></table></figure><br>launch文件写法，同遵循xml格式规范。如下.<br>  <img src="https://pics.images.ac.cn/image/5f1d6f086b5e4.html" alt=""></p>
 <h1 id="3-通信方式"><a href="#3-通信方式" class="headerlink" title="3 通信方式"></a>3 通信方式</h1><p>以下四种：</p>
 <h2 id="3-1-Topic-主题"><a href="#3-1-Topic-主题" class="headerlink" title="3.1 Topic 主题"></a>3.1 Topic 主题</h2><p>特点：异步通信、 publish/ subscriber<br>数据类型：定义在<code>*.msg</code>中。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rostopic命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rostopic命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rostopic list</td>
-<td align="center">@列出当前所有的topic</td>
+<tbody>
+<tr>
+<td style="text-align:left">rostopic list</td>
+<td style="text-align:center">@列出当前所有的topic</td>
 </tr>
 <tr>
-<td align="left">rostopic info /topic_name</td>
-<td align="center">@显示某个topic的属性信息</td>
+<td style="text-align:left">rostopic info /topic_name</td>
+<td style="text-align:center">@显示某个topic的属性信息</td>
 </tr>
 <tr>
-<td align="left">rostopic echo /topic_name</td>
-<td align="center">@显示某个topic的内容</td>
+<td style="text-align:left">rostopic echo /topic_name</td>
+<td style="text-align:center">@显示某个topic的内容</td>
 </tr>
 <tr>
-<td align="left">rostopic pub /topic_name …</td>
-<td align="center">@向某个topic发布内容</td>
+<td style="text-align:left">rostopic pub /topic_name …</td>
+<td style="text-align:center">@向某个topic发布内容</td>
 </tr>
 <tr>
-<td align="left">rostopic bw /topic_name</td>
-<td align="center">查看某个topic的带宽</td>
+<td style="text-align:left">rostopic bw /topic_name</td>
+<td style="text-align:center">查看某个topic的带宽</td>
 </tr>
 <tr>
-<td align="left">rostopic hz /topic_name</td>
-<td align="center">查看某个topic的频率</td>
+<td style="text-align:left">rostopic hz /topic_name</td>
+<td style="text-align:center">查看某个topic的频率</td>
 </tr>
 <tr>
-<td align="left">rostopic find /topic_type</td>
-<td align="center">查找某个类型的topic</td>
+<td style="text-align:left">rostopic find /topic_type</td>
+<td style="text-align:center">查找某个类型的topic</td>
 </tr>
 <tr>
-<td align="left">rostopic type /topic_name</td>
-<td align="center">查看某个topic的类型(msg)</td>
+<td style="text-align:left">rostopic type /topic_name</td>
+<td style="text-align:center">查看某个topic的类型(msg)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosmsg命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosmsg命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosmsg list</td>
-<td align="center">列出系统上所有的msg</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosmsg list</td>
+<td style="text-align:center">列出系统上所有的msg</td>
 </tr>
 <tr>
-<td align="left">rosmsg show /msg_name</td>
-<td align="center">显示某个msg的内容</td>
+<td style="text-align:left">rosmsg show /msg_name</td>
+<td style="text-align:center">显示某个msg的内容</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="3-2-Service-服务"><a href="#3-2-Service-服务" class="headerlink" title="3.2 Service 服务"></a>3.2 Service 服务</h2><p>特点：同步通信、reques-reply方式<br>数据类型：定义在<code>*.srv</code>中</p>
 <h3 id="topic-VS-service"><a href="#topic-VS-service" class="headerlink" title="topic VS service"></a>topic VS service</h3><p>我们对比一下这两种最常用的通信方式，加深我们对两者的理解和认识，具体见下表。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">名称</th>
-<th align="center">Topic</th>
-<th align="center">Service</th>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">Topic</th>
+<th style="text-align:center">Service</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">通信方式</td>
-<td align="center">异步通信</td>
-<td align="center">同步通信</td>
+<tbody>
+<tr>
+<td style="text-align:center">通信方式</td>
+<td style="text-align:center">异步通信</td>
+<td style="text-align:center">同步通信</td>
 </tr>
 <tr>
-<td align="center">实现原理</td>
-<td align="center">TCP/IP</td>
-<td align="center">TCP/IP</td>
+<td style="text-align:center">实现原理</td>
+<td style="text-align:center">TCP/IP</td>
+<td style="text-align:center">TCP/IP</td>
 </tr>
 <tr>
-<td align="center">通信模型</td>
-<td align="center">Publish-Subscribe</td>
-<td align="center">Request-Reply</td>
+<td style="text-align:center">通信模型</td>
+<td style="text-align:center">Publish-Subscribe</td>
+<td style="text-align:center">Request-Reply</td>
 </tr>
 <tr>
-<td align="center">映射关系</td>
-<td align="center">Publish-Subscribe(多对多)</td>
-<td align="center">Request-Reply（多对一）</td>
+<td style="text-align:center">映射关系</td>
+<td style="text-align:center">Publish-Subscribe(多对多)</td>
+<td style="text-align:center">Request-Reply（多对一）</td>
 </tr>
 <tr>
-<td align="center">特点</td>
-<td align="center">接受者收到数据会回调（Callback）</td>
-<td align="center">远程过程调用（RPC）服务器端的服务</td>
+<td style="text-align:center">特点</td>
+<td style="text-align:center">接受者收到数据会回调（Callback）</td>
+<td style="text-align:center">远程过程调用（RPC）服务器端的服务</td>
 </tr>
 <tr>
-<td align="center">应用场景</td>
-<td align="center">连续、高频的数据发布</td>
-<td align="center">偶尔使用的功能/具体的任务</td>
+<td style="text-align:center">应用场景</td>
+<td style="text-align:center">连续、高频的数据发布</td>
+<td style="text-align:center">偶尔使用的功能/具体的任务</td>
 </tr>
 <tr>
-<td align="center">举例</td>
-<td align="center">激光雷达、里程计发布数据</td>
-<td align="center">开关传感器、拍照、逆解计算</td>
+<td style="text-align:center">举例</td>
+<td style="text-align:center">激光雷达、里程计发布数据</td>
+<td style="text-align:center">开关传感器、拍照、逆解计算</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>注意：远程过程调用<code>(Remote Procedure Call，RPC)</code>,可以简单通俗的理解为在一个进程里调用另一个进程的函数。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosservice 命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosservice 命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosservice list</td>
-<td align="center">@显示服务列表</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosservice list</td>
+<td style="text-align:center">@显示服务列表</td>
 </tr>
 <tr>
-<td align="left">rosservice info</td>
-<td align="center">@打印服务信息</td>
+<td style="text-align:left">rosservice info</td>
+<td style="text-align:center">@打印服务信息</td>
 </tr>
 <tr>
-<td align="left">rosservice type</td>
-<td align="center">打印服务类型</td>
+<td style="text-align:left">rosservice type</td>
+<td style="text-align:center">打印服务类型</td>
 </tr>
 <tr>
-<td align="left">rosservice uri</td>
-<td align="center">打印服务ROSRPC uri</td>
+<td style="text-align:left">rosservice uri</td>
+<td style="text-align:center">打印服务ROSRPC uri</td>
 </tr>
 <tr>
-<td align="left">rosservice find</td>
-<td align="center">按服务类型查找服务</td>
+<td style="text-align:left">rosservice find</td>
+<td style="text-align:center">按服务类型查找服务</td>
 </tr>
 <tr>
-<td align="left">rosservice call service_name args</td>
-<td align="center">@使用所提供的args调用服务</td>
+<td style="text-align:left">rosservice call service_name args</td>
+<td style="text-align:center">@使用所提供的args调用服务</td>
 </tr>
 <tr>
-<td align="left">rosservice args</td>
-<td align="center">打印服务参数</td>
+<td style="text-align:left">rosservice args</td>
+<td style="text-align:center">打印服务参数</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rossrv 命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rossrv 命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rossrv show</td>
-<td align="center">@显示服务描述</td>
+<tbody>
+<tr>
+<td style="text-align:left">rossrv show</td>
+<td style="text-align:center">@显示服务描述</td>
 </tr>
 <tr>
-<td align="left">rossrv list</td>
-<td align="center">@列出所有服务</td>
+<td style="text-align:left">rossrv list</td>
+<td style="text-align:center">@列出所有服务</td>
 </tr>
 <tr>
-<td align="left">rossrv md5</td>
-<td align="center">显示服务md5sum</td>
+<td style="text-align:left">rossrv md5</td>
+<td style="text-align:center">显示服务md5sum</td>
 </tr>
 <tr>
-<td align="left">rossrv package</td>
-<td align="center">列出包中的服务</td>
+<td style="text-align:left">rossrv package</td>
+<td style="text-align:center">列出包中的服务</td>
 </tr>
 <tr>
-<td align="left">rossrv packages</td>
-<td align="center">列出包含服务的包</td>
+<td style="text-align:left">rossrv packages</td>
+<td style="text-align:center">列出包含服务的包</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>tips</strong>： 无论我们定义了srv，或msg，修改 package.xml和CMakeList.txt<strong><em>添加依赖</em></strong>都是必不可少的一步。</p>
 <h2 id="3-3-Parameter-Service-参数服务器"><a href="#3-3-Parameter-Service-参数服务器" class="headerlink" title="3.3 Parameter Service 参数服务器"></a>3.3 Parameter Service 参数服务器</h2><p>存储各种参数的字典，可用命令行、<code>launch</code>文件和<code>node（api）</code>读写。<br>1、 命令行</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosparam 命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosparam 命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosparam set param_key param_value</td>
-<td align="center">设置参数</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosparam set param_key param_value</td>
+<td style="text-align:center">设置参数</td>
 </tr>
 <tr>
-<td align="left">rosparam get param_key</td>
-<td align="center">显示参数</td>
+<td style="text-align:left">rosparam get param_key</td>
+<td style="text-align:center">显示参数</td>
 </tr>
 <tr>
-<td align="left">rosparam load file_name</td>
-<td align="center">从文件（yaml）加载参数</td>
+<td style="text-align:left">rosparam load file_name</td>
+<td style="text-align:center">从文件（yaml）加载参数</td>
 </tr>
 <tr>
-<td align="left">rosparam dump file_name</td>
-<td align="center">保存参数到文件（yaml）</td>
+<td style="text-align:left">rosparam dump file_name</td>
+<td style="text-align:center">保存参数到文件（yaml）</td>
 </tr>
 <tr>
-<td align="left">rosparam delete param_key</td>
-<td align="center">删除参数</td>
+<td style="text-align:left">rosparam delete param_key</td>
+<td style="text-align:center">删除参数</td>
 </tr>
 <tr>
-<td align="left">rosparam list</td>
-<td align="center">列出参数名称</td>
+<td style="text-align:left">rosparam list</td>
+<td style="text-align:center">列出参数名称</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>2、 launch文件<br>与参数服务器相关的标签只有两个，一个是<code>&lt;param&gt;</code>，另一个是<code>&lt;rosparam&gt;</code><br>3、通过node<strong>（API）</strong>设置</p>
 <h2 id="3-4-Actionlib-动作库"><a href="#3-4-Actionlib-动作库" class="headerlink" title="3.4 Actionlib 动作库"></a>3.4 Actionlib 动作库</h2><p>类似于Service，带有状态反馈的通信方式。通常用在长时间、可抢占的任务中。<br><img src="https://pics.images.ac.cn/image/5f1d6f07c1032.html" alt=""></p>
 <p>客户端会向服务器发送目标指令和取消动作指令,而服务器则可以给客户端发送实时的状态信息,结果信息,反馈信息等等。<br>定义在<code>*.action</code>中。</p>
@@ -706,13 +728,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">7k</span>
+    <span title="站点总字数">8k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6 分钟</span>
+    <span title="站点阅读时长">7 分钟</span>
 </div>
 
 <div>
@@ -867,6 +889,8 @@ window.addEventListener('pjax:success', () => {
 
 
     <div id="pjax">
+  
+
   
 
   

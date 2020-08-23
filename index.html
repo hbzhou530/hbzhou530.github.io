@@ -26,9 +26,9 @@
 
   <meta name="description" content="记录与分享">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Logging Sharing">
+<meta property="og:title" content="HB Zhou的博客">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Logging Sharing">
+<meta property="og:site_name" content="HB Zhou的博客">
 <meta property="og:description" content="记录与分享">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="HB Zhou">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Logging Sharing</title>
+  <title>HB Zhou的博客 - Logging Sharing</title>
   
 
 
@@ -98,9 +98,10 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Logging Sharing</h1>
+      <h1 class="site-title">HB Zhou的博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
+      <p class="site-subtitle" itemprop="description">Logging Sharing</p>
   </div>
 
   <div class="site-nav-right">
@@ -205,7 +206,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging Sharing">
+      <meta itemprop="name" content="HB Zhou的博客">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -227,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-21 12:09:22" itemprop="dateModified" datetime="2020-08-21T12:09:22+08:00">2020-08-21</time>
+                <time title="修改时间：2020-08-23 18:13:57" itemprop="dateModified" datetime="2020-08-23T18:13:57+08:00">2020-08-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,14 +264,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -283,7 +284,6 @@
 
       
           <h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">article&#123;leiCoupledAdversarialTraining2020,</span><br><span class="line">  title = &#123;Coupled &#123;&#123;Adversarial Training&#125;&#125; <span class="keyword">for</span> &#123;&#123;Remote Sensing Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Lei, Sen and Shi, Zhenwei and Zou, Zhengxia&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  month = may,</span><br><span class="line">  volume = &#123;58&#125;,</span><br><span class="line">  pages = &#123;3633--3643&#125;,</span><br><span class="line">  issn = &#123;1558-0644&#125;,</span><br><span class="line">  doi = &#123;10.1109/TGRS.2019.2959020&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  number = &#123;5&#125;</span><br></pre></td></tr></table></figure>
-
 <p>题目：结合对抗训练进行遥感影像超分辨率<br>JCRQ1/中科院1区<br>指导老师：史振威，北航宇航学院 group web：<a href="http://levir.buaa.edu.cn/" target="_blank" rel="noopener">http://levir.buaa.edu.cn/</a></p>
 <p>摘要：<br>生成对抗网络（GAN）在最近的自然图像超分辨率任务中取得了巨大进展，其成功的关键是集成了一个鉴别器，该鉴别器经过训练可以对输入是真实的高分辨率（HR）图像还是生成的图像进行分类。可以说，学习强大的判别先验对于生成高质量图像至关重要。然而，通过广泛的统计分析，我们发现，遥感图像中的低频分量比自然图像更多，这可能会导致“判别器歧义”问题，即在处理这些低频分量多的图像时，辨别器将“困惑”于判断其输入是真实的还是非真实的，因此，生成的HR图像质量可能会受到严重影响。为了解决这个问题，我们提出了一种新颖的基于GAN的超分辨率算法，称为<strong>耦合鉴别GAN（CDGAN）</strong>，用于遥感图像。与以前的基于GAN的超分辨率模型不同，鉴别器一次获取一张图像；在该模型中，该鉴别器经过专门设计，可以获取一对图像：生成的图像及其HR GT，以便更好地区分输入。我们进一步介绍了<strong>双路径网络架构，随机门和耦合对抗损失</strong>，以更好地学习判别结果与输入样本对之间的对应关系。在两个公共数据集上的实验结果表明，与其他现有技术相比，我们的模型在视觉外观和局部细节方面都可以获得更准确的超分辨率结果。<em>我们的代码将公开提供。（暂时还没公布）</em></p>
           <!--noindex-->
@@ -321,7 +321,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging Sharing">
+      <meta itemprop="name" content="HB Zhou的博客">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -395,7 +395,7 @@
 
       
           <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>之前一直使用幕布，由于种种原因（私档泄露、免费版功能已不能满足需求），不想使用此软件了。<br>故转而找替代产品。<br>定位需求是：<br>1、free；<br>2、思维导图基本功能（大纲），能图片更好；<br>3、多端多台（windows+Android）同步。</p>
-<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。</p>
+<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。<br>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/08/13/xmind-Android-sync-by-onedrive/#more" rel="contents">
@@ -431,7 +431,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging Sharing">
+      <meta itemprop="name" content="HB Zhou的博客">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -499,6 +499,7 @@
 
       
           <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/28/how_to_do_Academic_report/#more" rel="contents">
@@ -534,7 +535,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging Sharing">
+      <meta itemprop="name" content="HB Zhou的博客">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -606,8 +607,7 @@
 
       
           <p>计算图级</p>
-<h1 id="1-master和nodel"><a href="#1-master和nodel" class="headerlink" title="1 master和nodel"></a>1 master和nodel</h1><h2 id="1-1-master的作用："><a href="#1-1-master的作用：" class="headerlink" title="1.1 master的作用："></a>1.1 master的作用：</h2><p>1、每个node启动时，都需向master注册<br>2、管理node之间的通信<br>启动命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure>
+<h1 id="1-master和nodel"><a href="#1-master和nodel" class="headerlink" title="1 master和nodel"></a>1 master和nodel</h1><h2 id="1-1-master的作用："><a href="#1-1-master的作用：" class="headerlink" title="1.1 master的作用："></a>1.1 master的作用：</h2><p>1、每个node启动时，都需向master注册<br>2、管理node之间的通信<br>启动命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure><br>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/26/ros2-note/#more" rel="contents">
@@ -643,7 +643,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging Sharing">
+      <meta itemprop="name" content="HB Zhou的博客">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -753,7 +753,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Logging Sharing">
+      <meta itemprop="name" content="HB Zhou的博客">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
@@ -819,8 +819,7 @@
       
           <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a><br>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/07/18/hello-world/#more" rel="contents">
@@ -973,13 +972,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">7k</span>
+    <span title="站点总字数">8k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6 分钟</span>
+    <span title="站点阅读时长">7 分钟</span>
 </div>
 
 <div>
@@ -1135,6 +1134,61 @@ window.addEventListener('pjax:success', () => {
 
     <div id="pjax">
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

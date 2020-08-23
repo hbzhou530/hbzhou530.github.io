@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2020/07/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a><br><a id="more"></a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>PAPER READING 2020_Lei_Coupled Adversarial Training for Remote Sensing Image Super-Resolution</title>
     <url>/2020/08/17/2020_Lei_Coupled-Adversarial-Training/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">article&#123;leiCoupledAdversarialTraining2020,</span><br><span class="line">  title = &#123;Coupled &#123;&#123;Adversarial Training&#125;&#125; <span class="keyword">for</span> &#123;&#123;Remote Sensing Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Lei, Sen and Shi, Zhenwei and Zou, Zhengxia&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  month = may,</span><br><span class="line">  volume = &#123;58&#125;,</span><br><span class="line">  pages = &#123;3633--3643&#125;,</span><br><span class="line">  issn = &#123;1558-0644&#125;,</span><br><span class="line">  doi = &#123;10.1109/TGRS.2019.2959020&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  number = &#123;5&#125;</span><br></pre></td></tr></table></figure>
-
 <p>题目：结合对抗训练进行遥感影像超分辨率<br>JCRQ1/中科院1区<br>指导老师：史振威，北航宇航学院 group web：<a href="http://levir.buaa.edu.cn/" target="_blank" rel="noopener">http://levir.buaa.edu.cn/</a></p>
 <p>摘要：<br>生成对抗网络（GAN）在最近的自然图像超分辨率任务中取得了巨大进展，其成功的关键是集成了一个鉴别器，该鉴别器经过训练可以对输入是真实的高分辨率（HR）图像还是生成的图像进行分类。可以说，学习强大的判别先验对于生成高质量图像至关重要。然而，通过广泛的统计分析，我们发现，遥感图像中的低频分量比自然图像更多，这可能会导致“判别器歧义”问题，即在处理这些低频分量多的图像时，辨别器将“困惑”于判断其输入是真实的还是非真实的，因此，生成的HR图像质量可能会受到严重影响。为了解决这个问题，我们提出了一种新颖的基于GAN的超分辨率算法，称为<strong>耦合鉴别GAN（CDGAN）</strong>，用于遥感图像。与以前的基于GAN的超分辨率模型不同，鉴别器一次获取一张图像；在该模型中，该鉴别器经过专门设计，可以获取一对图像：生成的图像及其HR GT，以便更好地区分输入。我们进一步介绍了<strong>双路径网络架构，随机门和耦合对抗损失</strong>，以更好地学习判别结果与输入样本对之间的对应关系。在两个公共数据集上的实验结果表明，与其他现有技术相比，我们的模型在视觉外观和局部细节方面都可以获得更准确的超分辨率结果。<em>我们的代码将公开提供。（暂时还没公布）</em></p>
 <a id="more"></a>
-
 <h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>遥感图像使用GAN的“判别器歧义”问题：<br>遥感图像很难直接判别。e.g.沙漠和海滩的遥感图像，高频信息和局部细节很少，其HR和LR图相差无几。</p>
 <blockquote>
 <p>在遥感图像中，我们通过广泛的统计分析发现，与自然图像相比，例如沙漠和海滩地区，存在更多的平坦区域和更多的低频图像成分。</p>
@@ -16,14 +28,27 @@
 <p>However, in remote sensing images, we discoverthrough extensive statistical analysis that there are more flatregions and more low-frequency image components than thenatural images, e.g., the areas of the desert and beach.</p>
 </blockquote>
 </blockquote>
-<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p>生成器借鉴了SRGAN、EDSR、ESRGAN的结构。</p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><h2 id="总结构"><a href="#总结构" class="headerlink" title="总结构"></a>总结构</h2><p>生成器借鉴了SRGAN、EDSR、ESRGAN的结构。<br><img src="https://i.loli.net/2020/08/21/rtEzkKGhOM1Je6x.png" alt="image.png"><br>结构图</p>
+<p><strong>耦合判别器</strong>：<br>输入对（SR和GT),先过<strong>随机门</strong>（随机打乱输入对的顺序，并加bool值）。双路<br><img src="https://i.loli.net/2020/08/21/iSeHvONXczCwYI1.png" alt="image.png"><br>随机门公式3</p>
+<p>判别器网络借鉴了DCGAN的结构（所有的pooling层使用步幅卷积，及使用LeakyReLU激活函数）。</p>
+<h2 id="LOSS"><a href="#LOSS" class="headerlink" title="LOSS"></a>LOSS</h2><p>采用<script type="math/tex">L_{ads} + L_{content}</script><br>设置<script type="math/tex">\lambda = 10^4</script> ？？<br><img src="https://i.loli.net/2020/08/23/KeHhBpraq9JcXuz.png" alt="image.png"></p>
+<h2 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h2><p>传统的两阶段，阶段一预训练仅采用均方差loss；阶段二完整loss，迭代训练。</p>
+<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>遥感图像：</p>
+<ol>
+<li>“UCMerced”<a href="http://www.graphnetcloud.cn/1-1" target="_blank" rel="noopener">中科链接</a> <a href="http://weegee.vision.ucmerced.edu/datasets/landuse.html" target="_blank" rel="noopener">官方链接</a>[45] and “WHU-RS19”<a href="http://www.graphnetcloud.cn/1-22" target="_blank" rel="noopener">中科链接</a> [46]<br>40%用于训练，10%用于验证，剩余50%用于测试</li>
+<li>自选 “高分2”数据集 ，作测试。无HR GT。</li>
+</ol>
+<h2 id="评估标准"><a href="#评估标准" class="headerlink" title="评估标准"></a>评估标准</h2><p>PSNR[Python]+perception index (PI)[Matlab]+ Learned Perceptual ImagePatch Similarity (LPIPS) [Python]<br>PI是无需GT的。</p>
 <blockquote>
-<p>图1 结构图</p>
+<p>The implementation of the evaluation metrics can be found in thefollowing websites. PSNR: <a href="https://github.com/scikit-image/scikit-image" target="_blank" rel="noopener">https://github.com/scikit-image/scikit-image</a>, PI:<a href="https://github.com/roimehrez/PIRM2018" target="_blank" rel="noopener">https://github.com/roimehrez/PIRM2018</a>, LPIPS: <a href="https://github.com/richzhang/PerceptualSimilarity" target="_blank" rel="noopener">https://github.com/richzhang/PerceptualSimilarity</a></p>
 </blockquote>
-<p><strong>耦合判别器</strong>：<br>输入对,先过<strong>随机门</strong>（随机打乱输入对的顺序，并加bool值），</p>
+<p>对于 “高分2”数据集（无HR GT），使用了另两个无需参考的评价指标NIQE和SSEQ</p>
 <blockquote>
-<p>随机门公式3</p>
+<p>The model parameters and FLOPs can be counted by the following repository: <a href="https://github.com/Lyken17/pytorch-OpCounter" target="_blank" rel="noopener">https://github.com/Lyken17/pytorch-OpCounter</a></p>
+<h2 id="消融研究"><a href="#消融研究" class="headerlink" title="消融研究"></a>消融研究</h2><p><img src="https://i.loli.net/2020/08/23/36lWvQj9BfZHD5N.png" alt="image.png"></p>
 </blockquote>
+<h2 id="与其他方法的比较"><a href="#与其他方法的比较" class="headerlink" title="与其他方法的比较"></a>与其他方法的比较</h2><p>在UCMerced集和WHU-RS19数据集上，与SRCNN [57]，LGCNet [16]，EDSR [32]，RCAN [58]和SRGAN [25]等一些超分辨率方法进行了比较。<br>图9展示了，在“高分2”数据集（无HR GT）上的比较，则没比较PSNR、PI、LPIPS，使用了另两个无需参考的评价指标NIQE和SSEQ。<br>表V中，我们报告了三个关于模型效率的指标，即模型参数，浮点运算数<script type="math/tex">{FLOP}^2</script>和推理时间（GPU或CPU模式下）。我们使用WHU-RS19数据集来计算FLOPs和推理时间。硬件1080Ti、i7-6700K、32GB RAM。应当指出的是，由于基于GAN的方法的推理时间是由其生成器确定的，因此我们在这里仅列出生成器的参数。如表V所示，尽管CDGAN的参数比SRCNN的大20倍，推理时间要少。（原文这SRCNN比得有点吃亏，应该和SRGAN比。效率方面的结果也是比SRGAN好的）<br><img src="https://i.loli.net/2020/08/23/MKnGzYV5ENA8Usd.png" alt="image.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>针对遥感特定应用缺点“判别器歧义”，<strong>采用成对输入的判别器</strong>，解决了这个问题，特别是低频区域的遥感图像。<br>1。 为了实现，结构上设计了双路径网络架构，随机门。损失函数相应采用耦合对抗损失。</p>
 ]]></content>
       <categories>
         <category>Paper reading</category>
@@ -36,12 +61,25 @@
       </tags>
   </entry>
   <entry>
+    <title>测试hello！</title>
+    <url>/2020/07/19/test1/</url>
+    <content><![CDATA[<p>你好！</p>
+<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
+<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
+]]></content>
+      <categories>
+        <category>测试分类</category>
+      </categories>
+      <tags>
+        <tag>ceshi_tags1</tag>
+        <tag>tags2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何做好学术报告</title>
     <url>/2020/07/28/how_to_do_Academic_report/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
-<a id="more"></a>
-<hr>
-<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
 <blockquote>
 <p>学会高效准确的口头及书面语言表达是一个优秀科学家必须具备的基本能力。<br>这在其他领域，依然是必须具备的基本能力。</p>
 </blockquote>
@@ -63,8 +101,6 @@
 </blockquote>
 <h2 id="6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）"><a href="#6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）" class="headerlink" title="6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）"></a>6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）</h2><blockquote>
 <p>一段难忘经历。我在全系师生面前做的第一场报告是进行了非常充分的准备的。为了让我好好替她争光，也为了好好培养她的第一个Ph. D.学生，她花费了大量的时间教我如何准备一个seminar。首先，我做的每一张ppt她都会提出修改意见，从文字描述，到每张ppt的布局，颜色搭配等。之后，她还让我写了一份15页的讲稿，进行了反复修改，然后她让我反复念，并纠正我发音不正确的单词，让我讲的时候要有声音的起伏。通过5次试讲，最终完全脱稿演讲。她后来对我说，我讲完后，系里很多教授去祝贺她，说她的学生是留学生中讲得最好的一位，祝贺她有这么好的学生。</p>
-</blockquote>
-<blockquote>
 <p><strong>万能金句名言：</strong>精心组织、反复修改。充分准备，方能语无伦次，无与伦比的<strong>自信</strong>。</p>
 </blockquote>
 <hr>
@@ -83,251 +119,272 @@
     <title>笔记 ROS2 通信架构</title>
     <url>/2020/07/26/ros2-note/</url>
     <content><![CDATA[<p>计算图级</p>
-<h1 id="1-master和nodel"><a href="#1-master和nodel" class="headerlink" title="1 master和nodel"></a>1 master和nodel</h1><h2 id="1-1-master的作用："><a href="#1-1-master的作用：" class="headerlink" title="1.1 master的作用："></a>1.1 master的作用：</h2><p>1、每个node启动时，都需向master注册<br>2、管理node之间的通信<br>启动命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>  <img src="https://pics.images.ac.cn/image/5f1d6f070b52a.html" alt=""></p>
-<h2 id="1-2-node"><a href="#1-2-node" class="headerlink" title="1.2 node"></a>1.2 node</h2><p>1、一个进程(process)<br>2、可执行文件（通常为C++编译生成的可执行文件、Python脚本）被执行的实例<br>启动node命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rosrun pkg_name node_name</span><br></pre></td></tr></table></figure>
-<p>rosnode命令：</p>
+<h1 id="1-master和nodel"><a href="#1-master和nodel" class="headerlink" title="1 master和nodel"></a>1 master和nodel</h1><h2 id="1-1-master的作用："><a href="#1-1-master的作用：" class="headerlink" title="1.1 master的作用："></a>1.1 master的作用：</h2><p>1、每个node启动时，都需向master注册<br>2、管理node之间的通信<br>启动命令：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ roscore</span><br></pre></td></tr></table></figure><br><a id="more"></a><br>  <img src="https://pics.images.ac.cn/image/5f1d6f070b52a.html" alt=""></p>
+<h2 id="1-2-node"><a href="#1-2-node" class="headerlink" title="1.2 node"></a>1.2 node</h2><p>1、一个进程(process)<br>2、可执行文件（通常为C++编译生成的可执行文件、Python脚本）被执行的实例<br>启动node命令：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ rosrun pkg_name node_name</span><br></pre></td></tr></table></figure><br>rosnode命令：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosnode命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosnode命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosnode list</td>
-<td align="center">@列出当前运行的node信息</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosnode list</td>
+<td style="text-align:center">@列出当前运行的node信息</td>
 </tr>
 <tr>
-<td align="left">rosnode info node_name</td>
-<td align="center">@显示出node的详细信息</td>
+<td style="text-align:left">rosnode info node_name</td>
+<td style="text-align:center">@显示出node的详细信息</td>
 </tr>
 <tr>
-<td align="left">rosnode kill node_name</td>
-<td align="center">@结束某个node</td>
+<td style="text-align:left">rosnode kill node_name</td>
+<td style="text-align:center">@结束某个node</td>
 </tr>
 <tr>
-<td align="left">rosnode ping</td>
-<td align="center">测试连接节点</td>
+<td style="text-align:left">rosnode ping</td>
+<td style="text-align:center">测试连接节点</td>
 </tr>
 <tr>
-<td align="left">rosnode machine</td>
-<td align="center">列出在特定机器或列表机器上运行的节点</td>
+<td style="text-align:left">rosnode machine</td>
+<td style="text-align:center">列出在特定机器或列表机器上运行的节点</td>
 </tr>
 <tr>
-<td align="left">rosnode cleanup</td>
-<td align="center">清除不可到达节点的注册信息</td>
+<td style="text-align:left">rosnode cleanup</td>
+<td style="text-align:center">清除不可到达节点的注册信息</td>
 </tr>
-</tbody></table>
-<h1 id="2-launch文件"><a href="#2-launch文件" class="headerlink" title="2 launch文件"></a>2 launch文件</h1><p>（集成）启动master和多个node：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ roslaunch [pkg_name] [file_name.launch]</span><br></pre></td></tr></table></figure>
-<p>launch文件写法，同遵循xml格式规范。如下.<br>  <img src="https://pics.images.ac.cn/image/5f1d6f086b5e4.html" alt=""></p>
+</tbody>
+</table>
+</div>
+<h1 id="2-launch文件"><a href="#2-launch文件" class="headerlink" title="2 launch文件"></a>2 launch文件</h1><p>（集成）启动master和多个node：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ roslaunch [pkg_name] [file_name.launch]</span><br></pre></td></tr></table></figure><br>launch文件写法，同遵循xml格式规范。如下.<br>  <img src="https://pics.images.ac.cn/image/5f1d6f086b5e4.html" alt=""></p>
 <h1 id="3-通信方式"><a href="#3-通信方式" class="headerlink" title="3 通信方式"></a>3 通信方式</h1><p>以下四种：</p>
 <h2 id="3-1-Topic-主题"><a href="#3-1-Topic-主题" class="headerlink" title="3.1 Topic 主题"></a>3.1 Topic 主题</h2><p>特点：异步通信、 publish/ subscriber<br>数据类型：定义在<code>*.msg</code>中。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rostopic命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rostopic命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rostopic list</td>
-<td align="center">@列出当前所有的topic</td>
+<tbody>
+<tr>
+<td style="text-align:left">rostopic list</td>
+<td style="text-align:center">@列出当前所有的topic</td>
 </tr>
 <tr>
-<td align="left">rostopic info /topic_name</td>
-<td align="center">@显示某个topic的属性信息</td>
+<td style="text-align:left">rostopic info /topic_name</td>
+<td style="text-align:center">@显示某个topic的属性信息</td>
 </tr>
 <tr>
-<td align="left">rostopic echo /topic_name</td>
-<td align="center">@显示某个topic的内容</td>
+<td style="text-align:left">rostopic echo /topic_name</td>
+<td style="text-align:center">@显示某个topic的内容</td>
 </tr>
 <tr>
-<td align="left">rostopic pub /topic_name …</td>
-<td align="center">@向某个topic发布内容</td>
+<td style="text-align:left">rostopic pub /topic_name …</td>
+<td style="text-align:center">@向某个topic发布内容</td>
 </tr>
 <tr>
-<td align="left">rostopic bw /topic_name</td>
-<td align="center">查看某个topic的带宽</td>
+<td style="text-align:left">rostopic bw /topic_name</td>
+<td style="text-align:center">查看某个topic的带宽</td>
 </tr>
 <tr>
-<td align="left">rostopic hz /topic_name</td>
-<td align="center">查看某个topic的频率</td>
+<td style="text-align:left">rostopic hz /topic_name</td>
+<td style="text-align:center">查看某个topic的频率</td>
 </tr>
 <tr>
-<td align="left">rostopic find /topic_type</td>
-<td align="center">查找某个类型的topic</td>
+<td style="text-align:left">rostopic find /topic_type</td>
+<td style="text-align:center">查找某个类型的topic</td>
 </tr>
 <tr>
-<td align="left">rostopic type /topic_name</td>
-<td align="center">查看某个topic的类型(msg)</td>
+<td style="text-align:left">rostopic type /topic_name</td>
+<td style="text-align:center">查看某个topic的类型(msg)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosmsg命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosmsg命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosmsg list</td>
-<td align="center">列出系统上所有的msg</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosmsg list</td>
+<td style="text-align:center">列出系统上所有的msg</td>
 </tr>
 <tr>
-<td align="left">rosmsg show /msg_name</td>
-<td align="center">显示某个msg的内容</td>
+<td style="text-align:left">rosmsg show /msg_name</td>
+<td style="text-align:center">显示某个msg的内容</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="3-2-Service-服务"><a href="#3-2-Service-服务" class="headerlink" title="3.2 Service 服务"></a>3.2 Service 服务</h2><p>特点：同步通信、reques-reply方式<br>数据类型：定义在<code>*.srv</code>中</p>
 <h3 id="topic-VS-service"><a href="#topic-VS-service" class="headerlink" title="topic VS service"></a>topic VS service</h3><p>我们对比一下这两种最常用的通信方式，加深我们对两者的理解和认识，具体见下表。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">名称</th>
-<th align="center">Topic</th>
-<th align="center">Service</th>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">Topic</th>
+<th style="text-align:center">Service</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">通信方式</td>
-<td align="center">异步通信</td>
-<td align="center">同步通信</td>
+<tbody>
+<tr>
+<td style="text-align:center">通信方式</td>
+<td style="text-align:center">异步通信</td>
+<td style="text-align:center">同步通信</td>
 </tr>
 <tr>
-<td align="center">实现原理</td>
-<td align="center">TCP/IP</td>
-<td align="center">TCP/IP</td>
+<td style="text-align:center">实现原理</td>
+<td style="text-align:center">TCP/IP</td>
+<td style="text-align:center">TCP/IP</td>
 </tr>
 <tr>
-<td align="center">通信模型</td>
-<td align="center">Publish-Subscribe</td>
-<td align="center">Request-Reply</td>
+<td style="text-align:center">通信模型</td>
+<td style="text-align:center">Publish-Subscribe</td>
+<td style="text-align:center">Request-Reply</td>
 </tr>
 <tr>
-<td align="center">映射关系</td>
-<td align="center">Publish-Subscribe(多对多)</td>
-<td align="center">Request-Reply（多对一）</td>
+<td style="text-align:center">映射关系</td>
+<td style="text-align:center">Publish-Subscribe(多对多)</td>
+<td style="text-align:center">Request-Reply（多对一）</td>
 </tr>
 <tr>
-<td align="center">特点</td>
-<td align="center">接受者收到数据会回调（Callback）</td>
-<td align="center">远程过程调用（RPC）服务器端的服务</td>
+<td style="text-align:center">特点</td>
+<td style="text-align:center">接受者收到数据会回调（Callback）</td>
+<td style="text-align:center">远程过程调用（RPC）服务器端的服务</td>
 </tr>
 <tr>
-<td align="center">应用场景</td>
-<td align="center">连续、高频的数据发布</td>
-<td align="center">偶尔使用的功能/具体的任务</td>
+<td style="text-align:center">应用场景</td>
+<td style="text-align:center">连续、高频的数据发布</td>
+<td style="text-align:center">偶尔使用的功能/具体的任务</td>
 </tr>
 <tr>
-<td align="center">举例</td>
-<td align="center">激光雷达、里程计发布数据</td>
-<td align="center">开关传感器、拍照、逆解计算</td>
+<td style="text-align:center">举例</td>
+<td style="text-align:center">激光雷达、里程计发布数据</td>
+<td style="text-align:center">开关传感器、拍照、逆解计算</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>注意：远程过程调用<code>(Remote Procedure Call，RPC)</code>,可以简单通俗的理解为在一个进程里调用另一个进程的函数。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosservice 命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosservice 命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosservice list</td>
-<td align="center">@显示服务列表</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosservice list</td>
+<td style="text-align:center">@显示服务列表</td>
 </tr>
 <tr>
-<td align="left">rosservice info</td>
-<td align="center">@打印服务信息</td>
+<td style="text-align:left">rosservice info</td>
+<td style="text-align:center">@打印服务信息</td>
 </tr>
 <tr>
-<td align="left">rosservice type</td>
-<td align="center">打印服务类型</td>
+<td style="text-align:left">rosservice type</td>
+<td style="text-align:center">打印服务类型</td>
 </tr>
 <tr>
-<td align="left">rosservice uri</td>
-<td align="center">打印服务ROSRPC uri</td>
+<td style="text-align:left">rosservice uri</td>
+<td style="text-align:center">打印服务ROSRPC uri</td>
 </tr>
 <tr>
-<td align="left">rosservice find</td>
-<td align="center">按服务类型查找服务</td>
+<td style="text-align:left">rosservice find</td>
+<td style="text-align:center">按服务类型查找服务</td>
 </tr>
 <tr>
-<td align="left">rosservice call service_name args</td>
-<td align="center">@使用所提供的args调用服务</td>
+<td style="text-align:left">rosservice call service_name args</td>
+<td style="text-align:center">@使用所提供的args调用服务</td>
 </tr>
 <tr>
-<td align="left">rosservice args</td>
-<td align="center">打印服务参数</td>
+<td style="text-align:left">rosservice args</td>
+<td style="text-align:center">打印服务参数</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rossrv 命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rossrv 命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rossrv show</td>
-<td align="center">@显示服务描述</td>
+<tbody>
+<tr>
+<td style="text-align:left">rossrv show</td>
+<td style="text-align:center">@显示服务描述</td>
 </tr>
 <tr>
-<td align="left">rossrv list</td>
-<td align="center">@列出所有服务</td>
+<td style="text-align:left">rossrv list</td>
+<td style="text-align:center">@列出所有服务</td>
 </tr>
 <tr>
-<td align="left">rossrv md5</td>
-<td align="center">显示服务md5sum</td>
+<td style="text-align:left">rossrv md5</td>
+<td style="text-align:center">显示服务md5sum</td>
 </tr>
 <tr>
-<td align="left">rossrv package</td>
-<td align="center">列出包中的服务</td>
+<td style="text-align:left">rossrv package</td>
+<td style="text-align:center">列出包中的服务</td>
 </tr>
 <tr>
-<td align="left">rossrv packages</td>
-<td align="center">列出包含服务的包</td>
+<td style="text-align:left">rossrv packages</td>
+<td style="text-align:center">列出包含服务的包</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><strong>tips</strong>： 无论我们定义了srv，或msg，修改 package.xml和CMakeList.txt<strong><em>添加依赖</em></strong>都是必不可少的一步。</p>
 <h2 id="3-3-Parameter-Service-参数服务器"><a href="#3-3-Parameter-Service-参数服务器" class="headerlink" title="3.3 Parameter Service 参数服务器"></a>3.3 Parameter Service 参数服务器</h2><p>存储各种参数的字典，可用命令行、<code>launch</code>文件和<code>node（api）</code>读写。<br>1、 命令行</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">rosparam 命令</th>
-<th align="center">作用</th>
+<th style="text-align:left">rosparam 命令</th>
+<th style="text-align:center">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">rosparam set param_key param_value</td>
-<td align="center">设置参数</td>
+<tbody>
+<tr>
+<td style="text-align:left">rosparam set param_key param_value</td>
+<td style="text-align:center">设置参数</td>
 </tr>
 <tr>
-<td align="left">rosparam get param_key</td>
-<td align="center">显示参数</td>
+<td style="text-align:left">rosparam get param_key</td>
+<td style="text-align:center">显示参数</td>
 </tr>
 <tr>
-<td align="left">rosparam load file_name</td>
-<td align="center">从文件（yaml）加载参数</td>
+<td style="text-align:left">rosparam load file_name</td>
+<td style="text-align:center">从文件（yaml）加载参数</td>
 </tr>
 <tr>
-<td align="left">rosparam dump file_name</td>
-<td align="center">保存参数到文件（yaml）</td>
+<td style="text-align:left">rosparam dump file_name</td>
+<td style="text-align:center">保存参数到文件（yaml）</td>
 </tr>
 <tr>
-<td align="left">rosparam delete param_key</td>
-<td align="center">删除参数</td>
+<td style="text-align:left">rosparam delete param_key</td>
+<td style="text-align:center">删除参数</td>
 </tr>
 <tr>
-<td align="left">rosparam list</td>
-<td align="center">列出参数名称</td>
+<td style="text-align:left">rosparam list</td>
+<td style="text-align:center">列出参数名称</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>2、 launch文件<br>与参数服务器相关的标签只有两个，一个是<code>&lt;param&gt;</code>，另一个是<code>&lt;rosparam&gt;</code><br>3、通过node<strong>（API）</strong>设置</p>
 <h2 id="3-4-Actionlib-动作库"><a href="#3-4-Actionlib-动作库" class="headerlink" title="3.4 Actionlib 动作库"></a>3.4 Actionlib 动作库</h2><p>类似于Service，带有状态反馈的通信方式。通常用在长时间、可抢占的任务中。<br><img src="https://pics.images.ac.cn/image/5f1d6f07c1032.html" alt=""></p>
 <p>客户端会向服务器发送目标指令和取消动作指令,而服务器则可以给客户端发送实时的状态信息,结果信息,反馈信息等等。<br>定义在<code>*.action</code>中。</p>
@@ -343,30 +400,10 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/07/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<a id="more"></a>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>XMind安卓版和PC端同步BY第三方云端</title>
     <url>/2020/08/13/xmind-Android-sync-by-onedrive/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>之前一直使用幕布，由于种种原因（私档泄露、免费版功能已不能满足需求），不想使用此软件了。<br>故转而找替代产品。<br>定位需求是：<br>1、free；<br>2、思维导图基本功能（大纲），能图片更好；<br>3、多端多台（windows+Android）同步。</p>
-<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。</p>
-<a id="more"></a>
+<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。<br><a id="more"></a></p>
 <h2 id="XMind同步问题"><a href="#XMind同步问题" class="headerlink" title="XMind同步问题"></a>XMind同步问题</h2><p><a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">XMind安卓版和PC端同步</a>不“完美”，IOS版官方有完美同步教程。</p>
 <hr>
 <h1 id="同步方案"><a href="#同步方案" class="headerlink" title="同步方案"></a>同步方案</h1><p>借助第三方云（本人使用OneDirve、类似云有许多，坚果云也可以）：<br>1、PC端同步至云（文件保存在OneDrive目录下);<br>2、Android端同步至云（本人使用FolderSync（名气大啊），类似软件有Autosync for OneDrive等）</p>
@@ -376,9 +413,9 @@
 <p>借鉴<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
 <blockquote>
 <p>FolderSync 是一款Android 端的文件同步工具，可以将手机中的文件自动同步到云端空间或者PC端。它目前支援 OneDrive, Dropbox, SugarSync, Box.net,  LiveDrive,  HiDrive,  Google Docs,  NetDocuments,  Amazon S3、 FTP,  FTP,  SFTP，WebDAV 。</p>
-</blockquote>
-</blockquote>
 <h3 id="添加账户OneDrive"><a href="#添加账户OneDrive" class="headerlink" title="添加账户OneDrive"></a>添加账户OneDrive</h3><p>注意此步不能添加OneDrive校园账户</p>
+</blockquote>
+</blockquote>
 <h3 id="添加同步的文件夹"><a href="#添加同步的文件夹" class="headerlink" title="添加同步的文件夹"></a>添加同步的文件夹</h3><p>名称：随便起（e.g. XMind同步onedrive）<br>同步类型：双向<br>远程文件夹：/XMind/  （云上自建的）<br>本地文件夹：安卓端本地储存中的 XMind -&gt; workbook 文件夹<br>保存OK。（计划设置可自行按需设置。）</p>
 <hr>
 <p>参考：<br>1、<a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">如何将 XMind 文件从电脑上传输至 XMind 安卓版？</a><br>2、<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
@@ -390,21 +427,6 @@
         <tag>XMind</tag>
         <tag>FolderSync</tag>
         <tag>OneDirve</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>测试hello！</title>
-    <url>/2020/07/19/test1/</url>
-    <content><![CDATA[<p>你好！</p>
-<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
-<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
-]]></content>
-      <categories>
-        <category>测试分类</category>
-      </categories>
-      <tags>
-        <tag>ceshi_tags1</tag>
-        <tag>tags2</tag>
       </tags>
   </entry>
 </search>
