@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/07/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a><br><a id="more"></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>PAPER READING 2020_Lei_Coupled Adversarial Training for Remote Sensing Image Super-Resolution</title>
     <url>/2020/08/17/2020_Lei_Coupled-Adversarial-Training/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">article&#123;leiCoupledAdversarialTraining2020,</span><br><span class="line">  title = &#123;Coupled &#123;&#123;Adversarial Training&#125;&#125; <span class="keyword">for</span> &#123;&#123;Remote Sensing Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Lei, Sen and Shi, Zhenwei and Zou, Zhengxia&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  month = may,</span><br><span class="line">  volume = &#123;58&#125;,</span><br><span class="line">  pages = &#123;3633--3643&#125;,</span><br><span class="line">  issn = &#123;1558-0644&#125;,</span><br><span class="line">  doi = &#123;10.1109/TGRS.2019.2959020&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  number = &#123;5&#125;</span><br></pre></td></tr></table></figure>
-<p>题目：结合对抗训练进行遥感影像超分辨率<br>JCRQ1/中科院1区<br>指导老师：史振威，北航宇航学院 group web：<a href="http://levir.buaa.edu.cn/" target="_blank" rel="noopener">http://levir.buaa.edu.cn/</a></p>
+<p>题目：结合对抗训练进行遥感影像超分辨率<br>JCRQ1/中科院1区<br>指导老师：史振威，北航宇航学院<br>group web：<a href="http://levir.buaa.edu.cn/" target="_blank" rel="noopener">http://levir.buaa.edu.cn/</a><br>无code。</p>
 <p>摘要：<br>生成对抗网络（GAN）在最近的自然图像超分辨率任务中取得了巨大进展，其成功的关键是集成了一个鉴别器，该鉴别器经过训练可以对输入是真实的高分辨率（HR）图像还是生成的图像进行分类。可以说，学习强大的判别先验对于生成高质量图像至关重要。然而，通过广泛的统计分析，我们发现，遥感图像中的低频分量比自然图像更多，这可能会导致“判别器歧义”问题，即在处理这些低频分量多的图像时，辨别器将“困惑”于判断其输入是真实的还是非真实的，因此，生成的HR图像质量可能会受到严重影响。为了解决这个问题，我们提出了一种新颖的基于GAN的超分辨率算法，称为<strong>耦合鉴别GAN（CDGAN）</strong>，用于遥感图像。与以前的基于GAN的超分辨率模型不同，鉴别器一次获取一张图像；在该模型中，该鉴别器经过专门设计，可以获取一对图像：生成的图像及其HR GT，以便更好地区分输入。我们进一步介绍了<strong>双路径网络架构，随机门和耦合对抗损失</strong>，以更好地学习判别结果与输入样本对之间的对应关系。在两个公共数据集上的实验结果表明，与其他现有技术相比，我们的模型在视觉外观和局部细节方面都可以获得更准确的超分辨率结果。<em>我们的代码将公开提供。（暂时还没公布）</em></p>
 <a id="more"></a>
 <h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>遥感图像使用GAN的“判别器歧义”问题：<br>遥感图像很难直接判别。e.g.沙漠和海滩的遥感图像，高频信息和局部细节很少，其HR和LR图相差无几。</p>
@@ -28,8 +14,8 @@
 <p>However, in remote sensing images, we discoverthrough extensive statistical analysis that there are more flatregions and more low-frequency image components than thenatural images, e.g., the areas of the desert and beach.</p>
 </blockquote>
 </blockquote>
-<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><h2 id="总结构"><a href="#总结构" class="headerlink" title="总结构"></a>总结构</h2><p>生成器借鉴了SRGAN、EDSR、ESRGAN的结构。<br><img src="https://i.loli.net/2020/08/21/rtEzkKGhOM1Je6x.png" alt="image.png"><br>结构图</p>
-<p><strong>耦合判别器</strong>：<br>输入对（SR和GT),先过<strong>随机门</strong>（随机打乱输入对的顺序，并加bool值）。双路<br><img src="https://i.loli.net/2020/08/21/iSeHvONXczCwYI1.png" alt="image.png"><br>随机门公式3</p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><h2 id="总结构"><a href="#总结构" class="headerlink" title="总结构"></a>总结构</h2><p>生成器借鉴了SRGAN、EDSR、ESRGAN的结构。总结构见图4（下图）和表I.<br><img src="https://i.loli.net/2020/08/21/rtEzkKGhOM1Je6x.png" alt="image.png"></p>
+<p><strong>耦合判别器</strong>：<br>输入对（SR和GT),先过<strong>随机门</strong>（打乱输入对的顺序，并加顺序标签<script type="math/tex">d_z</script>bool值）。送入双路。<br><img src="https://i.loli.net/2020/08/21/iSeHvONXczCwYI1.png" alt="image.png"></p>
 <p>判别器网络借鉴了DCGAN的结构（所有的pooling层使用步幅卷积，及使用LeakyReLU激活函数）。</p>
 <h2 id="LOSS"><a href="#LOSS" class="headerlink" title="LOSS"></a>LOSS</h2><p>采用<script type="math/tex">L_{ads} + L_{content}</script><br>设置<script type="math/tex">\lambda = 10^4</script> ？？<br><img src="https://i.loli.net/2020/08/23/KeHhBpraq9JcXuz.png" alt="image.png"></p>
 <h2 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h2><p>传统的两阶段，阶段一预训练仅采用均方差loss；阶段二完整loss，迭代训练。</p>
@@ -42,13 +28,24 @@
 <blockquote>
 <p>The implementation of the evaluation metrics can be found in thefollowing websites. PSNR: <a href="https://github.com/scikit-image/scikit-image" target="_blank" rel="noopener">https://github.com/scikit-image/scikit-image</a>, PI:<a href="https://github.com/roimehrez/PIRM2018" target="_blank" rel="noopener">https://github.com/roimehrez/PIRM2018</a>, LPIPS: <a href="https://github.com/richzhang/PerceptualSimilarity" target="_blank" rel="noopener">https://github.com/richzhang/PerceptualSimilarity</a></p>
 </blockquote>
-<p>对于 “高分2”数据集（无HR GT），使用了另两个无需参考的评价指标NIQE和SSEQ</p>
+<p>对于 “高分2”数据集（无HR GT），使用了另两个无需参考的评价指标NIQE和SSEQ。</p>
+<h2 id="消融研究"><a href="#消融研究" class="headerlink" title="消融研究"></a>消融研究</h2><p><img src="https://i.loli.net/2020/08/23/36lWvQj9BfZHD5N.png" alt="image.png"></p>
+<h2 id="与其他方法的比较"><a href="#与其他方法的比较" class="headerlink" title="与其他方法的比较"></a>与其他方法的比较</h2><p>在UCMerced集和WHU-RS19数据集上，与SRCNN [57]，LGCNet [16]，EDSR [32]，RCAN [58]和SRGAN [25]等一些超分辨率方法进行了比较。<br>图9展示了，在“高分2”数据集（无HR GT）上的比较，则没比较PSNR、PI、LPIPS，使用了另两个无需参考的评价指标NIQE和SSEQ。<br>表V中，我们报告了三个关于模型效率的指标，即模型参数，浮点运算数<script type="math/tex">{FLOP}^2</script>和推理时间（GPU或CPU模式下）。我们使用WHU-RS19数据集来计算FLOPs和推理时间。硬件1080Ti、i7-6700K、32GB RAM。应当指出的是，由于基于GAN的方法的推理时间是由其生成器确定的，因此我们在这里仅列出生成器的参数。如表V所示，尽管CDGAN的参数比SRCNN的大20倍，推理时间要少。（原文这SRCNN比得有点吃亏，应该和SRGAN比。效率方面的结果也是比SRGAN好的）</p>
 <blockquote>
 <p>The model parameters and FLOPs can be counted by the following repository: <a href="https://github.com/Lyken17/pytorch-OpCounter" target="_blank" rel="noopener">https://github.com/Lyken17/pytorch-OpCounter</a></p>
-<h2 id="消融研究"><a href="#消融研究" class="headerlink" title="消融研究"></a>消融研究</h2><p><img src="https://i.loli.net/2020/08/23/36lWvQj9BfZHD5N.png" alt="image.png"></p>
 </blockquote>
-<h2 id="与其他方法的比较"><a href="#与其他方法的比较" class="headerlink" title="与其他方法的比较"></a>与其他方法的比较</h2><p>在UCMerced集和WHU-RS19数据集上，与SRCNN [57]，LGCNet [16]，EDSR [32]，RCAN [58]和SRGAN [25]等一些超分辨率方法进行了比较。<br>图9展示了，在“高分2”数据集（无HR GT）上的比较，则没比较PSNR、PI、LPIPS，使用了另两个无需参考的评价指标NIQE和SSEQ。<br>表V中，我们报告了三个关于模型效率的指标，即模型参数，浮点运算数<script type="math/tex">{FLOP}^2</script>和推理时间（GPU或CPU模式下）。我们使用WHU-RS19数据集来计算FLOPs和推理时间。硬件1080Ti、i7-6700K、32GB RAM。应当指出的是，由于基于GAN的方法的推理时间是由其生成器确定的，因此我们在这里仅列出生成器的参数。如表V所示，尽管CDGAN的参数比SRCNN的大20倍，推理时间要少。（原文这SRCNN比得有点吃亏，应该和SRGAN比。效率方面的结果也是比SRGAN好的）<br><img src="https://i.loli.net/2020/08/23/MKnGzYV5ENA8Usd.png" alt="image.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>针对遥感特定应用缺点“判别器歧义”，<strong>采用成对输入的判别器</strong>，解决了这个问题，特别是低频区域的遥感图像。<br>1。 为了实现，结构上设计了双路径网络架构，随机门。损失函数相应采用耦合对抗损失。</p>
+<p><img src="https://i.loli.net/2020/08/23/MKnGzYV5ENA8Usd.png" alt="image.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>针对遥感特定应用缺点“判别器歧义”，<strong>采用成对输入的判别器</strong>，解决了这个问题，特别是遥感图像中的低频区域。</p>
+<ol>
+<li>为了实现，结构上设计了双路径网络架构，随机门。损失函数相应采用耦合对抗损失。</li>
+</ol>
+<hr>
+<ol>
+<li>特定域的超分。将超分应用于遥感图像，对其分类计算了实验效果，在LPIPS上，所比较的方法中最优。</li>
+<li>采用成对输入的判别器是创新点。但其中随机门的设计，没有理解作者的用途（原文：To learn better correspondence between the input pair and the discriminative outputs）</li>
+<li>数据集（4：1：5）比例划分。验证和测试的区别在哪。</li>
+<li>学到的：对于无GT的自然图，采用了NIQE和SSEQ评价，也可采用PI</li>
+</ol>
 ]]></content>
       <categories>
         <category>Paper reading</category>
@@ -61,19 +58,18 @@
       </tags>
   </entry>
   <entry>
-    <title>测试hello！</title>
-    <url>/2020/07/19/test1/</url>
-    <content><![CDATA[<p>你好！</p>
-<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
-<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
+    <title>Hello World</title>
+    <url>/2020/07/18/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a><br><a id="more"></a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>测试分类</category>
-      </categories>
-      <tags>
-        <tag>ceshi_tags1</tag>
-        <tag>tags2</tag>
-      </tags>
   </entry>
   <entry>
     <title>如何做好学术报告</title>
@@ -113,6 +109,21 @@
         <tag>Research</tag>
         <tag>PPT</tag>
         <tag>presentation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>测试hello！</title>
+    <url>/2020/07/19/test1/</url>
+    <content><![CDATA[<p>你好！</p>
+<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
+<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
+]]></content>
+      <categories>
+        <category>测试分类</category>
+      </categories>
+      <tags>
+        <tag>ceshi_tags1</tag>
+        <tag>tags2</tag>
       </tags>
   </entry>
   <entry>
