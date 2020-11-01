@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>PAPER READING 2020_Chen_Guided Dual Networks for Single Image Super-Resolution</title>
+    <url>/2020/08/24/2020-Chen-Guided-Dual-Networks/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@article&#123;chenGuidedDualNetworks2020,</span><br><span class="line">  title = &#123;Guided &#123;&#123;Dual Networks&#125;&#125; <span class="keyword">for</span> &#123;&#123;Single Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Chen, Wenhui and Liu, Chuangchuang and Yan, Yitong and Jin, Longcun and Sun, Xianfang and Peng, Xinyi&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  volume = &#123;8&#125;,</span><br><span class="line">  pages = &#123;93608--93620&#125;,</span><br><span class="line">  issn = &#123;2169-3536&#125;,</span><br><span class="line">  doi = &#123;10.1109/ACCESS.2020.2995175&#125;,</span><br><span class="line">  journal = &#123;IEEE Access&#125;</span><br></pre></td></tr></table></figure>
+<p>题目：引导式双路网络实现单图像超分辨率<br>Access  Q2/中科院2区<br>M.S.degree<br>指导老师： <a href="http://www2.scut.edu.cn/sse/2018/0614/c16789a270675/page.htm" target="_blank" rel="noopener">金龙存</a> 华工软件学院<br>group web：无<br>code：<a href="https://github.com/wenchen4321/GDSR" target="_blank" rel="noopener">https://github.com/wenchen4321/GDSR</a></p>
+<p><strong>摘要</strong>：面向PSNR的超分辨率（SR）方法追求较高的重建精度，但会产生过度平滑的结果并丢失大量的高频细节。基于GAN的SR方法旨在生成更多逼真的图像，但是幻觉的细节通常会伴随着令人不满意的伪像和噪点。为了解决这些问题，我们提出了一种<strong>引导式双路超分辨率网络（GDSR）</strong>，该网络利用面向PSNR的方法和基于GAN的方法的优势，在重建精度和感知质量之间取得良好的平衡。具体来说，我们的网络包含<strong>两个分支</strong>，其中一个训练以提取全局信息，而另一个则专注于详细信息。通过这种方式，我们的网络可以生成同时具有高精度和令人满意的视觉质量的SR图像。<em>为了获得更多的高频特征，我们使用从低频分支中提取的全局特征来指导高频分支的训练。</em>此外，我们的方法利用掩模网络来自适应地恢复最终的超分辨图像。在几个标准基准上的广泛实验表明，与最新方法相比，我们提出的方法具有更好的性能。GDSR的开源代码和结果：<a href="https://github.com/wenchen4321/GDSR" target="_blank" rel="noopener">https://github.com/wenchen4321/GDSR</a></p>
+<a id="more"></a>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>现存双路方法都是以PSNR为导向的，如DualCNN[16]和Dual-way SR[17]。我们的两路则一条PSNR导向，一条基于GAN。<br>受双路跳跃网络[18]（用于目标分类）的启发，我们提出GDSR。两个分支：高频分支（HFB）和低频分支（LFB）。 HFB采用对抗损失，旨在提取高频特征并使SR图像包含更多的详细信息；LFB经过MSE损失训练，以提取全局信息。与双路跳跃网络类似，我们采用自上而下的全局指导机制来指导HFB。简而言之，该指南将LFB的高级全局信息提供给HFB的相应低级功能处理模块。<br>此外，我们使用掩码网络来生成注意力掩码，以加权LFB和HFB的输出，自适应地恢复最终的超分辨图像。<br>创新点：</p>
+<ol>
+<li>通过整合基于GAN和面向PNSR的方法，提出了一种左右非对称的超分辨率网络，以提高SR图像质量。</li>
+<li>我们采用了自上而下的全局指导，以提供从低频分支到高频分支的高级全局特征，以生成详细信息。</li>
+<li>该方法在多个基准上均达到了SOTA的性能</li>
+</ol>
+<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><h2 id="SR"><a href="#SR" class="headerlink" title="SR"></a>SR</h2><p>ESRGAN<br>EEGAN [39]提出了一个基于GAN的边缘增强网络，该网络具有两个子网：一个基于GAN的超密集子网和一个基于CNN的边缘增强子网。然而，EEGAN专为卫星图像SR重建而设计，其中基于CNN的边缘增强子网用于从卫星图像中提取边缘的特殊特征。 </p>
+<h2 id="双路跳跃网络"><a href="#双路跳跃网络" class="headerlink" title="双路跳跃网络"></a>双路跳跃网络</h2><p>双路跳跃网络[18]是一个左右非对称跳跃网络。一个分支用于细粒度级别分类，它模拟了处理空间高频信息的左半球；另一支用于粗分类，它模拟了处理空间低频信息的右半球机制。自上而下的引导识别：该引导将高级信息从粗分支馈送到细粒度分支的较低级别的视觉处理模块。<br>受此启发，我们设计了高频分支来模拟左半球处理机制，并设计了非对称的低频分支来处理右半球机制。此外，我们还设计了一个面具网络来模拟小脑的功能，它涉及平衡和运动控制。（这“类脑”有点神奇的感觉）</p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p><img src="https://i.loli.net/2020/08/24/hniq9bDGaERgMVp.png" alt="image.png"><br>如图，三个关键组件组成：</p>
+<ol>
+<li>左右非对称SR网络；（两个分支组成：高频分支（HFB）和低频分支（LFB））</li>
+<li>全局引导机制；将引导全局特征映射，从LFB到HFB的低级模块的全局特征映射，帮助HFB生成更多的高频细节。</li>
+<li>掩码网络。自适应地重构来自LFB和HFB的最终输出，以提高SR图像的感知质量和重构精度。<h2 id="左右非对称"><a href="#左右非对称" class="headerlink" title="左右非对称"></a>左右非对称</h2>HFB用于恢复详细信息，而LFB用于重建全局信息。<h3 id="共享模块shared-module-SM"><a href="#共享模块shared-module-SM" class="headerlink" title="共享模块shared module (SM)"></a>共享模块shared module (SM)</h3>SM，包含S个RRDB块，由低频分支，高频分支和掩码网络共享，可以有效地提取浅层特征图并减少参数。<h3 id="低频分支LFB"><a href="#低频分支LFB" class="headerlink" title="低频分支LFB"></a>低频分支LFB</h3>由MSE loss训练，L个RRDB块<h3 id="高频分支HFB"><a href="#高频分支HFB" class="headerlink" title="高频分支HFB"></a>高频分支HFB</h3>包含生成网络G和判别网络D。G有H个RRDB块；D与ESRGAN类似，采用Ragan。<script type="math/tex; mode=display">L_1$$+$$L_percep$$+$$L_adv</script><img src="https://i.loli.net/2020/08/24/WP5gzkDa6ftEn3w.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/24/TSfCmEMXbV2K45R.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/24/V25IsUyc1BLlkdo.png" alt="image.png"></li>
+</ol>
+<h2 id="全局引导机制"><a href="#全局引导机制" class="headerlink" title="全局引导机制"></a>全局引导机制</h2><p>LSF低空间频率 双路跳跃网络[18]的启发，我们认为LFB能指导HFB使用输入的全局上下文特征来恢复更多详细信息。从全局级别注入反馈信息可能对细粒度的重构很有帮助。<br>the output feature maps of the l-th RRDB in the LFB <em>concatenated </em>into the input feature maps of the h-th RRDB in the HFB. </p>
+<h2 id="掩码网络"><a href="#掩码网络" class="headerlink" title="掩码网络"></a>掩码网络</h2><p>为了使SR图专注于高频细节，我们嵌入注意力机制。M个RRDB块。<br>非在最终输出时融合，而在重建过程中融合特征图。</p>
+<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><h2 id="训练设置"><a href="#训练设置" class="headerlink" title="训练设置"></a>训练设置</h2><p>DIV2K数据集，分800、100和100张图像，分别用于训练，验证和测试。<br>测试：Set5, Set14, BSD100, Urban100, Manga109. LR图像由Bicubic降采样得到。<br>以PI和RMSE作为评价尺度。<br><img src="https://i.loli.net/2020/08/24/jyPner7wvKIqDQa.png" alt="image.png"><br>硬件：2块2080Ti GPU</p>
+<h2 id="定量比较"><a href="#定量比较" class="headerlink" title="定量比较"></a>定量比较</h2><p>在所有基于GAN的方法（包括SRGAN [33]，EnhancedNet [34]，ESRGAN [15]，RankSRGAN [40]）中，我们的GDSR均具有最低的RMSE损耗和相对较低的PI值，并且可以生成具有更好的感知质量和相对较高的重建精度的SR图像</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1"><a href="#1" class="headerlink" title="1. "></a>1. </h2><h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
+<li></li>
+<li></li>
+<li>计算机学术会议分级列表</li>
+</ol>
+<p>根据网络资料整理的计算机领域国际学术会议分级列表<a href="http://idc.hust.edu.cn/~rxli/csrank.htm以及国际学术期刊分级列表http://idc.hust.edu.cn/~rxli/csjrank.htm" target="_blank" rel="noopener">http://idc.hust.edu.cn/~rxli/csrank.htm以及国际学术期刊分级列表http://idc.hust.edu.cn/~rxli/csjrank.htm</a></p>
+<p> <a href="https://www.cnblogs.com/bnuvincent/p/6809353.html" target="_blank" rel="noopener">https://www.cnblogs.com/bnuvincent/p/6809353.html</a></p>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>Super resolution</category>
+      </categories>
+      <tags>
+        <tag>GDSR</tag>
+        <tag>GAN</tag>
+        <tag>Super resolution</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PAPER READING 2020_Lei_Coupled Adversarial Training for Remote Sensing Image Super-Resolution</title>
     <url>/2020/08/17/2020_Lei_Coupled-Adversarial-Training/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">article&#123;leiCoupledAdversarialTraining2020,</span><br><span class="line">  title = &#123;Coupled &#123;&#123;Adversarial Training&#125;&#125; <span class="keyword">for</span> &#123;&#123;Remote Sensing Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Lei, Sen and Shi, Zhenwei and Zou, Zhengxia&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  month = may,</span><br><span class="line">  volume = &#123;58&#125;,</span><br><span class="line">  pages = &#123;3633--3643&#125;,</span><br><span class="line">  issn = &#123;1558-0644&#125;,</span><br><span class="line">  doi = &#123;10.1109/TGRS.2019.2959020&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  number = &#123;5&#125;</span><br></pre></td></tr></table></figure>
@@ -52,9 +95,60 @@
         <category>Super resolution</category>
       </categories>
       <tags>
-        <tag>CDGAN</tag>
         <tag>GAN</tag>
         <tag>Super resolution</tag>
+        <tag>CDGAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING&quot;联邦学习与元学习相关的部分&quot;</title>
+    <url>/2020/11/01/fed-learning-about-meta-learning/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>笔记一些联邦学习中与元学习相关的材料。</p>
+<h2 id="1、关于联邦学习的个性化能力综述"><a href="#1、关于联邦学习的个性化能力综述" class="headerlink" title="1、关于联邦学习的个性化能力综述"></a>1、关于联邦学习的个性化能力综述</h2><a id="more"></a>
+<p>中文by <a href="https://ereebay.me/posts/54199/" target="_blank" rel="noopener">https://ereebay.me/posts/54199/</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOI:10.1109/WorldS450073.2020.9210355</span><br><span class="line">Survey of Personalization Techniques <span class="keyword">for</span> Federated Learning</span><br><span class="line">V. Kulkarni, Milind Kulkarni, A. Pant。Published 2020。Vishwakarma University&amp;DeepTek Inc</span><br><span class="line">2020 Fourth World Conference on Smart Trends <span class="keyword">in</span> Systems, Security and Sustainability (WorldS4)</span><br><span class="line">Abstract：Federated learning enables machine learning models to learn from private decentralized data without compromising privacy. The standard formulation of federated learning produces one shared model <span class="keyword">for</span> all clients. Statistical heterogeneity due to non-IID distribution of data across devices often leads to scenarios <span class="built_in">where</span>, <span class="keyword">for</span> some clients, the <span class="built_in">local</span> models trained solely on their private data perform better than the global shared model thus taking away their incentive to participate <span class="keyword">in</span> the process. Several techniques have been proposed to personalize global models to work better <span class="keyword">for</span> individual clients. This paper highlights the need <span class="keyword">for</span> personalization and surveys recent research on this topic</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-4Meta-learning"><a href="#3-4Meta-learning" class="headerlink" title="3.4Meta learning"></a>3.4Meta learning</h3><p>元学习涉及到多个学习任务的训练，以生成能够快速适应的模型，该模型可以通过少量的训练样本就能够快速拟合学习解决新任务。Finn【25】提出了模型无关的元学习算法(MAML)，该算法与使用梯度下降法训练的任何模型都兼容。MAML建立了适用于多个任务的内部表示，因此针对新任务，对于顶层的微调可以产生比较好的结果。</p>
+<p><strong>Jiang【15】指出可以将联邦学习的过程看做是meta training而personalization过程可以看做是meta testing过程。那么FedAvg【3】算法与Reptile【26】非常相似。同时作者观察到，仔细的微调可以产生准确率高的全局模型，并且比较容易个性化，但是单纯的根据全局模型的准确率来优化模型会损失模型后续的个性化能力。联邦学习的其他个性化方法将全局模型的生成和个性化能力视作两个独立的过程，Jiang【15】提出了一种改进的FedAVG算法，该算法可以同时获得更好的全局模型和更好的个性化模型。</strong></p>
+<p>Fallah【27】在Personalized federated learning: A meta-learning approach,文中提出的标准联邦学习问题的新公式结合了MAML，并试图找出一个全局模型，该模型在每个节点针对其自身的损失函数进行更新后均表现良好。此外，他们提出了Per-FedAvg来解决上述问题。Khodak【28】在Adaptive gradient-based meta-learning methods中提出了ARUBA，并通过将其应用于FedAVG证明了性能的提高。chen【29】在Federated meta-learning for recommendation提出了一个用于构建个性化推荐模型的联邦元学习框架，其中算法和模型都已参数化并且需要优化。</p>
+<h3 id="4Discussion"><a href="#4Discussion" class="headerlink" title="4Discussion"></a>4Discussion</h3><p><strong>在联邦学习中，当本地节点的数据集很小，且都是IID的情况（是不是和元学习的场景相似）下，全局模型通常会超过本地模型，而且大部分的节点都会受益于联邦学习的过程。然而，当节点拥有充分大量的隐私数据集，并且数据的分布是non-IID的时候，本地模型通常会优于全局模型，而且节点通常不倾向与参与到联邦学习过程中。一个开放的理论问题就是：如何决定什么时候全局模型的表现会优于单节点上的模型。</strong></p>
+<p>这篇文章主要总结了几种用于优化全局模型个性化技术。除了少数的例外，大多数之前的工作都集中在衡量全局模型在聚合的数据上的表现，而不是衡量这些模型在单独节点上的性能。但是如果全局模型会在使用之前进行个性化设置的话，那么全局性能就没有意义。</p>
+<p>个性化模型通常在单节点上的表现能够优于全局模型和本地模型。但是在某些情况下，个性化模型的能力无法达到和本地模型相同的能力，尤其是在差分隐私等情况下。</p>
+<h2 id="2、2019年底大佬们综述：联邦学习的进展和开放问题"><a href="#2、2019年底大佬们综述：联邦学习的进展和开放问题" class="headerlink" title="2、2019年底大佬们综述：联邦学习的进展和开放问题"></a>2、2019年底大佬们综述：联邦学习的进展和开放问题</h2><p>中文by <a href="https://xwzheng.gitbook.io/fl" target="_blank" rel="noopener">https://xwzheng.gitbook.io/fl</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Kairouz, Peter, H. Brendan McMahan, Brendan Avent, Aurélien Bellet, Mehdi Bennis, Arjun Nitin Bhagoji, Keith Bonawitz, 等. </span><br><span class="line">《Advances and Open Problems <span class="keyword">in</span> Federated Learning》. arXiv:1912.04977, 2019年12月10日. </span><br><span class="line">http://arxiv.org/abs/1912.04977.</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-3-3-本地微调和元学习"><a href="#3-3-3-本地微调和元学习" class="headerlink" title="3.3.3 本地微调和元学习"></a>3.3.3 本地微调和元学习</h3><p>本地微调，我们指的是通过联邦学习训练单个模型，然后将模型部署到所有的客户端中，并在被用于推断前使用本地的数据集通过额外的训练达到个性化的效果。 这种方法自然地融入了联邦学习模型的通常的生命周期（第1.1.1节）。仍然可以在每轮（例如，100秒）中仅使用少量客户样本进行全球模型的培训；部署模型后，仅发生一次向所有客户端（例如数百万个）广播全局模型。唯一的区别是，在使用模型对客户进行实时预测之前，会进行最终的训练，从而将模型为本地数据集进行个性化。<br>给定一的性能优异的全局模型，对其进行个性化设置的最佳方法是什么？在非联邦学习中，研究人员经常使用微调、迁移学习、域自适应[284,115,56]或者使用本地个性化的模型进行插值。 当然，例如插值等技术，关键在于联邦学习的背景下保证其相应的学习效果。此外，这些技术通常仅假设一对域（源域和目标域），因此可能会丢失联邦学习的一些较丰富的结构。<br>另一种研究个性化和非个性化的方法是通过元学习来进行，这是一种流行的模型适应设定。 在标准的learning-to-learn（LTL）设置中[52]，它对任务上具有一个元分布，用来学习一个学习算法的样本，例如通过发现参数空间的好的约束。 这实际上很好的对应了第3.1节中讨论的统计设定，其中我们对客户端（任务）$i\sim \mathcal{Q}$进行采样，然后从$\mathcal{P_i}$采样该客户端（任务）的数据。<br>最近，已经开发了一种称为模型不可知元学习（MAML）的算法，即元学习全局模型，它可以仅使用几次局部梯度迭代作为学习适合于给定任务的良好模型的起点。 最值得注意的是，流行的Reptile算法[308]的训练阶段与联邦平均[289]密切相关，即Reptile允许服务器的学习率，并且假设所有客户端都拥有相同数量的数据，但其他都是相同的。Khodaketal等人[234]和Jiang等人[217]探索了FL和MAML之间的联系，并展示了MAML的假设是一个可以被联邦学习用于性化模型的相关框架。其他和差分隐私的关系在[260]中被研究。<br>将FL和MAML的思想相结合的总体方向是相对较新的，存在许多未解决的问题：</p>
+<pre><code>- 监督任务的MAML算法评估主要集中在合成图像分类问题上[252,331]，其中可以通过对图像类别进行下采样来构造无限的人工任务。用于模拟FL实验的现有数据集建模的FL问题（附录A）可以作为MAML算法的现实基准问题。
+- 观察到的全局准确性与个性化准确性之间的差距[217]提出了一个很好的论据，即个性化对于FL至关重要。但是，现有的工作都没有清楚地阐明用于衡量个性化表现的综合指标。例如，对于每个客户来说，小的改进是否比对一部分客户的更大改进更好？相关讨论，请参见第6节。
+- Jiang等[217]强调了一个事实，即具有相同结构和性能但经过不同训练的模型可以具有非常不同的个性化能力。尤其是，以最大化全局性能为目标去训模型似乎实际上可能会损害模型的后续个性化能力理解这个问题的根本原因和FL社区与更大的ML社区都相关。
+- 在此多任务/LTL框架中，已经开始研究包括个性化和隐私在内的几个具有挑战性的FL命题[234,217,260]。是否还可以通过这种方式分析其他例如概念漂移的问题，比如作为终身学习中的问题[359]？
+- 非参数传递LTL算法（例如ProtoNets [363]）是否可以用于FL？
+</code></pre><h2 id="3、通过MAML改善联合学习的个性化"><a href="#3、通过MAML改善联合学习的个性化" class="headerlink" title="3、通过MAML改善联合学习的个性化"></a>3、通过MAML改善联合学习的个性化</h2><p>中文by <a href="https://ereebay.me/posts/6350/" target="_blank" rel="noopener">https://ereebay.me/posts/6350/</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Jiang, Yihan, Jakub Konečný, Keith Rush和Sreeram Kannan. </span><br><span class="line">《Improving Federated Learning Personalization via Model Agnostic Meta Learning》. arXiv:1909.12488, 2019年9月27日. </span><br><span class="line">http://arxiv.org/abs/1909.12488.</span><br></pre></td></tr></table></figure><br>Abstract</p>
+<ol>
+<li>FL算法与MAML具有很多相似性，可以用元学习算法来对其进行解释</li>
+<li>微调可以使得gloabl 模型具有更强的准确率，同时更容易做定制化处理</li>
+<li>通过标准的中心化数据库训练出来的模型相比Fedavg训练的更难进行定制化处理<br>Introduction</li>
+<li>指出了FL与MAML算法的联系，并用MAML算法对FL算法进行解释</li>
+<li>对FedAvg进行改进，采用两阶段的训练和fine-tune进行优化</li>
+<li>发现FedAvg其实本质是一种metalearning算法，用于优化个性化定制的效果，而不是全局模型的优化。<br>如文献1和2中所提及。</li>
+</ol>
+<h2 id="4、更快更好的联合学习功能融合方法FedFusion"><a href="#4、更快更好的联合学习功能融合方法FedFusion" class="headerlink" title="4、更快更好的联合学习功能融合方法FedFusion"></a>4、更快更好的联合学习功能融合方法<strong>FedFusion</strong></h2><p>中文by <a href="https://ereebay.me/posts/58531/" target="_blank" rel="noopener">https://ereebay.me/posts/58531/</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOI:10.1109/ICIP.2019.8803001</span><br><span class="line">Towards Faster and Better Federated Learning: A Feature Fusion Approach</span><br><span class="line">X. Yao, Tianchi Huang, Chenglei Wu, Rui-Xiao Zhang, L. Sun <span class="comment"># 清华</span></span><br><span class="line">Published 2019</span><br><span class="line">2019 IEEE International Conference on Image Processing (ICIP) <span class="comment"># C类会议</span></span><br></pre></td></tr></table></figure><br>Abstract<br>本文主要提出一种特征融合的方式，来加速并且提升联邦学习的性能。<br>Introduction<br>如今许多智能设备依赖于预训练模型，这使得机器的推断能力缺乏个性化和灵活性。与此同时，智能终端同时还产生了大量有效的隐私数据，这些数据能够提升这些模型的个性化能力。联邦学习，一种能够直接在终端上对模型进行训练的一种分布式训练算法解决了这个问题。其中以FedAvg算法为代表的的联邦学习算法有效的缓解了在信息交流上的隐私问题，但是后来也有研究表明，联邦学习仍然存在诸如：计算消耗，模型准确率。</p>
+<p>本文提出了一种融合特征的联邦学习算法<strong>FedFusion</strong>，该算法将global模型和local模型的特征进行融合。本文的主要的三个贡献点：</p>
+<ol>
+<li>引入特征融合机制 </li>
+<li>将本地模型和全局模型的特征以一种有效的并且个性化的方式进行融合 </li>
+<li>实验表明模型在准确率和泛化能力上都优于baseline并且减少了60%以上的通信量。</li>
+</ol>
+<h2 id="5、个性化联合学习-一种专注的协作方法FedAMP"><a href="#5、个性化联合学习-一种专注的协作方法FedAMP" class="headerlink" title="5、个性化联合学习:一种专注的协作方法FedAMP"></a>5、个性化联合学习:一种专注的协作方法<strong>FedAMP</strong></h2><p>中文by <a href="https://zhuanlan.zhihu.com/p/260776616" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/260776616</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Huang, Yutao, Lingyang Chu, Zirui Zhou, Lanjun Wang, Jiangchuan Liu, Jian Pei和Yong Zhang. <span class="comment"># 华为</span></span><br><span class="line">《Personalized Federated Learning: An Attentive Collaboration Approach》. arXiv:2007.03797, 2020年7月7日. http://arxiv.org/abs/2007.03797.</span><br></pre></td></tr></table></figure><br>摘要：对于物联网/边缘计算的挑战性计算环境，个性化联合学习允许每个客户端通过以隐私保护的方式与其他客户端进行有效协作来训练强大的个性化云模型。 个性化联合学习的性能在很大程度上取决于客户端之间协作的有效性。 但是，当所有客户端的数据均为非IID时，要在不知道客户端数据分布的情况下推断客户端之间的协作关系就很困难。 在本文中，我们建议通过一个名为联邦关注消息传递（FedAMP）的新颖框架来解决此问题，该框架允许每个客户端在不使用全局模型的情况下共同训练自己的个性化云模型。 FedAMP通过反复鼓励具有更多相似模型参数的客户进行更强的协作，从而实现了一种细心的协作机制。 这可以自适应地发现客户端之间的基础协作关系，从而极大地提高了协作效率，并带来了FedAMP的出色性能。 我们建立了凸模型和非凸模型的FedAMP的收敛性，并进一步提出了一种类似于FedAMP框架的启发式方法，以进一步提高其在深层神经网络的联合学习中的性能。 大量的实验证明了我们的方法在处理非IID数据，脏数据和丢弃的客户端方面的优越性能。</p>
+<p>to be continued</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1"><a href="#1" class="headerlink" title="1. "></a>1. </h2><h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
+<li></li>
+<li></li>
+<li></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+      </categories>
+      <tags>
+        <tag>Fed Learning</tag>
+        <tag>Meta Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -70,6 +164,68 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>如何做好学术报告</title>
+    <url>/2020/07/28/how_to_do_Academic_report/</url>
+    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
+<blockquote>
+<p>学会高效准确的口头及书面语言表达是一个优秀科学家必须具备的基本能力。<br>这在其他领域，依然是必须具备的基本能力。</p>
+</blockquote>
+<h1 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h1><h2 id="1、对听众，有针对性的准备。"><a href="#1、对听众，有针对性的准备。" class="headerlink" title="1、对听众，有针对性的准备。"></a>1、对听众，有针对性的准备。</h2><p>听众都是你的细分专业领域的人，那么你可以更展示得专业一些。若不是，那么请科普一点，<strong>通俗易懂也是一种能力</strong>。</p>
+<blockquote>
+<p>在准备一个学术报告之前，首先要清楚你的听众是谁，有多少听众，他们的专业领域是什么？如果听众的专业背景五花八门，提示你这个报告不能做的太专业，科普一点效果可能会更好。实际上在我们进行很多项目及工作应聘答辩时，大多时候是大同行作为评委。我的体会是，只有知道了你将要讲给谁听，你才能准备好一场有针对性的报告，让你的报告对大多数的听众都有所收获。我以前在美国做教授期间，曾经做过几次新教授招聘委员会的成员（recruiting committee member）。有一次在一位植物学岗位的应聘者答辩完后，与我同系的一位教授推开了我办公室的门，询问我对应聘者学术报告的印象，我说他讲得很好，非常清楚。没想到这位同事却认为该应聘者讲得一塌糊涂，他说他本以为对这位应聘者报告中提到的一些内容是稍微知道一点的，听完他的报告后他反而彻底弄糊涂了。等到全系教授讨论这位应聘者的资格时，他当然没有太多正面的评价。我还有一次经历，那是在2002年的2月初，我申请了UC Davis果树系一个tenure－track assistant professor公开招聘的位置，拿到面试资格后去Davis应聘，我讲完学术报告后，在系大厅的过道里遇到了一位女教授，她非常感谢我的报告，她说她曾经听过与我同领域一位院士所做的四次报告，对里面的一些概念还是一直没弄懂，听完我的报告，她总算完全弄明白怎么回事了。我后来感觉是因为我讲的更科普，连外行都听懂了，反而让这部分人心生感激，他们感觉到没有浪费时间。所以，我经常对我的学生讲，如果你能让台下的听众都听懂了你的学术报告，他们会很感激你，同时也会觉得他们自己很聪明，但他们不知道是你故意让他们有了这种感觉，这就是驾驭听众的能力。</p>
+</blockquote>
+<h2 id="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"><a href="#2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。" class="headerlink" title="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"></a>2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说<font color="ff0000">“懂”</font>。</h2><blockquote>
+<p>报告的内容要根据所给报告时间的长短来定。我们很多的课题答辩报告，通常只给15分钟时间。常常听到很多人抱怨说这么短的时间我能讲什么呢。时间越短说明越要概括，只能讲重点，少讲废话。5分钟有5分钟报告的做法，15分钟有15分钟的讲法，45分钟又有45分钟的讲法。这就好比一篇科学论文的题目，摘要及正文，摘要概括了正文中的要点，而题目又高度综合了文中的内容。</p>
+</blockquote>
+<h2 id="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"><a href="#3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。" class="headerlink" title="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"></a>3、简洁并<font color="ff0000">“准确”</font>的标题，用好关键词。不懂的关键词要自查学好。</h2><blockquote>
+<p>我认为一场好的报告一定要有好的题目，这个题目一定要越短越好，越高度概括越好，浓缩的才是精华嘛。要让人一看见这个题目就想知道里面的内容，于是吸引很多人来听你的报告。</p>
+</blockquote>
+<h2 id="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"><a href="#4、用好PPT模板，内容简洁，文字不可多。念字是大忌。" class="headerlink" title="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"></a>4、用好PPT模板，内容简洁，文字不可多。念字是大忌。</h2><blockquote>
+<p>一个好的报告还要有一套好的ppt，ppt千万不要做的过于花里胡哨。每张ppt的内容不可多，要简洁，讲的内容才放进去，不讲的内容千万不要放。文字不可太多，太多了就会念，用好关键词就可以了。实际上我还是喜欢白底黑字的ppt，这种搭配对眼睛最舒服。</p>
+</blockquote>
+<h2 id="5、前5张slide，尤为重要。"><a href="#5、前5张slide，尤为重要。" class="headerlink" title="5、前5张slide，尤为重要。"></a>5、前5张slide，尤为重要。</h2><blockquote>
+<p>一场45分钟的报告如果最前面的5张ppt没用好，一半人会立马进入梦乡或思想开小差了，效果一定不好。什么样的效果才是好效果呢，要让听众想如果他也能像你一样做报告就好了，你能成为他心中的榜样，表明你的报告的确很精彩。</p>
+</blockquote>
+<h2 id="6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）"><a href="#6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）" class="headerlink" title="6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）"></a>6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）</h2><blockquote>
+<p>一段难忘经历。我在全系师生面前做的第一场报告是进行了非常充分的准备的。为了让我好好替她争光，也为了好好培养她的第一个Ph. D.学生，她花费了大量的时间教我如何准备一个seminar。首先，我做的每一张ppt她都会提出修改意见，从文字描述，到每张ppt的布局，颜色搭配等。之后，她还让我写了一份15页的讲稿，进行了反复修改，然后她让我反复念，并纠正我发音不正确的单词，让我讲的时候要有声音的起伏。通过5次试讲，最终完全脱稿演讲。她后来对我说，我讲完后，系里很多教授去祝贺她，说她的学生是留学生中讲得最好的一位，祝贺她有这么好的学生。</p>
+<p><strong>万能金句名言：</strong>精心组织、反复修改。充分准备，方能语无伦次，无与伦比的<strong>自信</strong>。</p>
+</blockquote>
+<hr>
+<p>参考：<br>1、<a href="https://mp.weixin.qq.com/s/tTrovn613uvlSSl4JkA6aQ" target="_blank" rel="noopener">黎家教授：如何做好学术报告、写好论文</a></p>
+]]></content>
+      <categories>
+        <category>Meta ability</category>
+      </categories>
+      <tags>
+        <tag>Research</tag>
+        <tag>PPT</tag>
+        <tag>presentation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SLAM预备知识</title>
+    <url>/2020/07/26/note-slam-pre/</url>
+    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
+<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
+<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
+<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
+<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
+<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
+<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
+<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
+<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
+<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
+]]></content>
+      <categories>
+        <category>SLAM</category>
+      </categories>
+      <tags>
+        <tag>SLAM</tag>
+        <tag>notebook</tag>
+      </tags>
   </entry>
   <entry>
     <title>笔记 ROS2 通信架构</title>
@@ -350,49 +506,9 @@
         <category>ROS</category>
       </categories>
       <tags>
-        <tag>ROS</tag>
         <tag>SLAM</tag>
         <tag>notebook</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何做好学术报告</title>
-    <url>/2020/07/28/how_to_do_Academic_report/</url>
-    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
-<blockquote>
-<p>学会高效准确的口头及书面语言表达是一个优秀科学家必须具备的基本能力。<br>这在其他领域，依然是必须具备的基本能力。</p>
-</blockquote>
-<h1 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h1><h2 id="1、对听众，有针对性的准备。"><a href="#1、对听众，有针对性的准备。" class="headerlink" title="1、对听众，有针对性的准备。"></a>1、对听众，有针对性的准备。</h2><p>听众都是你的细分专业领域的人，那么你可以更展示得专业一些。若不是，那么请科普一点，<strong>通俗易懂也是一种能力</strong>。</p>
-<blockquote>
-<p>在准备一个学术报告之前，首先要清楚你的听众是谁，有多少听众，他们的专业领域是什么？如果听众的专业背景五花八门，提示你这个报告不能做的太专业，科普一点效果可能会更好。实际上在我们进行很多项目及工作应聘答辩时，大多时候是大同行作为评委。我的体会是，只有知道了你将要讲给谁听，你才能准备好一场有针对性的报告，让你的报告对大多数的听众都有所收获。我以前在美国做教授期间，曾经做过几次新教授招聘委员会的成员（recruiting committee member）。有一次在一位植物学岗位的应聘者答辩完后，与我同系的一位教授推开了我办公室的门，询问我对应聘者学术报告的印象，我说他讲得很好，非常清楚。没想到这位同事却认为该应聘者讲得一塌糊涂，他说他本以为对这位应聘者报告中提到的一些内容是稍微知道一点的，听完他的报告后他反而彻底弄糊涂了。等到全系教授讨论这位应聘者的资格时，他当然没有太多正面的评价。我还有一次经历，那是在2002年的2月初，我申请了UC Davis果树系一个tenure－track assistant professor公开招聘的位置，拿到面试资格后去Davis应聘，我讲完学术报告后，在系大厅的过道里遇到了一位女教授，她非常感谢我的报告，她说她曾经听过与我同领域一位院士所做的四次报告，对里面的一些概念还是一直没弄懂，听完我的报告，她总算完全弄明白怎么回事了。我后来感觉是因为我讲的更科普，连外行都听懂了，反而让这部分人心生感激，他们感觉到没有浪费时间。所以，我经常对我的学生讲，如果你能让台下的听众都听懂了你的学术报告，他们会很感激你，同时也会觉得他们自己很聪明，但他们不知道是你故意让他们有了这种感觉，这就是驾驭听众的能力。</p>
-</blockquote>
-<h2 id="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"><a href="#2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。" class="headerlink" title="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"></a>2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说<font color="ff0000">“懂”</font>。</h2><blockquote>
-<p>报告的内容要根据所给报告时间的长短来定。我们很多的课题答辩报告，通常只给15分钟时间。常常听到很多人抱怨说这么短的时间我能讲什么呢。时间越短说明越要概括，只能讲重点，少讲废话。5分钟有5分钟报告的做法，15分钟有15分钟的讲法，45分钟又有45分钟的讲法。这就好比一篇科学论文的题目，摘要及正文，摘要概括了正文中的要点，而题目又高度综合了文中的内容。</p>
-</blockquote>
-<h2 id="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"><a href="#3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。" class="headerlink" title="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"></a>3、简洁并<font color="ff0000">“准确”</font>的标题，用好关键词。不懂的关键词要自查学好。</h2><blockquote>
-<p>我认为一场好的报告一定要有好的题目，这个题目一定要越短越好，越高度概括越好，浓缩的才是精华嘛。要让人一看见这个题目就想知道里面的内容，于是吸引很多人来听你的报告。</p>
-</blockquote>
-<h2 id="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"><a href="#4、用好PPT模板，内容简洁，文字不可多。念字是大忌。" class="headerlink" title="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"></a>4、用好PPT模板，内容简洁，文字不可多。念字是大忌。</h2><blockquote>
-<p>一个好的报告还要有一套好的ppt，ppt千万不要做的过于花里胡哨。每张ppt的内容不可多，要简洁，讲的内容才放进去，不讲的内容千万不要放。文字不可太多，太多了就会念，用好关键词就可以了。实际上我还是喜欢白底黑字的ppt，这种搭配对眼睛最舒服。</p>
-</blockquote>
-<h2 id="5、前5张slide，尤为重要。"><a href="#5、前5张slide，尤为重要。" class="headerlink" title="5、前5张slide，尤为重要。"></a>5、前5张slide，尤为重要。</h2><blockquote>
-<p>一场45分钟的报告如果最前面的5张ppt没用好，一半人会立马进入梦乡或思想开小差了，效果一定不好。什么样的效果才是好效果呢，要让听众想如果他也能像你一样做报告就好了，你能成为他心中的榜样，表明你的报告的确很精彩。</p>
-</blockquote>
-<h2 id="6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）"><a href="#6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）" class="headerlink" title="6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）"></a>6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）</h2><blockquote>
-<p>一段难忘经历。我在全系师生面前做的第一场报告是进行了非常充分的准备的。为了让我好好替她争光，也为了好好培养她的第一个Ph. D.学生，她花费了大量的时间教我如何准备一个seminar。首先，我做的每一张ppt她都会提出修改意见，从文字描述，到每张ppt的布局，颜色搭配等。之后，她还让我写了一份15页的讲稿，进行了反复修改，然后她让我反复念，并纠正我发音不正确的单词，让我讲的时候要有声音的起伏。通过5次试讲，最终完全脱稿演讲。她后来对我说，我讲完后，系里很多教授去祝贺她，说她的学生是留学生中讲得最好的一位，祝贺她有这么好的学生。</p>
-<p><strong>万能金句名言：</strong>精心组织、反复修改。充分准备，方能语无伦次，无与伦比的<strong>自信</strong>。</p>
-</blockquote>
-<hr>
-<p>参考：<br>1、<a href="https://mp.weixin.qq.com/s/tTrovn613uvlSSl4JkA6aQ" target="_blank" rel="noopener">黎家教授：如何做好学术报告、写好论文</a></p>
-]]></content>
-      <categories>
-        <category>Meta ability</category>
-      </categories>
-      <tags>
-        <tag>Research</tag>
-        <tag>PPT</tag>
-        <tag>presentation</tag>
+        <tag>ROS</tag>
       </tags>
   </entry>
   <entry>
