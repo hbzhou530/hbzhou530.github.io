@@ -32,7 +32,7 @@
 <meta property="og:description" content="基本信息笔记一些联邦学习中与元学习相关的材料。 1、关于联邦学习的个性化能力综述">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-01T13:48:26.000Z">
-<meta property="article:modified_time" content="2020-11-01T15:00:26.343Z">
+<meta property="article:modified_time" content="2020-12-14T13:23:06.501Z">
 <meta property="article:author" content="HB Zhou">
 <meta property="article:tag" content="Fed Learning">
 <meta property="article:tag" content="Meta Learning">
@@ -224,10 +224,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-11-01 21:48:26 / 修改时间：23:00:26" itemprop="dateCreated datePublished" datetime="2020-11-01T21:48:26+08:00">2020-11-01</time>
+              <time title="创建时间：2020-11-01 21:48:26" itemprop="dateCreated datePublished" datetime="2020-11-01T21:48:26+08:00">2020-11-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-14 21:23:06" itemprop="dateModified" datetime="2020-12-14T21:23:06+08:00">2020-12-14</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -265,7 +271,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
+              <span>5.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -286,13 +292,16 @@
       
         <h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>笔记一些联邦学习中与元学习相关的材料。</p>
 <h2 id="1、关于联邦学习的个性化能力综述"><a href="#1、关于联邦学习的个性化能力综述" class="headerlink" title="1、关于联邦学习的个性化能力综述"></a>1、关于联邦学习的个性化能力综述</h2><a id="more"></a>
-<p>中文by <a href="https://ereebay.me/posts/54199/" target="_blank" rel="noopener">https://ereebay.me/posts/54199/</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DOI:10.1109/WorldS450073.2020.9210355</span><br><span class="line">Survey of Personalization Techniques <span class="keyword">for</span> Federated Learning</span><br><span class="line">V. Kulkarni, Milind Kulkarni, A. Pant。Published 2020。Vishwakarma University&amp;DeepTek Inc</span><br><span class="line">2020 Fourth World Conference on Smart Trends <span class="keyword">in</span> Systems, Security and Sustainability (WorldS4)</span><br><span class="line">Abstract：Federated learning enables machine learning models to learn from private decentralized data without compromising privacy. The standard formulation of federated learning produces one shared model <span class="keyword">for</span> all clients. Statistical heterogeneity due to non-IID distribution of data across devices often leads to scenarios <span class="built_in">where</span>, <span class="keyword">for</span> some clients, the <span class="built_in">local</span> models trained solely on their private data perform better than the global shared model thus taking away their incentive to participate <span class="keyword">in</span> the process. Several techniques have been proposed to personalize global models to work better <span class="keyword">for</span> individual clients. This paper highlights the need <span class="keyword">for</span> personalization and surveys recent research on this topic</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-4Meta-learning"><a href="#3-4Meta-learning" class="headerlink" title="3.4Meta learning"></a>3.4Meta learning</h3><p>元学习涉及到多个学习任务的训练，以生成能够快速适应的模型，该模型可以通过少量的训练样本就能够快速拟合学习解决新任务。Finn【25】提出了模型无关的元学习算法(MAML)，该算法与使用梯度下降法训练的任何模型都兼容。MAML建立了适用于多个任务的内部表示，因此针对新任务，对于顶层的微调可以产生比较好的结果。</p>
-<p><strong>Jiang【15】指出可以将联邦学习的过程看做是meta training而personalization过程可以看做是meta testing过程。那么FedAvg【3】算法与Reptile【26】非常相似。同时作者观察到，仔细的微调可以产生准确率高的全局模型，并且比较容易个性化，但是单纯的根据全局模型的准确率来优化模型会损失模型后续的个性化能力。联邦学习的其他个性化方法将全局模型的生成和个性化能力视作两个独立的过程，Jiang【15】提出了一种改进的FedAVG算法，该算法可以同时获得更好的全局模型和更好的个性化模型。</strong></p>
-<p>Fallah【27】在Personalized federated learning: A meta-learning approach,文中提出的标准联邦学习问题的新公式结合了MAML，并试图找出一个全局模型，该模型在每个节点针对其自身的损失函数进行更新后均表现良好。此外，他们提出了Per-FedAvg来解决上述问题。Khodak【28】在Adaptive gradient-based meta-learning methods中提出了ARUBA，并通过将其应用于FedAVG证明了性能的提高。chen【29】在Federated meta-learning for recommendation提出了一个用于构建个性化推荐模型的联邦元学习框架，其中算法和模型都已参数化并且需要优化。</p>
-<h3 id="4Discussion"><a href="#4Discussion" class="headerlink" title="4Discussion"></a>4Discussion</h3><p><strong>在联邦学习中，当本地节点的数据集很小，且都是IID的情况（是不是和元学习的场景相似）下，全局模型通常会超过本地模型，而且大部分的节点都会受益于联邦学习的过程。然而，当节点拥有充分大量的隐私数据集，并且数据的分布是non-IID的时候，本地模型通常会优于全局模型，而且节点通常不倾向与参与到联邦学习过程中。一个开放的理论问题就是：如何决定什么时候全局模型的表现会优于单节点上的模型。</strong></p>
-<p>这篇文章主要总结了几种用于优化全局模型个性化技术。除了少数的例外，大多数之前的工作都集中在衡量全局模型在聚合的数据上的表现，而不是衡量这些模型在单独节点上的性能。但是如果全局模型会在使用之前进行个性化设置的话，那么全局性能就没有意义。</p>
-<p>个性化模型通常在单节点上的表现能够优于全局模型和本地模型。但是在某些情况下，个性化模型的能力无法达到和本地模型相同的能力，尤其是在差分隐私等情况下。</p>
+<p>中文by <a href="https://ereebay.me/posts/54199/" target="_blank" rel="noopener">https://ereebay.me/posts/54199/</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DOI:10.1109/WorldS450073.2020.9210355</span><br><span class="line">Survey of Personalization Techniques <span class="keyword">for</span> Federated Learning</span><br><span class="line">V. Kulkarni, Milind Kulkarni, A. Pant。Published 2020。Vishwakarma University&amp;DeepTek Inc</span><br><span class="line">2020 Fourth World Conference on Smart Trends <span class="keyword">in</span> Systems, Security and Sustainability (WorldS4)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Abstract：Federated learning enables machine learning models to learn from private decentralized data without compromising privacy. The standard formulation of federated learning produces one shared model for all clients. Statistical heterogeneity due to non-IID distribution of data across devices often leads to scenarios where, for some clients, the local models trained solely on their private data perform better than the global shared model thus taking away their incentive to participate in the process. Several techniques have been proposed to personalize global models to work better for individual clients. This paper highlights the need for personalization and surveys recent research on this topic</p>
+</blockquote>
+<h3 id="3-4Meta-learning"><a href="#3-4Meta-learning" class="headerlink" title="3.4Meta learning"></a>3.4Meta learning</h3><p>&emsp;&emsp;元学习涉及到多个学习任务的训练，以生成能够快速适应的模型，该模型可以通过少量的训练样本就能够快速拟合学习解决新任务。Finn【25】提出了模型无关的元学习算法(MAML)，该算法与使用梯度下降法训练的任何模型都兼容。MAML建立了适用于多个任务的内部表示，因此针对新任务，对于顶层的微调可以产生比较好的结果。</p>
+<p>&emsp;&emsp;<strong>Jiang【15】指出可以将联邦学习的过程看做是meta training而personalization过程可以看做是meta testing过程。那么FedAvg【3】算法与Reptile【26】非常相似。同时作者观察到，仔细的微调可以产生准确率高的全局模型，并且比较容易个性化，但是单纯的根据全局模型的准确率来优化模型会损失模型后续的个性化能力。联邦学习的其他个性化方法将全局模型的生成和个性化能力视作两个独立的过程，Jiang【15】提出了一种改进的FedAVG算法，该算法可以同时获得更好的全局模型和更好的个性化模型。</strong></p>
+<p>&emsp;&emsp;Fallah【27】在Personalized federated learning: A meta-learning approach,文中提出的标准联邦学习问题的新公式结合了MAML，并试图找出一个全局模型，该模型在每个节点针对其自身的损失函数进行更新后均表现良好。此外，他们提出了Per-FedAvg来解决上述问题。Khodak【28】在Adaptive gradient-based meta-learning methods中提出了ARUBA，并通过将其应用于FedAVG证明了性能的提高。chen【29】在Federated meta-learning for recommendation提出了一个用于构建个性化推荐模型的联邦元学习框架，其中算法和模型都已参数化并且需要优化。</p>
+<h3 id="4Discussion"><a href="#4Discussion" class="headerlink" title="4Discussion"></a>4Discussion</h3><p>&emsp;&emsp;<strong>在联邦学习中，当本地节点的数据集很小，且都是IID的情况（是不是和元学习的场景相似）下，全局模型通常会超过本地模型，而且大部分的节点都会受益于联邦学习的过程。然而，当节点拥有充分大量的隐私数据集，并且数据的分布是non-IID的时候，本地模型通常会优于全局模型，而且节点通常不倾向与参与到联邦学习过程中。一个开放的理论问题就是：如何决定什么时候全局模型的表现会优于单节点上的模型。</strong></p>
+<p>&emsp;&emsp;这篇文章主要总结了几种用于优化全局模型个性化技术。除了少数的例外，大多数之前的工作都集中在衡量全局模型在聚合的数据上的表现，而不是衡量这些模型在单独节点上的性能。但是如果全局模型会在使用之前进行个性化设置的话，那么全局性能就没有意义。</p>
+<p>&emsp;&emsp;个性化模型通常在单节点上的表现能够优于全局模型和本地模型。但是在某些情况下，个性化模型的能力无法达到和本地模型相同的能力，尤其是在差分隐私等情况下。</p>
 <h2 id="2、2019年底大佬们综述：联邦学习的进展和开放问题"><a href="#2、2019年底大佬们综述：联邦学习的进展和开放问题" class="headerlink" title="2、2019年底大佬们综述：联邦学习的进展和开放问题"></a>2、2019年底大佬们综述：联邦学习的进展和开放问题</h2><p>中文by <a href="https://xwzheng.gitbook.io/fl" target="_blank" rel="noopener">https://xwzheng.gitbook.io/fl</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Kairouz, Peter, H. Brendan McMahan, Brendan Avent, Aurélien Bellet, Mehdi Bennis, Arjun Nitin Bhagoji, Keith Bonawitz, 等. </span><br><span class="line">《Advances and Open Problems <span class="keyword">in</span> Federated Learning》. arXiv:1912.04977, 2019年12月10日. </span><br><span class="line">http://arxiv.org/abs/1912.04977.</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-3-3-本地微调和元学习"><a href="#3-3-3-本地微调和元学习" class="headerlink" title="3.3.3 本地微调和元学习"></a>3.3.3 本地微调和元学习</h3><p>本地微调，我们指的是通过联邦学习训练单个模型，然后将模型部署到所有的客户端中，并在被用于推断前使用本地的数据集通过额外的训练达到个性化的效果。 这种方法自然地融入了联邦学习模型的通常的生命周期（第1.1.1节）。仍然可以在每轮（例如，100秒）中仅使用少量客户样本进行全球模型的培训；部署模型后，仅发生一次向所有客户端（例如数百万个）广播全局模型。唯一的区别是，在使用模型对客户进行实时预测之前，会进行最终的训练，从而将模型为本地数据集进行个性化。<br>给定一的性能优异的全局模型，对其进行个性化设置的最佳方法是什么？在非联邦学习中，研究人员经常使用微调、迁移学习、域自适应[284,115,56]或者使用本地个性化的模型进行插值。 当然，例如插值等技术，关键在于联邦学习的背景下保证其相应的学习效果。此外，这些技术通常仅假设一对域（源域和目标域），因此可能会丢失联邦学习的一些较丰富的结构。<br>另一种研究个性化和非个性化的方法是通过元学习来进行，这是一种流行的模型适应设定。 在标准的learning-to-learn（LTL）设置中[52]，它对任务上具有一个元分布，用来学习一个学习算法的样本，例如通过发现参数空间的好的约束。 这实际上很好的对应了第3.1节中讨论的统计设定，其中我们对客户端（任务）$i\sim \mathcal{Q}$进行采样，然后从$\mathcal{P_i}$采样该客户端（任务）的数据。<br>最近，已经开发了一种称为模型不可知元学习（MAML）的算法，即元学习全局模型，它可以仅使用几次局部梯度迭代作为学习适合于给定任务的良好模型的起点。 最值得注意的是，流行的Reptile算法[308]的训练阶段与联邦平均[289]密切相关，即Reptile允许服务器的学习率，并且假设所有客户端都拥有相同数量的数据，但其他都是相同的。Khodaketal等人[234]和Jiang等人[217]探索了FL和MAML之间的联系，并展示了MAML的假设是一个可以被联邦学习用于性化模型的相关框架。其他和差分隐私的关系在[260]中被研究。<br>将FL和MAML的思想相结合的总体方向是相对较新的，存在许多未解决的问题：</p>
 <pre><code>- 监督任务的MAML算法评估主要集中在合成图像分类问题上[252,331]，其中可以通过对图像类别进行下采样来构造无限的人工任务。用于模拟FL实验的现有数据集建模的FL问题（附录A）可以作为MAML算法的现实基准问题。
@@ -309,8 +318,8 @@
 <li>对FedAvg进行改进，采用两阶段的训练和fine-tune进行优化</li>
 <li>发现FedAvg其实本质是一种metalearning算法，用于优化个性化定制的效果，而不是全局模型的优化。<br>如文献1和2中所提及。</li>
 </ol>
-<h2 id="4、更快更好的联合学习功能融合方法FedFusion"><a href="#4、更快更好的联合学习功能融合方法FedFusion" class="headerlink" title="4、更快更好的联合学习功能融合方法FedFusion"></a>4、更快更好的联合学习功能融合方法<strong>FedFusion</strong></h2><p>中文by <a href="https://ereebay.me/posts/58531/" target="_blank" rel="noopener">https://ereebay.me/posts/58531/</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DOI:10.1109/ICIP.2019.8803001</span><br><span class="line">Towards Faster and Better Federated Learning: A Feature Fusion Approach</span><br><span class="line">X. Yao, Tianchi Huang, Chenglei Wu, Rui-Xiao Zhang, L. Sun <span class="comment"># 清华</span></span><br><span class="line">Published 2019</span><br><span class="line">2019 IEEE International Conference on Image Processing (ICIP) <span class="comment"># C类会议</span></span><br></pre></td></tr></table></figure><br>Abstract<br>本文主要提出一种特征融合的方式，来加速并且提升联邦学习的性能。<br>Introduction<br>如今许多智能设备依赖于预训练模型，这使得机器的推断能力缺乏个性化和灵活性。与此同时，智能终端同时还产生了大量有效的隐私数据，这些数据能够提升这些模型的个性化能力。联邦学习，一种能够直接在终端上对模型进行训练的一种分布式训练算法解决了这个问题。其中以FedAvg算法为代表的的联邦学习算法有效的缓解了在信息交流上的隐私问题，但是后来也有研究表明，联邦学习仍然存在诸如：计算消耗，模型准确率。</p>
-<p>本文提出了一种融合特征的联邦学习算法<strong>FedFusion</strong>，该算法将global模型和local模型的特征进行融合。本文的主要的三个贡献点：</p>
+<h2 id="4、更快更好的联合学习功能融合方法FedFusion"><a href="#4、更快更好的联合学习功能融合方法FedFusion" class="headerlink" title="4、更快更好的联合学习功能融合方法FedFusion"></a>4、更快更好的联合学习功能融合方法<strong>FedFusion</strong></h2><p>中文by <a href="https://ereebay.me/posts/58531/" target="_blank" rel="noopener">https://ereebay.me/posts/58531/</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DOI:10.1109/ICIP.2019.8803001</span><br><span class="line">Towards Faster and Better Federated Learning: A Feature Fusion Approach</span><br><span class="line">X. Yao, Tianchi Huang, Chenglei Wu, Rui-Xiao Zhang, L. Sun <span class="comment"># 清华</span></span><br><span class="line">Published 2019</span><br><span class="line">2019 IEEE International Conference on Image Processing (ICIP) <span class="comment"># C类会议</span></span><br></pre></td></tr></table></figure><br>Abstract<br>&emsp;&emsp;本文主要提出一种特征融合的方式，来加速并且提升联邦学习的性能。<br>Introduction<br>&emsp;&emsp;如今许多智能设备依赖于预训练模型，这使得机器的推断能力缺乏个性化和灵活性。与此同时，智能终端同时还产生了大量有效的隐私数据，这些数据能够提升这些模型的个性化能力。联邦学习，一种能够直接在终端上对模型进行训练的一种分布式训练算法解决了这个问题。其中以FedAvg算法为代表的的联邦学习算法有效的缓解了在信息交流上的隐私问题，但是后来也有研究表明，联邦学习仍然存在诸如：计算消耗，模型准确率。</p>
+<p>&emsp;&emsp;本文提出了一种融合特征的联邦学习算法<strong>FedFusion</strong>，该算法将global模型和local模型的特征进行融合。本文的主要的三个贡献点：</p>
 <ol>
 <li>引入特征融合机制 </li>
 <li>将本地模型和全局模型的特征以一种有效的并且个性化的方式进行融合 </li>
@@ -318,9 +327,8 @@
 </ol>
 <h2 id="5、个性化联合学习-一种专注的协作方法FedAMP"><a href="#5、个性化联合学习-一种专注的协作方法FedAMP" class="headerlink" title="5、个性化联合学习:一种专注的协作方法FedAMP"></a>5、个性化联合学习:一种专注的协作方法<strong>FedAMP</strong></h2><p>中文by <a href="https://zhuanlan.zhihu.com/p/260776616" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/260776616</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Huang, Yutao, Lingyang Chu, Zirui Zhou, Lanjun Wang, Jiangchuan Liu, Jian Pei和Yong Zhang. <span class="comment"># 华为</span></span><br><span class="line">《Personalized Federated Learning: An Attentive Collaboration Approach》. arXiv:2007.03797, 2020年7月7日. http://arxiv.org/abs/2007.03797.</span><br></pre></td></tr></table></figure><br>摘要：对于物联网/边缘计算的挑战性计算环境，个性化联合学习允许每个客户端通过以隐私保护的方式与其他客户端进行有效协作来训练强大的个性化云模型。 个性化联合学习的性能在很大程度上取决于客户端之间协作的有效性。 但是，当所有客户端的数据均为非IID时，要在不知道客户端数据分布的情况下推断客户端之间的协作关系就很困难。 在本文中，我们建议通过一个名为联邦关注消息传递（FedAMP）的新颖框架来解决此问题，该框架允许每个客户端在不使用全局模型的情况下共同训练自己的个性化云模型。 FedAMP通过反复鼓励具有更多相似模型参数的客户进行更强的协作，从而实现了一种细心的协作机制。 这可以自适应地发现客户端之间的基础协作关系，从而极大地提高了协作效率，并带来了FedAMP的出色性能。 我们建立了凸模型和非凸模型的FedAMP的收敛性，并进一步提出了一种类似于FedAMP框架的启发式方法，以进一步提高其在深层神经网络的联合学习中的性能。 大量的实验证明了我们的方法在处理非IID数据，脏数据和丢弃的客户端方面的优越性能。</p>
 <p>to be continued</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1"><a href="#1" class="headerlink" title="1. "></a>1. </h2><h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
-<li></li>
-<li></li>
+<hr>
+<h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
 <li></li>
 </ol>
 
@@ -346,7 +354,10 @@
     <a href="/2020/08/24/2020-Chen-Guided-Dual-Networks/" rel="prev" title="PAPER READING 2020_Chen_Guided Dual Networks for Single Image Super-Resolution">
       <i class="fa fa-chevron-left"></i> PAPER READING 2020_Chen_Guided Dual Networks for Single Image Super-Resolution
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/17/ZSL-action-recognition-survey/" rel="next" title="PAPER READING"ZSL-action-recognition-survey"">
+      PAPER READING"ZSL-action-recognition-survey" <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -406,7 +417,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本信息"><span class="nav-number">1.</span> <span class="nav-text">基本信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、关于联邦学习的个性化能力综述"><span class="nav-number">1.1.</span> <span class="nav-text">1、关于联邦学习的个性化能力综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4Meta-learning"><span class="nav-number">1.1.1.</span> <span class="nav-text">3.4Meta learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4Discussion"><span class="nav-number">1.1.2.</span> <span class="nav-text">4Discussion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、2019年底大佬们综述：联邦学习的进展和开放问题"><span class="nav-number">1.2.</span> <span class="nav-text">2、2019年底大佬们综述：联邦学习的进展和开放问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-本地微调和元学习"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.3.3 本地微调和元学习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、通过MAML改善联合学习的个性化"><span class="nav-number">1.3.</span> <span class="nav-text">3、通过MAML改善联合学习的个性化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、更快更好的联合学习功能融合方法FedFusion"><span class="nav-number">1.4.</span> <span class="nav-text">4、更快更好的联合学习功能融合方法FedFusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、个性化联合学习-一种专注的协作方法FedAMP"><span class="nav-number">1.5.</span> <span class="nav-text">5、个性化联合学习:一种专注的协作方法FedAMP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">2.1.</span> <span class="nav-text">1. </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#收尾"><span class="nav-number">3.</span> <span class="nav-text">收尾</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本信息"><span class="nav-number">1.</span> <span class="nav-text">基本信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、关于联邦学习的个性化能力综述"><span class="nav-number">1.1.</span> <span class="nav-text">1、关于联邦学习的个性化能力综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4Meta-learning"><span class="nav-number">1.1.1.</span> <span class="nav-text">3.4Meta learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4Discussion"><span class="nav-number">1.1.2.</span> <span class="nav-text">4Discussion</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、2019年底大佬们综述：联邦学习的进展和开放问题"><span class="nav-number">1.2.</span> <span class="nav-text">2、2019年底大佬们综述：联邦学习的进展和开放问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-本地微调和元学习"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.3.3 本地微调和元学习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、通过MAML改善联合学习的个性化"><span class="nav-number">1.3.</span> <span class="nav-text">3、通过MAML改善联合学习的个性化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、更快更好的联合学习功能融合方法FedFusion"><span class="nav-number">1.4.</span> <span class="nav-text">4、更快更好的联合学习功能融合方法FedFusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、个性化联合学习-一种专注的协作方法FedAMP"><span class="nav-number">1.5.</span> <span class="nav-text">5、个性化联合学习:一种专注的协作方法FedAMP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#收尾"><span class="nav-number">2.</span> <span class="nav-text">收尾</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -422,7 +433,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -484,13 +495,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">25k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">19 分钟</span>
+    <span title="站点阅读时长">22 分钟</span>
 </div>
 
 <div>

@@ -101,17 +101,54 @@
       </tags>
   </entry>
   <entry>
+    <title>PAPER READING&quot;ZSL-action-recognition-survey&quot;</title>
+    <url>/2020/11/17/ZSL-action-recognition-survey/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Zero-Shot Action Recognition <span class="keyword">in</span> Videos: A Survey</span><br><span class="line">Valter Luís Estevam Junior a,c,, Helio Pedrini b and David Menotti c</span><br><span class="line">a Federal Institute of Paraná, Irati-PR, 84500-000, Brazil</span><br><span class="line">b Universiy of Campinas, Institute of Computing, Campinas-SP, 13083-852, Brazil</span><br><span class="line">c Federal University of Paraná, Department of Informatics, Curitiba-PR, 81531-970, Brazil</span><br><span class="line">https://arxiv.org/abs/1909.06423</span><br></pre></td></tr></table></figure>
+<p>题目：视频中的零次学习行为识别：综述<br>&emsp;2019年预印版v1， 17 Nov 2020更新V2</p>
+<p><strong>摘要</strong>：<br>&emsp;&emsp;近年来，零次学习的动作识别已经引起了人们的关注，并且提出了许多方法来识别图像和视频中的物体，事件和动作。 而能够从模型训练过程中不存在的分类中，对实例进行分类的方法存在需求，特别是在自动视频理解的复杂任务中。因为收集，注释和标记视频是困难且费力的任务。我们确定文献中有许多可用的方法，但是，很难对哪些技术可以视为最新技术进行分类。 尽管存在一些有关静态图像和实验方案的零次动作识别的综述，但没有针对视频方面的。 因此，在本文中，我们对包括进行视觉特征提取和语义特征提取的技术在内的方法进行了概述，特别是视频下零次动作识别中的这些特征之间的映射学习。 我们还提供了数据集，实验和方案的完整描述，为计算机视觉研究领域的发展必不可少的未来工作指出了开放性问题和方向。</p>
+<a id="more"></a>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>&emsp;&emsp;文首提到本文未区分动作识别和行为识别两个概念，一并论之。（butV1版的总结说仅论述了动作识别的ZSL，而行为识别的ZSL还很少。V2改进了吧）</p>
+<h1 id="视觉的和语义的标签嵌入"><a href="#视觉的和语义的标签嵌入" class="headerlink" title="视觉的和语义的标签嵌入"></a>视觉的和语义的标签嵌入</h1><h2 id="视觉嵌入"><a href="#视觉嵌入" class="headerlink" title="视觉嵌入"></a>视觉嵌入</h2><p>表1 ZSAR视觉嵌入中的两类方法：人工特征（HF）和深度特征(DF)<br>&emsp;&emsp;但是，由于缺乏运动建模，基于图像的深度模型不适合直接视频表征，如[90]中所述。这个问题可通过考虑时空关系的深度模型来克服；深度模型中，由全连接层来特征。此策略应用于[65]中3D ConvNN[35]；于[100，112，56，29，98]中使用C3D [90]；于[80，70]中使用I3D [12]。<br>&emsp;&emsp;训练3D CNN，要学习比2D CNN更多的参数。 因此，I3D体系结构[12]（图2（c））使用通用的预训练的ImageNet Inception-V1模型[33]作为基础网络，向每个卷积层添加批归一化。为正确探索时空序列 以及（长期依赖关系？），在Inception-V1的最后一个平均池化层之后使用了LSTM层。 另外，还通过引入光流[12]来改善其性能。该模型如图2（c）所示。 I3D模型在Kinetics 数据集[12]上进行训练，从最后一个全连接层中提取视觉表示，从而在[80]和[70]中以256维表示。 由于C3D和I3D模型都在大规模数据集上进行了预训练[56]，这可能违反了ZSL假设（训练和测试集之间的类分离）。 因此，通过使用深度学习技术，出现了一个新的问题。 我们将在第5节中对此进行详细讨论。尽管简单而相对有效，最近的工作（如，对这些现成的全局描述符进行微调，用于对时间或空间关系建模， 或考虑语义信息产生新的特征表征）已显示出显着的性能提高。</p>
+<h2 id="语义标签嵌入"><a href="#语义标签嵌入" class="headerlink" title="语义标签嵌入"></a>语义标签嵌入</h2><p>表2 语义嵌入中的方法：标注（A）和单词嵌入（WE）<br>&emsp;&emsp;最流行的语义标签嵌入策略是skip-gram模型[63]（图3e）。它是一种Word2Vec更具体的实现[62]。Word2Vec已有多人采用（参见表2）。 该模型是一种学习向量表示的有效方法，可捕获大量的句法和语义词关系[62]。 该方法包括学习一个基于softmax输出计算单词之间相似度的神经网络。在ZSL中，所需单词（动作标签）的语义矢量表示是基于skip-gram网络的隐藏层中300个神经元的激活 提供此单词作为输入时的跳过语法网络的功能。<br>&emsp;&emsp;执行语义标签嵌入的另一种方法是基于计数的称为全局向量（GloVe）模型[68]。</p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p>&emsp;&emsp;ZSAR的中心问题是如何使用视觉和语义信息，对未见过的类中的新实例进行分类（即执行传输知识）。 我们确定了三种主要方法：（i）直接分类到语义嵌入空间中，通常在其上投影视觉特征； （ii）分类到中间空间，这个中间空间是由视觉和语义表征的组合生成（如，动作和目标的潜在属性或共现）。（iii）通过考虑语义信息的合成视觉特征，将其分类为视觉嵌入空间，从而为看不见的类生成视觉原型。但是，ZSAR方法结合了多种策略，因此很难提供明确的分类依据。表3给出了根据我们的一般标准进行的方法及其分类，并且还提供了一些观察结果。</p>
+<h1 id="评测数据集"><a href="#评测数据集" class="headerlink" title="评测数据集"></a>评测数据集</h1><p>各种数据集介绍</p>
+<h1 id="实验与性能分析"><a href="#实验与性能分析" class="headerlink" title="实验与性能分析"></a>实验与性能分析</h1><p>&emsp;&emsp;选用HMBD51, UCF101or Olympic Sports 数据集，因其最多被使用。但没选用ActivityNet，因有修剪前后区别，本文未区分。<br>常用实验方法：</p>
+<ol>
+<li>数据集的类别随机分为两个不相交的集合，分别称为可见（源）和不可见（目标），比例不同（90％/ 10％，80％/ 20％和50％/ 50％）。 重复此过程多少次（3、5、10、30、50），并且在不做任何事情的情况下，选择的比例和运行次数是合理的。 由于域移位问题，很少有工作采用交叉数据集配置，其中在一个数据集中训练模型，然后在另一个数据集中进行评估。 表5中显示了一个示例，标记为0/20和0/50，与类内方法相比，结果令人印象深刻。 他们的工作通过利用目标对象-动作关系完成迁移学习</li>
+<li>三个绩效指标（即总体准确性，每类平均准确性和总平均准确性）。我们将值（四舍五入到小数点后一位），标准差，报告时间和度量类型包括在内</li>
+</ol>
+<p><strong>GAN的方法</strong>：Zhang and Peng[113]和Mandal等人[59]利用GAN从具有相同统计属性的训练集中生成更多训练数据，并将分类执行到视觉嵌入空间中。此方法具有较高的判别力，并且与其他方法相比，信息退化所带来的影响要小得多。Mandal等人[59]改编了WassersteinGAN，适应于可见和不可见的类别标签的嵌入，并且胜过Zhang和Peng[113]所做的工作。</p>
+<p><strong>transductive setting(T) VS inductive setting(I)：</strong>直推式、转导式VS归纳式</p>
+<ol>
+<li>目前T直推比I归纳式的实验结果好。这得益于自训练和hubness correction中心度校正方法，有效地缓解了域偏移的问题</li>
+<li>现实场景中，I归纳式更适合。</li>
+</ol>
+<p>&emsp;&emsp;另一个重要的是使用<strong>属性方法，通常带来比单词向量更好的性能结果</strong>。然而，属性的方法是不可扩展的，使得在现实情况中，不可实现。so需要更多的研究工作在语义嵌入方面，比如，基于自动属性标注的高级语义描述，目标对象、场景与动作或自然语言描述的关系为基础的高级语义描述。</p>
+<h1 id="目前问题和未来研究方向"><a href="#目前问题和未来研究方向" class="headerlink" title="目前问题和未来研究方向"></a>目前问题和未来研究方向</h1><p>&emsp;&emsp;尽管在过去的几年中，零次动作识别已经取得了很大的进步，但它的性能远不及传统的监督学习。ZSL的最佳结果，也就是Mandal等人[59]（38.3±1.0）<strong>使用生成模型</strong>，Gao等人[25]（41.6±1.0）和Mettesand Snoek [61]（40.4±1.0）<strong>使用目标对象及其与动作的关系</strong>，甚至是Jones等人[38]<strong>使用动态属性</strong>。我们可以看到仍然有很多提升空间，这需要解决或改善经典的ZSL问题，即语义鸿沟。<br>&emsp;&emsp;如图4所示，单词向量方法可能会混淆复合词类别（例如，鞍马x骑马）。笔者相信语义嵌入的新策略新方法会被提出。较新的方法有：<br>1、使用同义词  Alexiou et al.[5]<br>2、矢量模型（Sent2Vec）[67]的句子，在[26]中使用。 与使用Word2Vec的结果相比，该模型的速度提高了约1.3倍。<br>3、结合NLP的最新进展</p>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>OneDirve</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PAPER READING&quot;联邦学习与元学习相关的部分&quot;</title>
     <url>/2020/11/01/fed-learning-about-meta-learning/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>笔记一些联邦学习中与元学习相关的材料。</p>
 <h2 id="1、关于联邦学习的个性化能力综述"><a href="#1、关于联邦学习的个性化能力综述" class="headerlink" title="1、关于联邦学习的个性化能力综述"></a>1、关于联邦学习的个性化能力综述</h2><a id="more"></a>
-<p>中文by <a href="https://ereebay.me/posts/54199/" target="_blank" rel="noopener">https://ereebay.me/posts/54199/</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOI:10.1109/WorldS450073.2020.9210355</span><br><span class="line">Survey of Personalization Techniques <span class="keyword">for</span> Federated Learning</span><br><span class="line">V. Kulkarni, Milind Kulkarni, A. Pant。Published 2020。Vishwakarma University&amp;DeepTek Inc</span><br><span class="line">2020 Fourth World Conference on Smart Trends <span class="keyword">in</span> Systems, Security and Sustainability (WorldS4)</span><br><span class="line">Abstract：Federated learning enables machine learning models to learn from private decentralized data without compromising privacy. The standard formulation of federated learning produces one shared model <span class="keyword">for</span> all clients. Statistical heterogeneity due to non-IID distribution of data across devices often leads to scenarios <span class="built_in">where</span>, <span class="keyword">for</span> some clients, the <span class="built_in">local</span> models trained solely on their private data perform better than the global shared model thus taking away their incentive to participate <span class="keyword">in</span> the process. Several techniques have been proposed to personalize global models to work better <span class="keyword">for</span> individual clients. This paper highlights the need <span class="keyword">for</span> personalization and surveys recent research on this topic</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-4Meta-learning"><a href="#3-4Meta-learning" class="headerlink" title="3.4Meta learning"></a>3.4Meta learning</h3><p>元学习涉及到多个学习任务的训练，以生成能够快速适应的模型，该模型可以通过少量的训练样本就能够快速拟合学习解决新任务。Finn【25】提出了模型无关的元学习算法(MAML)，该算法与使用梯度下降法训练的任何模型都兼容。MAML建立了适用于多个任务的内部表示，因此针对新任务，对于顶层的微调可以产生比较好的结果。</p>
-<p><strong>Jiang【15】指出可以将联邦学习的过程看做是meta training而personalization过程可以看做是meta testing过程。那么FedAvg【3】算法与Reptile【26】非常相似。同时作者观察到，仔细的微调可以产生准确率高的全局模型，并且比较容易个性化，但是单纯的根据全局模型的准确率来优化模型会损失模型后续的个性化能力。联邦学习的其他个性化方法将全局模型的生成和个性化能力视作两个独立的过程，Jiang【15】提出了一种改进的FedAVG算法，该算法可以同时获得更好的全局模型和更好的个性化模型。</strong></p>
-<p>Fallah【27】在Personalized federated learning: A meta-learning approach,文中提出的标准联邦学习问题的新公式结合了MAML，并试图找出一个全局模型，该模型在每个节点针对其自身的损失函数进行更新后均表现良好。此外，他们提出了Per-FedAvg来解决上述问题。Khodak【28】在Adaptive gradient-based meta-learning methods中提出了ARUBA，并通过将其应用于FedAVG证明了性能的提高。chen【29】在Federated meta-learning for recommendation提出了一个用于构建个性化推荐模型的联邦元学习框架，其中算法和模型都已参数化并且需要优化。</p>
-<h3 id="4Discussion"><a href="#4Discussion" class="headerlink" title="4Discussion"></a>4Discussion</h3><p><strong>在联邦学习中，当本地节点的数据集很小，且都是IID的情况（是不是和元学习的场景相似）下，全局模型通常会超过本地模型，而且大部分的节点都会受益于联邦学习的过程。然而，当节点拥有充分大量的隐私数据集，并且数据的分布是non-IID的时候，本地模型通常会优于全局模型，而且节点通常不倾向与参与到联邦学习过程中。一个开放的理论问题就是：如何决定什么时候全局模型的表现会优于单节点上的模型。</strong></p>
-<p>这篇文章主要总结了几种用于优化全局模型个性化技术。除了少数的例外，大多数之前的工作都集中在衡量全局模型在聚合的数据上的表现，而不是衡量这些模型在单独节点上的性能。但是如果全局模型会在使用之前进行个性化设置的话，那么全局性能就没有意义。</p>
-<p>个性化模型通常在单节点上的表现能够优于全局模型和本地模型。但是在某些情况下，个性化模型的能力无法达到和本地模型相同的能力，尤其是在差分隐私等情况下。</p>
+<p>中文by <a href="https://ereebay.me/posts/54199/" target="_blank" rel="noopener">https://ereebay.me/posts/54199/</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOI:10.1109/WorldS450073.2020.9210355</span><br><span class="line">Survey of Personalization Techniques <span class="keyword">for</span> Federated Learning</span><br><span class="line">V. Kulkarni, Milind Kulkarni, A. Pant。Published 2020。Vishwakarma University&amp;DeepTek Inc</span><br><span class="line">2020 Fourth World Conference on Smart Trends <span class="keyword">in</span> Systems, Security and Sustainability (WorldS4)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Abstract：Federated learning enables machine learning models to learn from private decentralized data without compromising privacy. The standard formulation of federated learning produces one shared model for all clients. Statistical heterogeneity due to non-IID distribution of data across devices often leads to scenarios where, for some clients, the local models trained solely on their private data perform better than the global shared model thus taking away their incentive to participate in the process. Several techniques have been proposed to personalize global models to work better for individual clients. This paper highlights the need for personalization and surveys recent research on this topic</p>
+</blockquote>
+<h3 id="3-4Meta-learning"><a href="#3-4Meta-learning" class="headerlink" title="3.4Meta learning"></a>3.4Meta learning</h3><p>&emsp;&emsp;元学习涉及到多个学习任务的训练，以生成能够快速适应的模型，该模型可以通过少量的训练样本就能够快速拟合学习解决新任务。Finn【25】提出了模型无关的元学习算法(MAML)，该算法与使用梯度下降法训练的任何模型都兼容。MAML建立了适用于多个任务的内部表示，因此针对新任务，对于顶层的微调可以产生比较好的结果。</p>
+<p>&emsp;&emsp;<strong>Jiang【15】指出可以将联邦学习的过程看做是meta training而personalization过程可以看做是meta testing过程。那么FedAvg【3】算法与Reptile【26】非常相似。同时作者观察到，仔细的微调可以产生准确率高的全局模型，并且比较容易个性化，但是单纯的根据全局模型的准确率来优化模型会损失模型后续的个性化能力。联邦学习的其他个性化方法将全局模型的生成和个性化能力视作两个独立的过程，Jiang【15】提出了一种改进的FedAVG算法，该算法可以同时获得更好的全局模型和更好的个性化模型。</strong></p>
+<p>&emsp;&emsp;Fallah【27】在Personalized federated learning: A meta-learning approach,文中提出的标准联邦学习问题的新公式结合了MAML，并试图找出一个全局模型，该模型在每个节点针对其自身的损失函数进行更新后均表现良好。此外，他们提出了Per-FedAvg来解决上述问题。Khodak【28】在Adaptive gradient-based meta-learning methods中提出了ARUBA，并通过将其应用于FedAVG证明了性能的提高。chen【29】在Federated meta-learning for recommendation提出了一个用于构建个性化推荐模型的联邦元学习框架，其中算法和模型都已参数化并且需要优化。</p>
+<h3 id="4Discussion"><a href="#4Discussion" class="headerlink" title="4Discussion"></a>4Discussion</h3><p>&emsp;&emsp;<strong>在联邦学习中，当本地节点的数据集很小，且都是IID的情况（是不是和元学习的场景相似）下，全局模型通常会超过本地模型，而且大部分的节点都会受益于联邦学习的过程。然而，当节点拥有充分大量的隐私数据集，并且数据的分布是non-IID的时候，本地模型通常会优于全局模型，而且节点通常不倾向与参与到联邦学习过程中。一个开放的理论问题就是：如何决定什么时候全局模型的表现会优于单节点上的模型。</strong></p>
+<p>&emsp;&emsp;这篇文章主要总结了几种用于优化全局模型个性化技术。除了少数的例外，大多数之前的工作都集中在衡量全局模型在聚合的数据上的表现，而不是衡量这些模型在单独节点上的性能。但是如果全局模型会在使用之前进行个性化设置的话，那么全局性能就没有意义。</p>
+<p>&emsp;&emsp;个性化模型通常在单节点上的表现能够优于全局模型和本地模型。但是在某些情况下，个性化模型的能力无法达到和本地模型相同的能力，尤其是在差分隐私等情况下。</p>
 <h2 id="2、2019年底大佬们综述：联邦学习的进展和开放问题"><a href="#2、2019年底大佬们综述：联邦学习的进展和开放问题" class="headerlink" title="2、2019年底大佬们综述：联邦学习的进展和开放问题"></a>2、2019年底大佬们综述：联邦学习的进展和开放问题</h2><p>中文by <a href="https://xwzheng.gitbook.io/fl" target="_blank" rel="noopener">https://xwzheng.gitbook.io/fl</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Kairouz, Peter, H. Brendan McMahan, Brendan Avent, Aurélien Bellet, Mehdi Bennis, Arjun Nitin Bhagoji, Keith Bonawitz, 等. </span><br><span class="line">《Advances and Open Problems <span class="keyword">in</span> Federated Learning》. arXiv:1912.04977, 2019年12月10日. </span><br><span class="line">http://arxiv.org/abs/1912.04977.</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-3-3-本地微调和元学习"><a href="#3-3-3-本地微调和元学习" class="headerlink" title="3.3.3 本地微调和元学习"></a>3.3.3 本地微调和元学习</h3><p>本地微调，我们指的是通过联邦学习训练单个模型，然后将模型部署到所有的客户端中，并在被用于推断前使用本地的数据集通过额外的训练达到个性化的效果。 这种方法自然地融入了联邦学习模型的通常的生命周期（第1.1.1节）。仍然可以在每轮（例如，100秒）中仅使用少量客户样本进行全球模型的培训；部署模型后，仅发生一次向所有客户端（例如数百万个）广播全局模型。唯一的区别是，在使用模型对客户进行实时预测之前，会进行最终的训练，从而将模型为本地数据集进行个性化。<br>给定一的性能优异的全局模型，对其进行个性化设置的最佳方法是什么？在非联邦学习中，研究人员经常使用微调、迁移学习、域自适应[284,115,56]或者使用本地个性化的模型进行插值。 当然，例如插值等技术，关键在于联邦学习的背景下保证其相应的学习效果。此外，这些技术通常仅假设一对域（源域和目标域），因此可能会丢失联邦学习的一些较丰富的结构。<br>另一种研究个性化和非个性化的方法是通过元学习来进行，这是一种流行的模型适应设定。 在标准的learning-to-learn（LTL）设置中[52]，它对任务上具有一个元分布，用来学习一个学习算法的样本，例如通过发现参数空间的好的约束。 这实际上很好的对应了第3.1节中讨论的统计设定，其中我们对客户端（任务）$i\sim \mathcal{Q}$进行采样，然后从$\mathcal{P_i}$采样该客户端（任务）的数据。<br>最近，已经开发了一种称为模型不可知元学习（MAML）的算法，即元学习全局模型，它可以仅使用几次局部梯度迭代作为学习适合于给定任务的良好模型的起点。 最值得注意的是，流行的Reptile算法[308]的训练阶段与联邦平均[289]密切相关，即Reptile允许服务器的学习率，并且假设所有客户端都拥有相同数量的数据，但其他都是相同的。Khodaketal等人[234]和Jiang等人[217]探索了FL和MAML之间的联系，并展示了MAML的假设是一个可以被联邦学习用于性化模型的相关框架。其他和差分隐私的关系在[260]中被研究。<br>将FL和MAML的思想相结合的总体方向是相对较新的，存在许多未解决的问题：</p>
 <pre><code>- 监督任务的MAML算法评估主要集中在合成图像分类问题上[252,331]，其中可以通过对图像类别进行下采样来构造无限的人工任务。用于模拟FL实验的现有数据集建模的FL问题（附录A）可以作为MAML算法的现实基准问题。
@@ -128,8 +165,8 @@
 <li>对FedAvg进行改进，采用两阶段的训练和fine-tune进行优化</li>
 <li>发现FedAvg其实本质是一种metalearning算法，用于优化个性化定制的效果，而不是全局模型的优化。<br>如文献1和2中所提及。</li>
 </ol>
-<h2 id="4、更快更好的联合学习功能融合方法FedFusion"><a href="#4、更快更好的联合学习功能融合方法FedFusion" class="headerlink" title="4、更快更好的联合学习功能融合方法FedFusion"></a>4、更快更好的联合学习功能融合方法<strong>FedFusion</strong></h2><p>中文by <a href="https://ereebay.me/posts/58531/" target="_blank" rel="noopener">https://ereebay.me/posts/58531/</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOI:10.1109/ICIP.2019.8803001</span><br><span class="line">Towards Faster and Better Federated Learning: A Feature Fusion Approach</span><br><span class="line">X. Yao, Tianchi Huang, Chenglei Wu, Rui-Xiao Zhang, L. Sun <span class="comment"># 清华</span></span><br><span class="line">Published 2019</span><br><span class="line">2019 IEEE International Conference on Image Processing (ICIP) <span class="comment"># C类会议</span></span><br></pre></td></tr></table></figure><br>Abstract<br>本文主要提出一种特征融合的方式，来加速并且提升联邦学习的性能。<br>Introduction<br>如今许多智能设备依赖于预训练模型，这使得机器的推断能力缺乏个性化和灵活性。与此同时，智能终端同时还产生了大量有效的隐私数据，这些数据能够提升这些模型的个性化能力。联邦学习，一种能够直接在终端上对模型进行训练的一种分布式训练算法解决了这个问题。其中以FedAvg算法为代表的的联邦学习算法有效的缓解了在信息交流上的隐私问题，但是后来也有研究表明，联邦学习仍然存在诸如：计算消耗，模型准确率。</p>
-<p>本文提出了一种融合特征的联邦学习算法<strong>FedFusion</strong>，该算法将global模型和local模型的特征进行融合。本文的主要的三个贡献点：</p>
+<h2 id="4、更快更好的联合学习功能融合方法FedFusion"><a href="#4、更快更好的联合学习功能融合方法FedFusion" class="headerlink" title="4、更快更好的联合学习功能融合方法FedFusion"></a>4、更快更好的联合学习功能融合方法<strong>FedFusion</strong></h2><p>中文by <a href="https://ereebay.me/posts/58531/" target="_blank" rel="noopener">https://ereebay.me/posts/58531/</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DOI:10.1109/ICIP.2019.8803001</span><br><span class="line">Towards Faster and Better Federated Learning: A Feature Fusion Approach</span><br><span class="line">X. Yao, Tianchi Huang, Chenglei Wu, Rui-Xiao Zhang, L. Sun <span class="comment"># 清华</span></span><br><span class="line">Published 2019</span><br><span class="line">2019 IEEE International Conference on Image Processing (ICIP) <span class="comment"># C类会议</span></span><br></pre></td></tr></table></figure><br>Abstract<br>&emsp;&emsp;本文主要提出一种特征融合的方式，来加速并且提升联邦学习的性能。<br>Introduction<br>&emsp;&emsp;如今许多智能设备依赖于预训练模型，这使得机器的推断能力缺乏个性化和灵活性。与此同时，智能终端同时还产生了大量有效的隐私数据，这些数据能够提升这些模型的个性化能力。联邦学习，一种能够直接在终端上对模型进行训练的一种分布式训练算法解决了这个问题。其中以FedAvg算法为代表的的联邦学习算法有效的缓解了在信息交流上的隐私问题，但是后来也有研究表明，联邦学习仍然存在诸如：计算消耗，模型准确率。</p>
+<p>&emsp;&emsp;本文提出了一种融合特征的联邦学习算法<strong>FedFusion</strong>，该算法将global模型和local模型的特征进行融合。本文的主要的三个贡献点：</p>
 <ol>
 <li>引入特征融合机制 </li>
 <li>将本地模型和全局模型的特征以一种有效的并且个性化的方式进行融合 </li>
@@ -137,9 +174,8 @@
 </ol>
 <h2 id="5、个性化联合学习-一种专注的协作方法FedAMP"><a href="#5、个性化联合学习-一种专注的协作方法FedAMP" class="headerlink" title="5、个性化联合学习:一种专注的协作方法FedAMP"></a>5、个性化联合学习:一种专注的协作方法<strong>FedAMP</strong></h2><p>中文by <a href="https://zhuanlan.zhihu.com/p/260776616" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/260776616</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Huang, Yutao, Lingyang Chu, Zirui Zhou, Lanjun Wang, Jiangchuan Liu, Jian Pei和Yong Zhang. <span class="comment"># 华为</span></span><br><span class="line">《Personalized Federated Learning: An Attentive Collaboration Approach》. arXiv:2007.03797, 2020年7月7日. http://arxiv.org/abs/2007.03797.</span><br></pre></td></tr></table></figure><br>摘要：对于物联网/边缘计算的挑战性计算环境，个性化联合学习允许每个客户端通过以隐私保护的方式与其他客户端进行有效协作来训练强大的个性化云模型。 个性化联合学习的性能在很大程度上取决于客户端之间协作的有效性。 但是，当所有客户端的数据均为非IID时，要在不知道客户端数据分布的情况下推断客户端之间的协作关系就很困难。 在本文中，我们建议通过一个名为联邦关注消息传递（FedAMP）的新颖框架来解决此问题，该框架允许每个客户端在不使用全局模型的情况下共同训练自己的个性化云模型。 FedAMP通过反复鼓励具有更多相似模型参数的客户进行更强的协作，从而实现了一种细心的协作机制。 这可以自适应地发现客户端之间的基础协作关系，从而极大地提高了协作效率，并带来了FedAMP的出色性能。 我们建立了凸模型和非凸模型的FedAMP的收敛性，并进一步提出了一种类似于FedAMP框架的启发式方法，以进一步提高其在深层神经网络的联合学习中的性能。 大量的实验证明了我们的方法在处理非IID数据，脏数据和丢弃的客户端方面的优越性能。</p>
 <p>to be continued</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1"><a href="#1" class="headerlink" title="1. "></a>1. </h2><h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
-<li></li>
-<li></li>
+<hr>
+<h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
 <li></li>
 </ol>
 ]]></content>
@@ -551,9 +587,9 @@
         <category>Software</category>
       </categories>
       <tags>
+        <tag>OneDirve</tag>
         <tag>XMind</tag>
         <tag>FolderSync</tag>
-        <tag>OneDirve</tag>
       </tags>
   </entry>
 </search>
