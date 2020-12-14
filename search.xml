@@ -128,10 +128,74 @@
 ]]></content>
       <categories>
         <category>Paper reading</category>
+        <category>行为识别</category>
       </categories>
       <tags>
-        <tag>GAN</tag>
-        <tag>OneDirve</tag>
+        <tag>行为识别</tag>
+        <tag>综述</tag>
+        <tag>Zero Shot Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SLAM预备知识</title>
+    <url>/2020/07/26/note-slam-pre/</url>
+    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
+<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
+<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
+<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
+<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
+<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
+<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
+<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
+<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
+<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
+]]></content>
+      <categories>
+        <category>SLAM</category>
+      </categories>
+      <tags>
+        <tag>SLAM</tag>
+        <tag>notebook</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何做好学术报告</title>
+    <url>/2020/07/28/how_to_do_Academic_report/</url>
+    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
+<blockquote>
+<p>学会高效准确的口头及书面语言表达是一个优秀科学家必须具备的基本能力。<br>这在其他领域，依然是必须具备的基本能力。</p>
+</blockquote>
+<h1 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h1><h2 id="1、对听众，有针对性的准备。"><a href="#1、对听众，有针对性的准备。" class="headerlink" title="1、对听众，有针对性的准备。"></a>1、对听众，有针对性的准备。</h2><p>听众都是你的细分专业领域的人，那么你可以更展示得专业一些。若不是，那么请科普一点，<strong>通俗易懂也是一种能力</strong>。</p>
+<blockquote>
+<p>在准备一个学术报告之前，首先要清楚你的听众是谁，有多少听众，他们的专业领域是什么？如果听众的专业背景五花八门，提示你这个报告不能做的太专业，科普一点效果可能会更好。实际上在我们进行很多项目及工作应聘答辩时，大多时候是大同行作为评委。我的体会是，只有知道了你将要讲给谁听，你才能准备好一场有针对性的报告，让你的报告对大多数的听众都有所收获。我以前在美国做教授期间，曾经做过几次新教授招聘委员会的成员（recruiting committee member）。有一次在一位植物学岗位的应聘者答辩完后，与我同系的一位教授推开了我办公室的门，询问我对应聘者学术报告的印象，我说他讲得很好，非常清楚。没想到这位同事却认为该应聘者讲得一塌糊涂，他说他本以为对这位应聘者报告中提到的一些内容是稍微知道一点的，听完他的报告后他反而彻底弄糊涂了。等到全系教授讨论这位应聘者的资格时，他当然没有太多正面的评价。我还有一次经历，那是在2002年的2月初，我申请了UC Davis果树系一个tenure－track assistant professor公开招聘的位置，拿到面试资格后去Davis应聘，我讲完学术报告后，在系大厅的过道里遇到了一位女教授，她非常感谢我的报告，她说她曾经听过与我同领域一位院士所做的四次报告，对里面的一些概念还是一直没弄懂，听完我的报告，她总算完全弄明白怎么回事了。我后来感觉是因为我讲的更科普，连外行都听懂了，反而让这部分人心生感激，他们感觉到没有浪费时间。所以，我经常对我的学生讲，如果你能让台下的听众都听懂了你的学术报告，他们会很感激你，同时也会觉得他们自己很聪明，但他们不知道是你故意让他们有了这种感觉，这就是驾驭听众的能力。</p>
+</blockquote>
+<h2 id="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"><a href="#2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。" class="headerlink" title="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"></a>2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说<font color="ff0000">“懂”</font>。</h2><blockquote>
+<p>报告的内容要根据所给报告时间的长短来定。我们很多的课题答辩报告，通常只给15分钟时间。常常听到很多人抱怨说这么短的时间我能讲什么呢。时间越短说明越要概括，只能讲重点，少讲废话。5分钟有5分钟报告的做法，15分钟有15分钟的讲法，45分钟又有45分钟的讲法。这就好比一篇科学论文的题目，摘要及正文，摘要概括了正文中的要点，而题目又高度综合了文中的内容。</p>
+</blockquote>
+<h2 id="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"><a href="#3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。" class="headerlink" title="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"></a>3、简洁并<font color="ff0000">“准确”</font>的标题，用好关键词。不懂的关键词要自查学好。</h2><blockquote>
+<p>我认为一场好的报告一定要有好的题目，这个题目一定要越短越好，越高度概括越好，浓缩的才是精华嘛。要让人一看见这个题目就想知道里面的内容，于是吸引很多人来听你的报告。</p>
+</blockquote>
+<h2 id="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"><a href="#4、用好PPT模板，内容简洁，文字不可多。念字是大忌。" class="headerlink" title="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"></a>4、用好PPT模板，内容简洁，文字不可多。念字是大忌。</h2><blockquote>
+<p>一个好的报告还要有一套好的ppt，ppt千万不要做的过于花里胡哨。每张ppt的内容不可多，要简洁，讲的内容才放进去，不讲的内容千万不要放。文字不可太多，太多了就会念，用好关键词就可以了。实际上我还是喜欢白底黑字的ppt，这种搭配对眼睛最舒服。</p>
+</blockquote>
+<h2 id="5、前5张slide，尤为重要。"><a href="#5、前5张slide，尤为重要。" class="headerlink" title="5、前5张slide，尤为重要。"></a>5、前5张slide，尤为重要。</h2><blockquote>
+<p>一场45分钟的报告如果最前面的5张ppt没用好，一半人会立马进入梦乡或思想开小差了，效果一定不好。什么样的效果才是好效果呢，要让听众想如果他也能像你一样做报告就好了，你能成为他心中的榜样，表明你的报告的确很精彩。</p>
+</blockquote>
+<h2 id="6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）"><a href="#6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）" class="headerlink" title="6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）"></a>6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）</h2><blockquote>
+<p>一段难忘经历。我在全系师生面前做的第一场报告是进行了非常充分的准备的。为了让我好好替她争光，也为了好好培养她的第一个Ph. D.学生，她花费了大量的时间教我如何准备一个seminar。首先，我做的每一张ppt她都会提出修改意见，从文字描述，到每张ppt的布局，颜色搭配等。之后，她还让我写了一份15页的讲稿，进行了反复修改，然后她让我反复念，并纠正我发音不正确的单词，让我讲的时候要有声音的起伏。通过5次试讲，最终完全脱稿演讲。她后来对我说，我讲完后，系里很多教授去祝贺她，说她的学生是留学生中讲得最好的一位，祝贺她有这么好的学生。</p>
+<p><strong>万能金句名言：</strong>精心组织、反复修改。充分准备，方能语无伦次，无与伦比的<strong>自信</strong>。</p>
+</blockquote>
+<hr>
+<p>参考：<br>1、<a href="https://mp.weixin.qq.com/s/tTrovn613uvlSSl4JkA6aQ" target="_blank" rel="noopener">黎家教授：如何做好学术报告、写好论文</a></p>
+]]></content>
+      <categories>
+        <category>Meta ability</category>
+      </categories>
+      <tags>
+        <tag>Research</tag>
+        <tag>PPT</tag>
+        <tag>presentation</tag>
       </tags>
   </entry>
   <entry>
@@ -181,86 +245,11 @@
 ]]></content>
       <categories>
         <category>Paper reading</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>Fed Learning</tag>
         <tag>Meta Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/07/18/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a><br><a id="more"></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>如何做好学术报告</title>
-    <url>/2020/07/28/how_to_do_Academic_report/</url>
-    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
-<blockquote>
-<p>学会高效准确的口头及书面语言表达是一个优秀科学家必须具备的基本能力。<br>这在其他领域，依然是必须具备的基本能力。</p>
-</blockquote>
-<h1 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h1><h2 id="1、对听众，有针对性的准备。"><a href="#1、对听众，有针对性的准备。" class="headerlink" title="1、对听众，有针对性的准备。"></a>1、对听众，有针对性的准备。</h2><p>听众都是你的细分专业领域的人，那么你可以更展示得专业一些。若不是，那么请科普一点，<strong>通俗易懂也是一种能力</strong>。</p>
-<blockquote>
-<p>在准备一个学术报告之前，首先要清楚你的听众是谁，有多少听众，他们的专业领域是什么？如果听众的专业背景五花八门，提示你这个报告不能做的太专业，科普一点效果可能会更好。实际上在我们进行很多项目及工作应聘答辩时，大多时候是大同行作为评委。我的体会是，只有知道了你将要讲给谁听，你才能准备好一场有针对性的报告，让你的报告对大多数的听众都有所收获。我以前在美国做教授期间，曾经做过几次新教授招聘委员会的成员（recruiting committee member）。有一次在一位植物学岗位的应聘者答辩完后，与我同系的一位教授推开了我办公室的门，询问我对应聘者学术报告的印象，我说他讲得很好，非常清楚。没想到这位同事却认为该应聘者讲得一塌糊涂，他说他本以为对这位应聘者报告中提到的一些内容是稍微知道一点的，听完他的报告后他反而彻底弄糊涂了。等到全系教授讨论这位应聘者的资格时，他当然没有太多正面的评价。我还有一次经历，那是在2002年的2月初，我申请了UC Davis果树系一个tenure－track assistant professor公开招聘的位置，拿到面试资格后去Davis应聘，我讲完学术报告后，在系大厅的过道里遇到了一位女教授，她非常感谢我的报告，她说她曾经听过与我同领域一位院士所做的四次报告，对里面的一些概念还是一直没弄懂，听完我的报告，她总算完全弄明白怎么回事了。我后来感觉是因为我讲的更科普，连外行都听懂了，反而让这部分人心生感激，他们感觉到没有浪费时间。所以，我经常对我的学生讲，如果你能让台下的听众都听懂了你的学术报告，他们会很感激你，同时也会觉得他们自己很聪明，但他们不知道是你故意让他们有了这种感觉，这就是驾驭听众的能力。</p>
-</blockquote>
-<h2 id="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"><a href="#2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。" class="headerlink" title="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"></a>2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说<font color="ff0000">“懂”</font>。</h2><blockquote>
-<p>报告的内容要根据所给报告时间的长短来定。我们很多的课题答辩报告，通常只给15分钟时间。常常听到很多人抱怨说这么短的时间我能讲什么呢。时间越短说明越要概括，只能讲重点，少讲废话。5分钟有5分钟报告的做法，15分钟有15分钟的讲法，45分钟又有45分钟的讲法。这就好比一篇科学论文的题目，摘要及正文，摘要概括了正文中的要点，而题目又高度综合了文中的内容。</p>
-</blockquote>
-<h2 id="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"><a href="#3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。" class="headerlink" title="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"></a>3、简洁并<font color="ff0000">“准确”</font>的标题，用好关键词。不懂的关键词要自查学好。</h2><blockquote>
-<p>我认为一场好的报告一定要有好的题目，这个题目一定要越短越好，越高度概括越好，浓缩的才是精华嘛。要让人一看见这个题目就想知道里面的内容，于是吸引很多人来听你的报告。</p>
-</blockquote>
-<h2 id="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"><a href="#4、用好PPT模板，内容简洁，文字不可多。念字是大忌。" class="headerlink" title="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"></a>4、用好PPT模板，内容简洁，文字不可多。念字是大忌。</h2><blockquote>
-<p>一个好的报告还要有一套好的ppt，ppt千万不要做的过于花里胡哨。每张ppt的内容不可多，要简洁，讲的内容才放进去，不讲的内容千万不要放。文字不可太多，太多了就会念，用好关键词就可以了。实际上我还是喜欢白底黑字的ppt，这种搭配对眼睛最舒服。</p>
-</blockquote>
-<h2 id="5、前5张slide，尤为重要。"><a href="#5、前5张slide，尤为重要。" class="headerlink" title="5、前5张slide，尤为重要。"></a>5、前5张slide，尤为重要。</h2><blockquote>
-<p>一场45分钟的报告如果最前面的5张ppt没用好，一半人会立马进入梦乡或思想开小差了，效果一定不好。什么样的效果才是好效果呢，要让听众想如果他也能像你一样做报告就好了，你能成为他心中的榜样，表明你的报告的确很精彩。</p>
-</blockquote>
-<h2 id="6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）"><a href="#6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）" class="headerlink" title="6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）"></a>6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）</h2><blockquote>
-<p>一段难忘经历。我在全系师生面前做的第一场报告是进行了非常充分的准备的。为了让我好好替她争光，也为了好好培养她的第一个Ph. D.学生，她花费了大量的时间教我如何准备一个seminar。首先，我做的每一张ppt她都会提出修改意见，从文字描述，到每张ppt的布局，颜色搭配等。之后，她还让我写了一份15页的讲稿，进行了反复修改，然后她让我反复念，并纠正我发音不正确的单词，让我讲的时候要有声音的起伏。通过5次试讲，最终完全脱稿演讲。她后来对我说，我讲完后，系里很多教授去祝贺她，说她的学生是留学生中讲得最好的一位，祝贺她有这么好的学生。</p>
-<p><strong>万能金句名言：</strong>精心组织、反复修改。充分准备，方能语无伦次，无与伦比的<strong>自信</strong>。</p>
-</blockquote>
-<hr>
-<p>参考：<br>1、<a href="https://mp.weixin.qq.com/s/tTrovn613uvlSSl4JkA6aQ" target="_blank" rel="noopener">黎家教授：如何做好学术报告、写好论文</a></p>
-]]></content>
-      <categories>
-        <category>Meta ability</category>
-      </categories>
-      <tags>
-        <tag>Research</tag>
-        <tag>PPT</tag>
-        <tag>presentation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SLAM预备知识</title>
-    <url>/2020/07/26/note-slam-pre/</url>
-    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
-<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
-<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
-<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
-<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
-<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
-<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
-<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
-<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
-<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
-]]></content>
-      <categories>
-        <category>SLAM</category>
-      </categories>
-      <tags>
-        <tag>SLAM</tag>
-        <tag>notebook</tag>
       </tags>
   </entry>
   <entry>
@@ -548,21 +537,6 @@
       </tags>
   </entry>
   <entry>
-    <title>测试hello！</title>
-    <url>/2020/07/19/test1/</url>
-    <content><![CDATA[<p>你好！</p>
-<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
-<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
-]]></content>
-      <categories>
-        <category>测试分类</category>
-      </categories>
-      <tags>
-        <tag>ceshi_tags1</tag>
-        <tag>tags2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>XMind安卓版和PC端同步BY第三方云端</title>
     <url>/2020/08/13/xmind-Android-sync-by-onedrive/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>之前一直使用幕布，由于种种原因（私档泄露、免费版功能已不能满足需求），不想使用此软件了。<br>故转而找替代产品。<br>定位需求是：<br>1、free；<br>2、思维导图基本功能（大纲），能图片更好；<br>3、多端多台（windows+Android）同步。</p>
@@ -587,9 +561,9 @@
         <category>Software</category>
       </categories>
       <tags>
-        <tag>OneDirve</tag>
         <tag>XMind</tag>
         <tag>FolderSync</tag>
+        <tag>OneDirve</tag>
       </tags>
   </entry>
 </search>
