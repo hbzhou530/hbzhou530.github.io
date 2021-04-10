@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>PAPER READING&quot;2020_Wei_Unsupervised Real-world Image Super Resolution via Domain-distance Aware&quot;</title>
+    <url>/2021/04/10/2020-Wei-Unsupervised-Real-world-Image-Super-Resolution-via-Domain-distance-Aware/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Wei, Yunxuan, Shuhang Gu, Yawei Li, and Longcun Jin. </span><br><span class="line">“Unsupervised Real-World Image Super Resolution via Domain-Distance Aware Training.”</span><br><span class="line">ArXiv:2004.01178 [Cs], April 2, 2020. http://arxiv.org/abs/2004.01178.</span><br><span class="line">CVPR-2021</span><br></pre></td></tr></table></figure>
+<p>题目：通过 域距离感知训练 实现 <em>无监督的</em> 真实世界图像超分辨率<br>CVPR-2021 项目页已提<br>code: <a href="https://github.com/ShuhangGu/DASR" target="_blank" rel="noopener">https://github.com/ShuhangGu/DASR</a><br>blog: 一作Yunxuan Wei （华南理工学生，导师<a href="http://www2.scut.edu.cn/sse/2018/0614/c23650a339994/page.htm" target="_blank" rel="noopener">金龙存</a> , 悉尼大学交流生）<br>&emsp;&emsp;二作(<a href="https://shuhanggu.github.io/" target="_blank" rel="noopener">顾舒航</a>, 悉尼大学AP，博后 at ETH Zurich, under the supervision of  Prof. <a href="https://ee.ethz.ch/the-department/faculty/professors/person-detail.OTAyMzM=.TGlzdC80MTEsMTA1ODA0MjU5.html" target="_blank" rel="noopener">Luc Van Gool</a>. )<a href="https://sites.google.com/site/shuhanggu/" target="_blank" rel="noopener">https://sites.google.com/site/shuhanggu/</a></p>
+<p><strong>摘要</strong>：<br>&emsp;&emsp;无监督超分。 现有方法的原理在于增强未配对数据，即首先生成 <em>与真实世界域中LR图像<script type="math/tex">y ^ { r }</script>-（HR）图像<script type="math/tex">x ^ { r }</script>相对应的</em> <strong>合成</strong>低分辨率（LR）图像<script type="math/tex">y ^ { g }</script>；然后利用伪图像对<script type="math/tex">\{ y ^ { g } , x ^ { r } \}</script> 进行监督训练。不幸的是，由于图像迁移本身是一项极具挑战性的任务，因此这些方法的SR性能受到生成的合成LR图像和真实LR图像之间的域间差距的严重限制。<br>在本文中，我们提出了一种无监督的用于现实世界图像SR的新颖的 <strong>域距离感知超分辨率（DASR）</strong>方法。 通过我们的域间差距感知训练和域距离加权监督策略，解决训练数据（<script type="math/tex">y ^ { g }</script>）和测试数据（<script type="math/tex">y ^ { r }</script>）之间的领间差距。 域间差距感知训练充分利用目标域（real）的实际数据；域距离加权监督则更合理使用了有标签的源域（合成）数据。 该方法在合成数据集和真实数据集上得到了验证，实验结果表明，在生成具有更真实自然纹理的SR输出时，DASR始终优于最先进的无监督SR方法。</p>
+<a id="more"></a>
+<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>&emsp;&emsp;然而，现有的无监督SR方法[17,7,38]在SR网络的训练过程中忽略了<script type="math/tex">y ^ { g }</script>和<script type="math/tex">y ^ { r }</script>之间的域差距。在图1中，我们给出了一个可视化的例子来显示：合成LR与真实LR图像之间存在领域间差距。尽管训练有素的下采样网络能够生成比双三次下采样的图像更好的LR图像，但合成LR与真实LR之间仍然存在域间隙。</p>
+<p>&emsp;&emsp;在本文中，我们提出了一种用于现实世界中图像超分辨率的域距离感知超分辨率（DASR）框架。 与以前的非监督方法[7,38,17,24]不同，后者依靠伪对的生成进行监督训练，我们的DASR考虑了生成的图像和真实的LR图像之间的域间隙，即<script type="math/tex">y ^ { g }</script>和<script type="math/tex">y ^ { r }</script>， 并在域自适应机制下用这两个方法解决SR问题。<br><img src="https://i.loli.net/2021/04/10/P4G69vuoMw3tsEQ.png" alt="quicker_87c16169-e9a4-4a1f-8ae2-1739b6af2e60.png"></p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p>主要贡献：两种训练策略（域间差距感知训练和域距离加权监督策略）。另外，采用了更好的下采样网络结构和更好的对抗损失（小波域中）。<br>系统框架如图<br><img src="https://i.loli.net/2021/04/10/zvZJb7owIXpuUfK.png" alt="quicker_7b0d17d7-a221-420f-9b98-35e32c783c57.png"></p>
+<p>其中，<script type="math/tex">y ^ { b }</script>表示bicubic下采样后的LR。<br>我们遵循以前的最先进的方法[17,7,38]，并提出了一个两阶段的方法。 首先，我们训练下采样网络（DSN）从HR图像 生成贴近真实LR域的LR图像：<script type="math/tex">y _ { i } ^ { g } = D S N ( x _ { i } ^ { r } )</script>。 然后，我们利用生成的LR-HR对<script type="math/tex">\{ y _ { i } ^ { g } , x _ { i } ^ { r } \} _ { i  = 1 , \cdots , M}</script>用于训练超分网络（SRN）。</p>
+<h2 id="下采样网络（DSN）"><a href="#下采样网络（DSN）" class="headerlink" title="下采样网络（DSN）"></a>下采样网络（DSN）</h2><p><img src="https://i.loli.net/2021/04/10/7XBflaKePtYFJI3.png" alt="quicker_864587e3-c8f2-493f-8bfc-6baefb57eed8.png"><br>图3（a）下采样网络（DSN）结构 （b）小波变换高频中的对抗损失</p>
+<p><strong>结构</strong>：DSN利用23个残差块从HR图像中提取信息，每个残差块包含两个卷积层(内核大小为3*3，通道为64)，中间有一个ReLU激活。然后，采用双线性调整算子和两个卷积层来降低特征的空间分辨率，并将特征投影回图像域。</p>
+<p>LOSS:</p>
+<script type="math/tex; mode=display">\mathcal{L}_{\text {con }}=\mathbb{E}_{x^{r}}\left\|y_{i}^{b}-D S N\left(x_{i}^{r}\right)\right\|_{1}, \quad \mathcal{L}_{\text {per }}=\mathbb{E}_{x^{r}}\left\|\phi\left(y_{i}^{b}\right)-\phi\left(D S N\left(x_{i}^{r}\right)\right)\right\|_{1}</script><p>perceptual loss 中<script type="math/tex">\phi ( \cdot )</script> 表示VGG 特征提取器（同ESRGAN）。<br><img src="https://i.loli.net/2021/04/10/QwdCkEHceXvVplJ.png" alt="quicker_7751f111-b6f0-40a6-ad46-193b6d9871f2.png"></p>
+<p>与FSSR不同(处理高频特征的对抗损失)：本文使用Haar小波变换来提取更多有用的高频分量。具体地，将由Haar小波变换分解的四个子带分别表示为LL，LH，HL和HH，我们将LH，HL和HH分量堆叠为鉴别器的输入。 与FSSR中使用的高频提取器相比[17]，我们基于小波的提取器还利用方向信息更好地表征图像细节。同时，网络因维度降低，减小了GAN训练的难度。<br>总loss：</p>
+<script type="math/tex; mode=display">L _ { DSN }  = \alpha L _ { c o n }+ \beta L _ { p e r }  + \gamma L _ { a d v } ^ { G }</script><h2 id="SRN的域间差距感知训练"><a href="#SRN的域间差距感知训练" class="headerlink" title="SRN的域间差距感知训练"></a>SRN的域间差距感知训练</h2><p><img src="https://i.loli.net/2021/04/10/BMPbOoV3rf7naIF.png" alt="quicker_90dc52b3-cb9c-4543-a471-ed06d9c1a09c.png"><br>Loss见原文</p>
+<h1 id="合成数据集的实验结果与消融实验"><a href="#合成数据集的实验结果与消融实验" class="headerlink" title="合成数据集的实验结果与消融实验"></a>合成数据集的实验结果与消融实验</h1><h2 id="合成数据集"><a href="#合成数据集" class="headerlink" title="合成数据集"></a>合成数据集</h2><p>采用AIM dataset：used in the AIM Challenge on Real World SR at ICCV 2019 [39].<br>训练集：Flickr2K dataset-2650，DIV2K-800HR<br>验证集：100images，paired<br>结果见表3，可视化见图5。</p>
+<h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><h3 id="数据图像对生成效果-更好的DSN"><a href="#数据图像对生成效果-更好的DSN" class="headerlink" title="数据图像对生成效果 更好的DSN"></a>数据图像对生成效果 更好的DSN</h3><p><img src="https://i.loli.net/2021/04/10/qdpYcw6GatNbVTv.png" alt="quicker_4b4bdc50-7452-4ee7-9e4a-dab2ba854e66.png"><br>Gaussian Blur Frequency Separation (GBFS), Wavelet Frequency Separation (WFS) and RGB indicate the model conducts adversarial training in different spaces: GBFS uses the residual between original and Gaussian blurred images to extract high frequency component, our WFS approach adopts Wavelet transform to obtain high frequency component, RGB means we introduce GAN loss directly on RGB images.</p>
+<h3 id="各组件"><a href="#各组件" class="headerlink" title="各组件"></a>各组件</h3><p><img src="https://i.loli.net/2021/04/10/E8MmpOeVN5K2zvx.png" alt="quicker_27c2b219-07f7-4e9b-8c38-c86dff4a6055.png"></p>
+<h1 id="真实世界数据集的实验"><a href="#真实世界数据集的实验" class="headerlink" title="真实世界数据集的实验"></a>真实世界数据集的实验</h1><h2 id="真实世界数据集"><a href="#真实世界数据集" class="headerlink" title="真实世界数据集"></a>真实世界数据集</h2><p>2个：RealSR [8] (@ ICCV2019)选200LR and CameraSR [9]（City100 @ CVPR2019）选100LR<br>训练时同合成的方法，加入了DIV2K-800HR</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="https://i.loli.net/2021/04/10/WfynIpcDXvUojMi.png" alt="quicker_b5b5d705-f9b7-4262-9c8f-0ec92cd932b1.png"></p>
+<p><img src="https://i.loli.net/2021/04/10/VBepU9fsGah56c2.png" alt="quicker_710ca11d-4d3b-476f-915c-c2922d343d18.png"></p>
+<p><img src="https://i.loli.net/2021/04/10/tJaZEXpN6GVi3Pv.png" alt="quicker_8d0dd79b-8dcb-4207-bae1-d8b79c2cbf7e.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>四问</p>
+<pre><code>1. 作者想要完成什么（已经完成了什么）？
+</code></pre><p>一种无监督的用于现实世界图像SR的新颖的 <strong>域距离感知超分辨率（DASR）</strong>方法。两种训练策略消除LR图像的合成域和真实域的间距。该文在FSSR基础上实现，采用了Haar小波变换 分离出高频信息，优化了对抗损失。</p>
+<pre><code>2. 新方法的关键元素是什么？
+</code></pre><p>两种训练策略消除LR图像的合成域和真实域的间距。该文在FSSR基础上实现，采用了Haar小波变换 分离出高频信息，优化了对抗损失</p>
+<pre><code>3. 对我有用吗？
+</code></pre><p>本文Real world SR 中的基于域适应的方法。  启发 风格迁移用于SR问题（数据集合成、损失LOSS）</p>
+<pre><code>4. 想看他的哪些参考文献？
+</code></pre><p>暂无</p>
+<p>其他疑问：</p>
+<ol>
+<li>未明白 作者的表述pre-trained ESRGAN (P.T. ESRGAN)和supervisely trained ESRGAN (S.T. ESRGAN)</li>
+<li>SRN结构, 估计得从代码上看。可能同FSSR吧</li>
+<li>补充材料未看</li>
+</ol>
+<hr>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>Super resolution</category>
+      </categories>
+      <tags>
+        <tag>Super resolution</tag>
+        <tag>real world</tag>
+        <tag>DASR</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PAPER READING&quot;2019-Wang-Self-Supervised-Spatio-Temporal-Representation-Learning-for-Videos-by-Predicting-Motion-and-Appearance-Statistics&quot;</title>
     <url>/2021/01/04/2019-Wang-Self-Supervised-Spatio-Temporal-Representation-Learning-for-Videos-by-Predicting-Motion-and-Appearance-Statistics/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>Self-Supervised Spatio-temporal Representation Learning for Videos by Predicting Motion and Appearance Statistics</p>
@@ -58,9 +109,9 @@
         <category>Super resolution</category>
       </categories>
       <tags>
+        <tag>Super resolution</tag>
         <tag>GDSR</tag>
         <tag>GAN</tag>
-        <tag>Super resolution</tag>
       </tags>
   </entry>
   <entry>
@@ -115,30 +166,9 @@
         <category>Super resolution</category>
       </categories>
       <tags>
-        <tag>GAN</tag>
         <tag>Super resolution</tag>
+        <tag>GAN</tag>
         <tag>CDGAN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PAPER READING&quot;Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition&quot;</title>
-    <url>/2020/12/30/Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Si, Chenyang, Xuecheng Nie, Wei Wang, Liang Wang, Tieniu Tan, and Jiashi Feng. </span><br><span class="line"><span class="string">"Adversarial Self-Supervised Learning for Semi-Supervised 3D Action Recognition."</span> </span><br><span class="line">In European Conference on Computer Vision, pp. 35-51. Springer, Cham, 2020.</span><br></pre></td></tr></table></figure>
-<p>题目：对抗式自我监督学习，实现半监督3D动作识别<br>ECCV2020<br>一作 司晨阳，中科院自动化所博士生，新加坡国立大学访问学生<br>指导老师：Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item80.shtml" target="_blank" rel="noopener">Tieniu Tan</a>, Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item125.shtml" target="_blank" rel="noopener">Liang Wang</a> and associate Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item118.shtml" target="_blank" rel="noopener">Wei Wang</a><br>web：<a href="http://chenyangsi.top/" target="_blank" rel="noopener">http://chenyangsi.top/</a><br>无code。作者开源代码少。<br><a id="more"></a><br><strong>摘要</strong>：<br>&emsp;&emsp;We consider the problem of semi-supervised <strong>3D action recognition</strong> which has been rarely explored before. Its major challenge lies in how to effectively learn motion representations from unlabeled data. Self-supervised learning (SSL) has been proved very effective at learning representations from unlabeled data in the image domain. However, few effective self-supervised approaches exist for 3D action recognition, and directly applying SSL for semi-supervised learning suffers from misalignment of representations learned from SSL and supervised learning tasks. <strong>To address these issues, we present Adversarial Self-Supervised Learning (ASSL), a novel framework that tightly couples SSL and the semi-supervised scheme via neighbor relation exploration and adversarial learning.</strong> Specifically, we design an effective SSL scheme to improve the discrimination capability of learned representations for 3D action recognition, through exploring the data relations within a neighborhood. We further propose an adversarial regularization to align the feature distributions of labeled and unlabeled samples. To demonstrate effectiveness of the proposed ASSL in semi-supervised 3D action recognition, we conduct extensive experiments on <strong>NTU and N-UCLA datasets</strong>. The results confirm its advantageous performance over state-of-the-art semi-supervised methods in the few label regime for 3D action recognition.</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>3D-Action-Recognition，即，基于骨架的行为识别</li>
-<li>通过邻域关系结合了对抗学习和自监督</li>
-<li>NTU RGB+D dataset 40个人、60个动作类别，56880个样本。三个摄像机在不同水平视角位置同时采集。</li>
-</ol>
-<hr>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>行为识别</category>
-      </categories>
-      <tags>
-        <tag>行为识别</tag>
-        <tag>FSL</tag>
       </tags>
   </entry>
   <entry>
@@ -181,6 +211,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Note &quot;generated_images.clamp_(0., 1.)&quot;</title>
+    <url>/2021/03/31/generated_images.clamp_/</url>
+    <content><![CDATA[<p>just for pin fuction clamp()</p>
+<p>torch.Tensor</p>
+<p>clamp_(min, max) → Tensor<br>clamp() 的in-place运算形式</p>
+<p>torch.clamp<br>torch.clamp(input, min, max, out=None) → Tensor<br>将输入input张量每个元素的夹紧到区间 [min,max]，并返回结果到一个新张量。</p>
+<p>操作定义如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">      | min, <span class="keyword">if</span> x_i &lt; min</span><br><span class="line">y_i = | x_i, <span class="keyword">if</span> min &lt;= x_i &lt;= max</span><br><span class="line">      | max, <span class="keyword">if</span> x_i &gt; max</span><br></pre></td></tr></table></figure>
+<hr>
+]]></content>
+      <categories>
+        <category>Note</category>
+        <category>pytorch</category>
+      </categories>
+      <tags>
+        <tag>pytorch</tag>
+        <tag>fuction</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PAPER READING&quot;ZSL-action-recognition-survey&quot;</title>
     <url>/2020/11/17/ZSL-action-recognition-survey/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Zero-Shot Action Recognition <span class="keyword">in</span> Videos: A Survey</span><br><span class="line">Valter Luís Estevam Junior a,c,, Helio Pedrini b and David Menotti c</span><br><span class="line">a Federal Institute of Paraná, Irati-PR, 84500-000, Brazil</span><br><span class="line">b Universiy of Campinas, Institute of Computing, Campinas-SP, 13083-852, Brazil</span><br><span class="line">c Federal University of Paraná, Department of Informatics, Curitiba-PR, 81531-970, Brazil</span><br><span class="line">https://arxiv.org/abs/1909.06423</span><br></pre></td></tr></table></figure>
@@ -214,6 +264,27 @@
         <tag>行为识别</tag>
         <tag>综述</tag>
         <tag>Zero Shot Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING&quot;Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition&quot;</title>
+    <url>/2020/12/30/Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Si, Chenyang, Xuecheng Nie, Wei Wang, Liang Wang, Tieniu Tan, and Jiashi Feng. </span><br><span class="line"><span class="string">"Adversarial Self-Supervised Learning for Semi-Supervised 3D Action Recognition."</span> </span><br><span class="line">In European Conference on Computer Vision, pp. 35-51. Springer, Cham, 2020.</span><br></pre></td></tr></table></figure>
+<p>题目：对抗式自我监督学习，实现半监督3D动作识别<br>ECCV2020<br>一作 司晨阳，中科院自动化所博士生，新加坡国立大学访问学生<br>指导老师：Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item80.shtml" target="_blank" rel="noopener">Tieniu Tan</a>, Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item125.shtml" target="_blank" rel="noopener">Liang Wang</a> and associate Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item118.shtml" target="_blank" rel="noopener">Wei Wang</a><br>web：<a href="http://chenyangsi.top/" target="_blank" rel="noopener">http://chenyangsi.top/</a><br>无code。作者开源代码少。<br><a id="more"></a><br><strong>摘要</strong>：<br>&emsp;&emsp;We consider the problem of semi-supervised <strong>3D action recognition</strong> which has been rarely explored before. Its major challenge lies in how to effectively learn motion representations from unlabeled data. Self-supervised learning (SSL) has been proved very effective at learning representations from unlabeled data in the image domain. However, few effective self-supervised approaches exist for 3D action recognition, and directly applying SSL for semi-supervised learning suffers from misalignment of representations learned from SSL and supervised learning tasks. <strong>To address these issues, we present Adversarial Self-Supervised Learning (ASSL), a novel framework that tightly couples SSL and the semi-supervised scheme via neighbor relation exploration and adversarial learning.</strong> Specifically, we design an effective SSL scheme to improve the discrimination capability of learned representations for 3D action recognition, through exploring the data relations within a neighborhood. We further propose an adversarial regularization to align the feature distributions of labeled and unlabeled samples. To demonstrate effectiveness of the proposed ASSL in semi-supervised 3D action recognition, we conduct extensive experiments on <strong>NTU and N-UCLA datasets</strong>. The results confirm its advantageous performance over state-of-the-art semi-supervised methods in the few label regime for 3D action recognition.</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>3D-Action-Recognition，即，基于骨架的行为识别</li>
+<li>通过邻域关系结合了对抗学习和自监督</li>
+<li>NTU RGB+D dataset 40个人、60个动作类别，56880个样本。三个摄像机在不同水平视角位置同时采集。</li>
+</ol>
+<hr>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>行为识别</category>
+      </categories>
+      <tags>
+        <tag>行为识别</tag>
+        <tag>FSL</tag>
       </tags>
   </entry>
   <entry>
@@ -265,68 +336,6 @@
       <tags>
         <tag>Fed Learning</tag>
         <tag>Meta Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何做好学术报告</title>
-    <url>/2020/07/28/how_to_do_Academic_report/</url>
-    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
-<blockquote>
-<p>学会高效准确的口头及书面语言表达是一个优秀科学家必须具备的基本能力。<br>这在其他领域，依然是必须具备的基本能力。</p>
-</blockquote>
-<h1 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h1><h2 id="1、对听众，有针对性的准备。"><a href="#1、对听众，有针对性的准备。" class="headerlink" title="1、对听众，有针对性的准备。"></a>1、对听众，有针对性的准备。</h2><p>听众都是你的细分专业领域的人，那么你可以更展示得专业一些。若不是，那么请科普一点，<strong>通俗易懂也是一种能力</strong>。</p>
-<blockquote>
-<p>在准备一个学术报告之前，首先要清楚你的听众是谁，有多少听众，他们的专业领域是什么？如果听众的专业背景五花八门，提示你这个报告不能做的太专业，科普一点效果可能会更好。实际上在我们进行很多项目及工作应聘答辩时，大多时候是大同行作为评委。我的体会是，只有知道了你将要讲给谁听，你才能准备好一场有针对性的报告，让你的报告对大多数的听众都有所收获。我以前在美国做教授期间，曾经做过几次新教授招聘委员会的成员（recruiting committee member）。有一次在一位植物学岗位的应聘者答辩完后，与我同系的一位教授推开了我办公室的门，询问我对应聘者学术报告的印象，我说他讲得很好，非常清楚。没想到这位同事却认为该应聘者讲得一塌糊涂，他说他本以为对这位应聘者报告中提到的一些内容是稍微知道一点的，听完他的报告后他反而彻底弄糊涂了。等到全系教授讨论这位应聘者的资格时，他当然没有太多正面的评价。我还有一次经历，那是在2002年的2月初，我申请了UC Davis果树系一个tenure－track assistant professor公开招聘的位置，拿到面试资格后去Davis应聘，我讲完学术报告后，在系大厅的过道里遇到了一位女教授，她非常感谢我的报告，她说她曾经听过与我同领域一位院士所做的四次报告，对里面的一些概念还是一直没弄懂，听完我的报告，她总算完全弄明白怎么回事了。我后来感觉是因为我讲的更科普，连外行都听懂了，反而让这部分人心生感激，他们感觉到没有浪费时间。所以，我经常对我的学生讲，如果你能让台下的听众都听懂了你的学术报告，他们会很感激你，同时也会觉得他们自己很聪明，但他们不知道是你故意让他们有了这种感觉，这就是驾驭听众的能力。</p>
-</blockquote>
-<h2 id="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"><a href="#2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。" class="headerlink" title="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"></a>2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说<font color="ff0000">“懂”</font>。</h2><blockquote>
-<p>报告的内容要根据所给报告时间的长短来定。我们很多的课题答辩报告，通常只给15分钟时间。常常听到很多人抱怨说这么短的时间我能讲什么呢。时间越短说明越要概括，只能讲重点，少讲废话。5分钟有5分钟报告的做法，15分钟有15分钟的讲法，45分钟又有45分钟的讲法。这就好比一篇科学论文的题目，摘要及正文，摘要概括了正文中的要点，而题目又高度综合了文中的内容。</p>
-</blockquote>
-<h2 id="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"><a href="#3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。" class="headerlink" title="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"></a>3、简洁并<font color="ff0000">“准确”</font>的标题，用好关键词。不懂的关键词要自查学好。</h2><blockquote>
-<p>我认为一场好的报告一定要有好的题目，这个题目一定要越短越好，越高度概括越好，浓缩的才是精华嘛。要让人一看见这个题目就想知道里面的内容，于是吸引很多人来听你的报告。</p>
-</blockquote>
-<h2 id="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"><a href="#4、用好PPT模板，内容简洁，文字不可多。念字是大忌。" class="headerlink" title="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"></a>4、用好PPT模板，内容简洁，文字不可多。念字是大忌。</h2><blockquote>
-<p>一个好的报告还要有一套好的ppt，ppt千万不要做的过于花里胡哨。每张ppt的内容不可多，要简洁，讲的内容才放进去，不讲的内容千万不要放。文字不可太多，太多了就会念，用好关键词就可以了。实际上我还是喜欢白底黑字的ppt，这种搭配对眼睛最舒服。</p>
-</blockquote>
-<h2 id="5、前5张slide，尤为重要。"><a href="#5、前5张slide，尤为重要。" class="headerlink" title="5、前5张slide，尤为重要。"></a>5、前5张slide，尤为重要。</h2><blockquote>
-<p>一场45分钟的报告如果最前面的5张ppt没用好，一半人会立马进入梦乡或思想开小差了，效果一定不好。什么样的效果才是好效果呢，要让听众想如果他也能像你一样做报告就好了，你能成为他心中的榜样，表明你的报告的确很精彩。</p>
-</blockquote>
-<h2 id="6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）"><a href="#6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）" class="headerlink" title="6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）"></a>6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）</h2><blockquote>
-<p>一段难忘经历。我在全系师生面前做的第一场报告是进行了非常充分的准备的。为了让我好好替她争光，也为了好好培养她的第一个Ph. D.学生，她花费了大量的时间教我如何准备一个seminar。首先，我做的每一张ppt她都会提出修改意见，从文字描述，到每张ppt的布局，颜色搭配等。之后，她还让我写了一份15页的讲稿，进行了反复修改，然后她让我反复念，并纠正我发音不正确的单词，让我讲的时候要有声音的起伏。通过5次试讲，最终完全脱稿演讲。她后来对我说，我讲完后，系里很多教授去祝贺她，说她的学生是留学生中讲得最好的一位，祝贺她有这么好的学生。</p>
-<p><strong>万能金句名言：</strong>精心组织、反复修改。充分准备，方能语无伦次，无与伦比的<strong>自信</strong>。</p>
-</blockquote>
-<hr>
-<p>参考：<br>1、<a href="https://mp.weixin.qq.com/s/tTrovn613uvlSSl4JkA6aQ" target="_blank" rel="noopener">黎家教授：如何做好学术报告、写好论文</a></p>
-]]></content>
-      <categories>
-        <category>Meta ability</category>
-      </categories>
-      <tags>
-        <tag>Research</tag>
-        <tag>PPT</tag>
-        <tag>presentation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SLAM预备知识</title>
-    <url>/2020/07/26/note-slam-pre/</url>
-    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
-<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
-<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
-<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
-<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
-<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
-<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
-<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
-<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
-<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
-]]></content>
-      <categories>
-        <category>SLAM</category>
-      </categories>
-      <tags>
-        <tag>SLAM</tag>
-        <tag>notebook</tag>
       </tags>
   </entry>
   <entry>
@@ -608,9 +617,49 @@
         <category>ROS</category>
       </categories>
       <tags>
-        <tag>SLAM</tag>
-        <tag>notebook</tag>
         <tag>ROS</tag>
+        <tag>SLAM</tag>
+        <tag>note</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何做好学术报告</title>
+    <url>/2020/07/28/how_to_do_Academic_report/</url>
+    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>原文开头强调了“提高语言交流能力的重要性”，总结了下句。</p>
+<blockquote>
+<p>学会高效准确的口头及书面语言表达是一个优秀科学家必须具备的基本能力。<br>这在其他领域，依然是必须具备的基本能力。</p>
+</blockquote>
+<h1 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h1><h2 id="1、对听众，有针对性的准备。"><a href="#1、对听众，有针对性的准备。" class="headerlink" title="1、对听众，有针对性的准备。"></a>1、对听众，有针对性的准备。</h2><p>听众都是你的细分专业领域的人，那么你可以更展示得专业一些。若不是，那么请科普一点，<strong>通俗易懂也是一种能力</strong>。</p>
+<blockquote>
+<p>在准备一个学术报告之前，首先要清楚你的听众是谁，有多少听众，他们的专业领域是什么？如果听众的专业背景五花八门，提示你这个报告不能做的太专业，科普一点效果可能会更好。实际上在我们进行很多项目及工作应聘答辩时，大多时候是大同行作为评委。我的体会是，只有知道了你将要讲给谁听，你才能准备好一场有针对性的报告，让你的报告对大多数的听众都有所收获。我以前在美国做教授期间，曾经做过几次新教授招聘委员会的成员（recruiting committee member）。有一次在一位植物学岗位的应聘者答辩完后，与我同系的一位教授推开了我办公室的门，询问我对应聘者学术报告的印象，我说他讲得很好，非常清楚。没想到这位同事却认为该应聘者讲得一塌糊涂，他说他本以为对这位应聘者报告中提到的一些内容是稍微知道一点的，听完他的报告后他反而彻底弄糊涂了。等到全系教授讨论这位应聘者的资格时，他当然没有太多正面的评价。我还有一次经历，那是在2002年的2月初，我申请了UC Davis果树系一个tenure－track assistant professor公开招聘的位置，拿到面试资格后去Davis应聘，我讲完学术报告后，在系大厅的过道里遇到了一位女教授，她非常感谢我的报告，她说她曾经听过与我同领域一位院士所做的四次报告，对里面的一些概念还是一直没弄懂，听完我的报告，她总算完全弄明白怎么回事了。我后来感觉是因为我讲的更科普，连外行都听懂了，反而让这部分人心生感激，他们感觉到没有浪费时间。所以，我经常对我的学生讲，如果你能让台下的听众都听懂了你的学术报告，他们会很感激你，同时也会觉得他们自己很聪明，但他们不知道是你故意让他们有了这种感觉，这就是驾驭听众的能力。</p>
+</blockquote>
+<h2 id="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"><a href="#2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。" class="headerlink" title="2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说“懂”。"></a>2、挑重点，以及重中之重。根据允许PPT的时间，可以做到临场调节。但重点一定要说<font color="ff0000">“懂”</font>。</h2><blockquote>
+<p>报告的内容要根据所给报告时间的长短来定。我们很多的课题答辩报告，通常只给15分钟时间。常常听到很多人抱怨说这么短的时间我能讲什么呢。时间越短说明越要概括，只能讲重点，少讲废话。5分钟有5分钟报告的做法，15分钟有15分钟的讲法，45分钟又有45分钟的讲法。这就好比一篇科学论文的题目，摘要及正文，摘要概括了正文中的要点，而题目又高度综合了文中的内容。</p>
+</blockquote>
+<h2 id="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"><a href="#3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。" class="headerlink" title="3、简洁并“准确”的标题，用好关键词。不懂的关键词要自查学好。"></a>3、简洁并<font color="ff0000">“准确”</font>的标题，用好关键词。不懂的关键词要自查学好。</h2><blockquote>
+<p>我认为一场好的报告一定要有好的题目，这个题目一定要越短越好，越高度概括越好，浓缩的才是精华嘛。要让人一看见这个题目就想知道里面的内容，于是吸引很多人来听你的报告。</p>
+</blockquote>
+<h2 id="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"><a href="#4、用好PPT模板，内容简洁，文字不可多。念字是大忌。" class="headerlink" title="4、用好PPT模板，内容简洁，文字不可多。念字是大忌。"></a>4、用好PPT模板，内容简洁，文字不可多。念字是大忌。</h2><blockquote>
+<p>一个好的报告还要有一套好的ppt，ppt千万不要做的过于花里胡哨。每张ppt的内容不可多，要简洁，讲的内容才放进去，不讲的内容千万不要放。文字不可太多，太多了就会念，用好关键词就可以了。实际上我还是喜欢白底黑字的ppt，这种搭配对眼睛最舒服。</p>
+</blockquote>
+<h2 id="5、前5张slide，尤为重要。"><a href="#5、前5张slide，尤为重要。" class="headerlink" title="5、前5张slide，尤为重要。"></a>5、前5张slide，尤为重要。</h2><blockquote>
+<p>一场45分钟的报告如果最前面的5张ppt没用好，一半人会立马进入梦乡或思想开小差了，效果一定不好。什么样的效果才是好效果呢，要让听众想如果他也能像你一样做报告就好了，你能成为他心中的榜样，表明你的报告的确很精彩。</p>
+</blockquote>
+<h2 id="6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）"><a href="#6、PPT展示漂亮，得益于充分的准备（反复修改-脱稿-试讲-细节）" class="headerlink" title="6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）"></a>6、PPT展示漂亮，得益于充分的准备（反复修改+脱稿+试讲+细节）</h2><blockquote>
+<p>一段难忘经历。我在全系师生面前做的第一场报告是进行了非常充分的准备的。为了让我好好替她争光，也为了好好培养她的第一个Ph. D.学生，她花费了大量的时间教我如何准备一个seminar。首先，我做的每一张ppt她都会提出修改意见，从文字描述，到每张ppt的布局，颜色搭配等。之后，她还让我写了一份15页的讲稿，进行了反复修改，然后她让我反复念，并纠正我发音不正确的单词，让我讲的时候要有声音的起伏。通过5次试讲，最终完全脱稿演讲。她后来对我说，我讲完后，系里很多教授去祝贺她，说她的学生是留学生中讲得最好的一位，祝贺她有这么好的学生。</p>
+<p><strong>万能金句名言：</strong>精心组织、反复修改。充分准备，方能语无伦次，无与伦比的<strong>自信</strong>。</p>
+</blockquote>
+<hr>
+<p>参考：<br>1、<a href="https://mp.weixin.qq.com/s/tTrovn613uvlSSl4JkA6aQ" target="_blank" rel="noopener">黎家教授：如何做好学术报告、写好论文</a></p>
+]]></content>
+      <categories>
+        <category>Meta ability</category>
+      </categories>
+      <tags>
+        <tag>Research</tag>
+        <tag>PPT</tag>
+        <tag>presentation</tag>
       </tags>
   </entry>
   <entry>
@@ -641,6 +690,28 @@
         <tag>XMind</tag>
         <tag>FolderSync</tag>
         <tag>OneDirve</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SLAM预备知识</title>
+    <url>/2020/07/26/note-slam-pre/</url>
+    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
+<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
+<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
+<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
+<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
+<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
+<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
+<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
+<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
+<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
+]]></content>
+      <categories>
+        <category>SLAM</category>
+      </categories>
+      <tags>
+        <tag>SLAM</tag>
+        <tag>notebook</tag>
       </tags>
   </entry>
   <entry>
