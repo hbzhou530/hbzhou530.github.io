@@ -64,6 +64,174 @@
       </tags>
   </entry>
   <entry>
+    <title>PAPER READING&quot;2020_Wei_Unsupervised Real-world Image Super Resolution via Domain-distance Aware&quot;</title>
+    <url>/2021/04/10/2020-Wei-Unsupervised-Real-world-Image-Super-Resolution-via-Domain-distance-Aware/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Wei, Yunxuan, Shuhang Gu, Yawei Li, and Longcun Jin. </span><br><span class="line">“Unsupervised Real-World Image Super Resolution via Domain-Distance Aware Training.”</span><br><span class="line">ArXiv:2004.01178 [Cs], April 2, 2020. http://arxiv.org/abs/2004.01178.</span><br><span class="line">CVPR-2021</span><br></pre></td></tr></table></figure>
+<p>题目：通过 域距离感知训练 实现 <em>无监督的</em> 真实世界图像超分辨率<br>CVPR-2021 项目页已提<br>code: <a href="https://github.com/ShuhangGu/DASR" target="_blank" rel="noopener">https://github.com/ShuhangGu/DASR</a><br>blog: 一作Yunxuan Wei （华南理工学生，导师<a href="http://www2.scut.edu.cn/sse/2018/0614/c23650a339994/page.htm" target="_blank" rel="noopener">金龙存</a> , 悉尼大学交流生）<br>&emsp;&emsp;二作(<a href="https://shuhanggu.github.io/" target="_blank" rel="noopener">顾舒航</a>, 悉尼大学AP，博后 at ETH Zurich, under the supervision of  Prof. <a href="https://ee.ethz.ch/the-department/faculty/professors/person-detail.OTAyMzM=.TGlzdC80MTEsMTA1ODA0MjU5.html" target="_blank" rel="noopener">Luc Van Gool</a>. )<a href="https://sites.google.com/site/shuhanggu/" target="_blank" rel="noopener">https://sites.google.com/site/shuhanggu/</a></p>
+<p><strong>摘要</strong>：<br>&emsp;&emsp;无监督超分。 现有方法的原理在于增强未配对数据，即首先生成 <em>与真实世界域中LR图像<script type="math/tex">y ^ { r }</script>-（HR）图像<script type="math/tex">x ^ { r }</script>相对应的</em> <strong>合成</strong>低分辨率（LR）图像<script type="math/tex">y ^ { g }</script>；然后利用伪图像对<script type="math/tex">\{ y ^ { g } , x ^ { r } \}</script> 进行监督训练。不幸的是，由于图像迁移本身是一项极具挑战性的任务，因此这些方法的SR性能受到生成的合成LR图像和真实LR图像之间的域间差距的严重限制。<br>在本文中，我们提出了一种无监督的用于现实世界图像SR的新颖的 <strong>域距离感知超分辨率（DASR）</strong>方法。 通过我们的域间差距感知训练和域距离加权监督策略，解决训练数据（<script type="math/tex">y ^ { g }</script>）和测试数据（<script type="math/tex">y ^ { r }</script>）之间的领间差距。 域间差距感知训练充分利用目标域（real）的实际数据；域距离加权监督则更合理使用了有标签的源域（合成）数据。 该方法在合成数据集和真实数据集上得到了验证，实验结果表明，在生成具有更真实自然纹理的SR输出时，DASR始终优于最先进的无监督SR方法。</p>
+<a id="more"></a>
+<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>&emsp;&emsp;然而，现有的无监督SR方法[17,7,38]在SR网络的训练过程中忽略了<script type="math/tex">y ^ { g }</script>和<script type="math/tex">y ^ { r }</script>之间的域差距。在图1中，我们给出了一个可视化的例子来显示：合成LR与真实LR图像之间存在领域间差距。尽管训练有素的下采样网络能够生成比双三次下采样的图像更好的LR图像，但合成LR与真实LR之间仍然存在域间隙。</p>
+<p>&emsp;&emsp;在本文中，我们提出了一种用于现实世界中图像超分辨率的域距离感知超分辨率（DASR）框架。 与以前的非监督方法[7,38,17,24]不同，后者依靠伪对的生成进行监督训练，我们的DASR考虑了生成的图像和真实的LR图像之间的域间隙，即<script type="math/tex">y ^ { g }</script>和<script type="math/tex">y ^ { r }</script>， 并在域自适应机制下用这两个方法解决SR问题。<br><img src="https://i.loli.net/2021/04/10/P4G69vuoMw3tsEQ.png" alt="quicker_87c16169-e9a4-4a1f-8ae2-1739b6af2e60.png"></p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p>主要贡献：两种训练策略（域间差距感知训练和域距离加权监督策略）。另外，采用了更好的下采样网络结构和更好的对抗损失（小波域中）。<br>系统框架如图<br><img src="https://i.loli.net/2021/04/10/zvZJb7owIXpuUfK.png" alt="quicker_7b0d17d7-a221-420f-9b98-35e32c783c57.png"></p>
+<p>其中，<script type="math/tex">y ^ { b }</script>表示bicubic下采样后的LR。<br>我们遵循以前的最先进的方法[17,7,38]，并提出了一个两阶段的方法。 首先，我们训练下采样网络（DSN）从HR图像 生成贴近真实LR域的LR图像：<script type="math/tex">y _ { i } ^ { g } = D S N ( x _ { i } ^ { r } )</script>。 然后，我们利用生成的LR-HR对<script type="math/tex">\{ y _ { i } ^ { g } , x _ { i } ^ { r } \} _ { i  = 1 , \cdots , M}</script>用于训练超分网络（SRN）。</p>
+<h2 id="下采样网络（DSN）"><a href="#下采样网络（DSN）" class="headerlink" title="下采样网络（DSN）"></a>下采样网络（DSN）</h2><p><img src="https://i.loli.net/2021/04/10/7XBflaKePtYFJI3.png" alt="quicker_864587e3-c8f2-493f-8bfc-6baefb57eed8.png"><br>图3（a）下采样网络（DSN）结构 （b）小波变换高频中的对抗损失</p>
+<p><strong>结构</strong>：DSN利用23个残差块从HR图像中提取信息，每个残差块包含两个卷积层(内核大小为3*3，通道为64)，中间有一个ReLU激活。然后，采用双线性调整算子和两个卷积层来降低特征的空间分辨率，并将特征投影回图像域。</p>
+<p>LOSS:</p>
+<script type="math/tex; mode=display">\mathcal{L}_{\text {con }}=\mathbb{E}_{x^{r}}\left\|y_{i}^{b}-D S N\left(x_{i}^{r}\right)\right\|_{1}, \quad \mathcal{L}_{\text {per }}=\mathbb{E}_{x^{r}}\left\|\phi\left(y_{i}^{b}\right)-\phi\left(D S N\left(x_{i}^{r}\right)\right)\right\|_{1}</script><p>perceptual loss 中<script type="math/tex">\phi ( \cdot )</script> 表示VGG 特征提取器（同ESRGAN）。<br><img src="https://i.loli.net/2021/04/10/QwdCkEHceXvVplJ.png" alt="quicker_7751f111-b6f0-40a6-ad46-193b6d9871f2.png"></p>
+<p>与FSSR不同(处理高频特征的对抗损失)：本文使用Haar小波变换来提取更多有用的高频分量。具体地，将由Haar小波变换分解的四个子带分别表示为LL，LH，HL和HH，我们将LH，HL和HH分量堆叠为鉴别器的输入。 与FSSR中使用的高频提取器相比[17]，我们基于小波的提取器还利用方向信息更好地表征图像细节。同时，网络因维度降低，减小了GAN训练的难度。<br>总loss：</p>
+<script type="math/tex; mode=display">L _ { DSN }  = \alpha L _ { c o n }+ \beta L _ { p e r }  + \gamma L _ { a d v } ^ { G }</script><h2 id="SRN的域间差距感知训练"><a href="#SRN的域间差距感知训练" class="headerlink" title="SRN的域间差距感知训练"></a>SRN的域间差距感知训练</h2><p><img src="https://i.loli.net/2021/04/10/BMPbOoV3rf7naIF.png" alt="quicker_90dc52b3-cb9c-4543-a471-ed06d9c1a09c.png"><br>Loss见原文</p>
+<h1 id="合成数据集的实验结果与消融实验"><a href="#合成数据集的实验结果与消融实验" class="headerlink" title="合成数据集的实验结果与消融实验"></a>合成数据集的实验结果与消融实验</h1><h2 id="合成数据集"><a href="#合成数据集" class="headerlink" title="合成数据集"></a>合成数据集</h2><p>采用AIM dataset：used in the AIM Challenge on Real World SR at ICCV 2019 [39].<br>训练集：Flickr2K dataset-2650，DIV2K-800HR<br>验证集：100images，paired<br>结果见表3，可视化见图5。</p>
+<h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><h3 id="数据图像对生成效果-更好的DSN"><a href="#数据图像对生成效果-更好的DSN" class="headerlink" title="数据图像对生成效果 更好的DSN"></a>数据图像对生成效果 更好的DSN</h3><p><img src="https://i.loli.net/2021/04/10/qdpYcw6GatNbVTv.png" alt="quicker_4b4bdc50-7452-4ee7-9e4a-dab2ba854e66.png"><br>Gaussian Blur Frequency Separation (GBFS), Wavelet Frequency Separation (WFS) and RGB indicate the model conducts adversarial training in different spaces: GBFS uses the residual between original and Gaussian blurred images to extract high frequency component, our WFS approach adopts Wavelet transform to obtain high frequency component, RGB means we introduce GAN loss directly on RGB images.</p>
+<h3 id="各组件"><a href="#各组件" class="headerlink" title="各组件"></a>各组件</h3><p><img src="https://i.loli.net/2021/04/10/E8MmpOeVN5K2zvx.png" alt="quicker_27c2b219-07f7-4e9b-8c38-c86dff4a6055.png"></p>
+<h1 id="真实世界数据集的实验"><a href="#真实世界数据集的实验" class="headerlink" title="真实世界数据集的实验"></a>真实世界数据集的实验</h1><h2 id="真实世界数据集"><a href="#真实世界数据集" class="headerlink" title="真实世界数据集"></a>真实世界数据集</h2><p>2个：RealSR [8] (@ ICCV2019)选200LR and CameraSR [9]（City100 @ CVPR2019）选100LR<br>训练时同合成的方法，加入了DIV2K-800HR</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="https://i.loli.net/2021/04/10/WfynIpcDXvUojMi.png" alt="quicker_b5b5d705-f9b7-4262-9c8f-0ec92cd932b1.png"></p>
+<p><img src="https://i.loli.net/2021/04/10/VBepU9fsGah56c2.png" alt="quicker_710ca11d-4d3b-476f-915c-c2922d343d18.png"></p>
+<p><img src="https://i.loli.net/2021/04/10/tJaZEXpN6GVi3Pv.png" alt="quicker_8d0dd79b-8dcb-4207-bae1-d8b79c2cbf7e.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>四问</p>
+<pre><code>1. 作者想要完成什么（已经完成了什么）？
+</code></pre><p>一种无监督的用于现实世界图像SR的新颖的 <strong>域距离感知超分辨率（DASR）</strong>方法。两种训练策略消除LR图像的合成域和真实域的间距。该文在FSSR基础上实现，采用了Haar小波变换 分离出高频信息，优化了对抗损失。</p>
+<pre><code>2. 新方法的关键元素是什么？
+</code></pre><p>两种训练策略消除LR图像的合成域和真实域的间距。该文在FSSR基础上实现，采用了Haar小波变换 分离出高频信息，优化了对抗损失</p>
+<pre><code>3. 对我有用吗？
+</code></pre><p>本文Real world SR 中的基于域适应的方法。  启发 风格迁移用于SR问题（数据集合成、损失LOSS）</p>
+<pre><code>4. 想看他的哪些参考文献？
+</code></pre><p>暂无</p>
+<p>其他疑问：</p>
+<ol>
+<li>未明白 作者的表述pre-trained ESRGAN (P.T. ESRGAN)和supervisely trained ESRGAN (S.T. ESRGAN)</li>
+<li>SRN结构, 估计得从代码上看。可能同FSSR吧</li>
+<li>补充材料未看</li>
+</ol>
+<hr>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>Super resolution</category>
+      </categories>
+      <tags>
+        <tag>Super resolution</tag>
+        <tag>real world</tag>
+        <tag>DASR</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING&quot;Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition&quot;</title>
+    <url>/2020/12/30/Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Si, Chenyang, Xuecheng Nie, Wei Wang, Liang Wang, Tieniu Tan, and Jiashi Feng. </span><br><span class="line"><span class="string">"Adversarial Self-Supervised Learning for Semi-Supervised 3D Action Recognition."</span> </span><br><span class="line">In European Conference on Computer Vision, pp. 35-51. Springer, Cham, 2020.</span><br></pre></td></tr></table></figure>
+<p>题目：对抗式自我监督学习，实现半监督3D动作识别<br>ECCV2020<br>一作 司晨阳，中科院自动化所博士生，新加坡国立大学访问学生<br>指导老师：Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item80.shtml" target="_blank" rel="noopener">Tieniu Tan</a>, Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item125.shtml" target="_blank" rel="noopener">Liang Wang</a> and associate Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item118.shtml" target="_blank" rel="noopener">Wei Wang</a><br>web：<a href="http://chenyangsi.top/" target="_blank" rel="noopener">http://chenyangsi.top/</a><br>无code。作者开源代码少。<br><a id="more"></a><br><strong>摘要</strong>：<br>&emsp;&emsp;We consider the problem of semi-supervised <strong>3D action recognition</strong> which has been rarely explored before. Its major challenge lies in how to effectively learn motion representations from unlabeled data. Self-supervised learning (SSL) has been proved very effective at learning representations from unlabeled data in the image domain. However, few effective self-supervised approaches exist for 3D action recognition, and directly applying SSL for semi-supervised learning suffers from misalignment of representations learned from SSL and supervised learning tasks. <strong>To address these issues, we present Adversarial Self-Supervised Learning (ASSL), a novel framework that tightly couples SSL and the semi-supervised scheme via neighbor relation exploration and adversarial learning.</strong> Specifically, we design an effective SSL scheme to improve the discrimination capability of learned representations for 3D action recognition, through exploring the data relations within a neighborhood. We further propose an adversarial regularization to align the feature distributions of labeled and unlabeled samples. To demonstrate effectiveness of the proposed ASSL in semi-supervised 3D action recognition, we conduct extensive experiments on <strong>NTU and N-UCLA datasets</strong>. The results confirm its advantageous performance over state-of-the-art semi-supervised methods in the few label regime for 3D action recognition.</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>3D-Action-Recognition，即，基于骨架的行为识别</li>
+<li>通过邻域关系结合了对抗学习和自监督</li>
+<li>NTU RGB+D dataset 40个人、60个动作类别，56880个样本。三个摄像机在不同水平视角位置同时采集。</li>
+</ol>
+<hr>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>行为识别</category>
+      </categories>
+      <tags>
+        <tag>行为识别</tag>
+        <tag>FSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING 2020_Lei_Coupled Adversarial Training for Remote Sensing Image Super-Resolution</title>
+    <url>/2020/08/17/2020_Lei_Coupled-Adversarial-Training/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">article&#123;leiCoupledAdversarialTraining2020,</span><br><span class="line">  title = &#123;Coupled &#123;&#123;Adversarial Training&#125;&#125; <span class="keyword">for</span> &#123;&#123;Remote Sensing Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Lei, Sen and Shi, Zhenwei and Zou, Zhengxia&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  month = may,</span><br><span class="line">  volume = &#123;58&#125;,</span><br><span class="line">  pages = &#123;3633--3643&#125;,</span><br><span class="line">  issn = &#123;1558-0644&#125;,</span><br><span class="line">  doi = &#123;10.1109/TGRS.2019.2959020&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  number = &#123;5&#125;</span><br></pre></td></tr></table></figure>
+<p>题目：结合对抗训练进行遥感影像超分辨率<br>JCRQ1/中科院1区<br>指导老师：史振威，北航宇航学院<br>group web：<a href="http://levir.buaa.edu.cn/" target="_blank" rel="noopener">http://levir.buaa.edu.cn/</a><br>无code。</p>
+<p>摘要：<br>生成对抗网络（GAN）在最近的自然图像超分辨率任务中取得了巨大进展，其成功的关键是集成了一个鉴别器，该鉴别器经过训练可以对输入是真实的高分辨率（HR）图像还是生成的图像进行分类。可以说，学习强大的判别先验对于生成高质量图像至关重要。然而，通过广泛的统计分析，我们发现，遥感图像中的低频分量比自然图像更多，这可能会导致“判别器歧义”问题，即在处理这些低频分量多的图像时，辨别器将“困惑”于判断其输入是真实的还是非真实的，因此，生成的HR图像质量可能会受到严重影响。为了解决这个问题，我们提出了一种新颖的基于GAN的超分辨率算法，称为<strong>耦合鉴别GAN（CDGAN）</strong>，用于遥感图像。与以前的基于GAN的超分辨率模型不同，鉴别器一次获取一张图像；在该模型中，该鉴别器经过专门设计，可以获取一对图像：生成的图像及其HR GT，以便更好地区分输入。我们进一步介绍了<strong>双路径网络架构，随机门和耦合对抗损失</strong>，以更好地学习判别结果与输入样本对之间的对应关系。在两个公共数据集上的实验结果表明，与其他现有技术相比，我们的模型在视觉外观和局部细节方面都可以获得更准确的超分辨率结果。<em>我们的代码将公开提供。（暂时还没公布）</em></p>
+<a id="more"></a>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>遥感图像使用GAN的“判别器歧义”问题：<br>遥感图像很难直接判别。e.g.沙漠和海滩的遥感图像，高频信息和局部细节很少，其HR和LR图相差无几。</p>
+<blockquote>
+<p>在遥感图像中，我们通过广泛的统计分析发现，与自然图像相比，例如沙漠和海滩地区，存在更多的平坦区域和更多的低频图像成分。</p>
+<blockquote>
+<p>However, in remote sensing images, we discoverthrough extensive statistical analysis that there are more flatregions and more low-frequency image components than thenatural images, e.g., the areas of the desert and beach.</p>
+</blockquote>
+</blockquote>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><h2 id="总结构"><a href="#总结构" class="headerlink" title="总结构"></a>总结构</h2><p>生成器借鉴了SRGAN、EDSR、ESRGAN的结构。总结构见图4（下图）和表I.<br><img src="https://i.loli.net/2020/08/21/rtEzkKGhOM1Je6x.png" alt="image.png"></p>
+<p><strong>耦合判别器</strong>：<br>输入对（SR和GT),先过<strong>随机门</strong>（打乱输入对的顺序，并加顺序标签<script type="math/tex">d_z</script>bool值）。送入双路。<br><img src="https://i.loli.net/2020/08/21/iSeHvONXczCwYI1.png" alt="image.png"></p>
+<p>判别器网络借鉴了DCGAN的结构（所有的pooling层使用步幅卷积，及使用LeakyReLU激活函数）。</p>
+<h2 id="LOSS"><a href="#LOSS" class="headerlink" title="LOSS"></a>LOSS</h2><p>采用<script type="math/tex">L_{ads} + L_{content}</script><br>设置<script type="math/tex">\lambda = 10^4</script> ？？<br><img src="https://i.loli.net/2020/08/23/KeHhBpraq9JcXuz.png" alt="image.png"></p>
+<h2 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h2><p>传统的两阶段，阶段一预训练仅采用均方差loss；阶段二完整loss，迭代训练。</p>
+<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>遥感图像：</p>
+<ol>
+<li>“UCMerced”<a href="http://www.graphnetcloud.cn/1-1" target="_blank" rel="noopener">中科链接</a> <a href="http://weegee.vision.ucmerced.edu/datasets/landuse.html" target="_blank" rel="noopener">官方链接</a>[45] and “WHU-RS19”<a href="http://www.graphnetcloud.cn/1-22" target="_blank" rel="noopener">中科链接</a> [46]<br>40%用于训练，10%用于验证，剩余50%用于测试</li>
+<li>自选 “高分2”数据集 ，作测试。无HR GT。</li>
+</ol>
+<h2 id="评估标准"><a href="#评估标准" class="headerlink" title="评估标准"></a>评估标准</h2><p>PSNR[Python]+perception index (PI)[Matlab]+ Learned Perceptual ImagePatch Similarity (LPIPS) [Python]<br>PI是无需GT的。</p>
+<blockquote>
+<p>The implementation of the evaluation metrics can be found in thefollowing websites. PSNR: <a href="https://github.com/scikit-image/scikit-image" target="_blank" rel="noopener">https://github.com/scikit-image/scikit-image</a>, PI:<a href="https://github.com/roimehrez/PIRM2018" target="_blank" rel="noopener">https://github.com/roimehrez/PIRM2018</a>, LPIPS: <a href="https://github.com/richzhang/PerceptualSimilarity" target="_blank" rel="noopener">https://github.com/richzhang/PerceptualSimilarity</a></p>
+</blockquote>
+<p>对于 “高分2”数据集（无HR GT），使用了另两个无需参考的评价指标NIQE和SSEQ。</p>
+<h2 id="消融研究"><a href="#消融研究" class="headerlink" title="消融研究"></a>消融研究</h2><p><img src="https://i.loli.net/2020/08/23/36lWvQj9BfZHD5N.png" alt="image.png"></p>
+<h2 id="与其他方法的比较"><a href="#与其他方法的比较" class="headerlink" title="与其他方法的比较"></a>与其他方法的比较</h2><p>在UCMerced集和WHU-RS19数据集上，与SRCNN [57]，LGCNet [16]，EDSR [32]，RCAN [58]和SRGAN [25]等一些超分辨率方法进行了比较。<br>图9展示了，在“高分2”数据集（无HR GT）上的比较，则没比较PSNR、PI、LPIPS，使用了另两个无需参考的评价指标NIQE和SSEQ。<br>表V中，我们报告了三个关于模型效率的指标，即模型参数，浮点运算数<script type="math/tex">{FLOP}^2</script>和推理时间（GPU或CPU模式下）。我们使用WHU-RS19数据集来计算FLOPs和推理时间。硬件1080Ti、i7-6700K、32GB RAM。应当指出的是，由于基于GAN的方法的推理时间是由其生成器确定的，因此我们在这里仅列出生成器的参数。如表V所示，尽管CDGAN的参数比SRCNN的大20倍，推理时间要少。（原文这SRCNN比得有点吃亏，应该和SRGAN比。效率方面的结果也是比SRGAN好的）</p>
+<blockquote>
+<p>The model parameters and FLOPs can be counted by the following repository: <a href="https://github.com/Lyken17/pytorch-OpCounter" target="_blank" rel="noopener">https://github.com/Lyken17/pytorch-OpCounter</a></p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/08/23/MKnGzYV5ENA8Usd.png" alt="image.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>针对遥感特定应用缺点“判别器歧义”，<strong>采用成对输入的判别器</strong>，解决了这个问题，特别是遥感图像中的低频区域。</p>
+<ol>
+<li>为了实现，结构上设计了双路径网络架构，随机门。损失函数相应采用耦合对抗损失。</li>
+</ol>
+<hr>
+<h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
+<li>特定域的超分。将超分应用于遥感图像，对其分类计算了实验效果，在LPIPS上，所比较的方法中最优。</li>
+<li>采用成对输入的判别器是创新点。但其中随机门的设计，没有理解作者的用途（原文：To learn better correspondence between the input pair and the discriminative outputs）</li>
+<li>数据集（4：1：5）比例划分。验证和测试的区别在哪。<a href="https://blog.csdn.net/qq_43741312/article/details/96994243" target="_blank" rel="noopener">https://blog.csdn.net/qq_43741312/article/details/96994243</a></li>
+<li>学到的：对于无GT的自然图，采用了NIQE和SSEQ评价，也可采用PI。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>Super resolution</category>
+      </categories>
+      <tags>
+        <tag>GAN</tag>
+        <tag>Super resolution</tag>
+        <tag>CDGAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING&quot;Few-shot-action-recognition-with-permutation-invariant-attention&quot;</title>
+    <url>/2020/12/18/Few-shot-action-recognition-with-permutation-invariant-attention/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@inproceedings&#123;Zhang2020FewShotAR,</span><br><span class="line">  title=&#123;Few-Shot Action Recognition with Permutation-Invariant Attention&#125;,</span><br><span class="line">  author=&#123;Hongguang Zhang and Liyong Zhang and Xiaojuan Qi and Hongdong Li and P. Torr and Piotr Koniusz&#125;,</span><br><span class="line">  booktitle=&#123;ECCV&#125;,</span><br><span class="line">  year=&#123;2020&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>题目：<br>2020ECCV</p>
+<p><strong>摘要</strong>：<br>&emsp;&emsp;我们构建了一个C3D编码器的视频时空块，以捕获短距离的动作模式。这些编码块通过排列不变性池化聚合；使我们的方法具有强大的鲁棒性，能应对变化的动作长度和长期的时间依赖性，这些模式，即使在同一类别的剪辑中，不太可能重复。随后，合并的表征被组合成简单的关系描述符，用于编码所谓的查询和支持片段。最后，将关系描述符输入到比较器，以实现查询和支持片段之间的相似性学习。重要的是，为了在池化中重新计算块贡献的权重，我们利用了时空注意力模块和自我监督。在自然剪辑中(同类别)存在着时间分布的偏移——区分性时间动作热点的位置不同。因此，我们对片段的块进行置换，并将结果的注意区域与非置换片段的类似置换的注意区域进行比对，以训练不改变块(从而不改变长期热点)置换的注意机制。我们的方法优于目前最先进的HMDB51, UCF101,miniMIT数据集</p>
+<a id="more"></a>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>&emsp;&emsp;对于少样本学习问题，尝试的方法有：元学习，通过关系学习进行的鲁棒特征表示法，基于梯度的，对数据集进行生成扩展。<br>相比其他的FSL FOR AR，我们更关注于<strong>鲁棒的关系/相似性特征</strong>，通过<strong>置换不变池化和注意力机制</strong>对短期和长期动作模式进行<strong>时空建模</strong>。<br>研究内容如下：</p>
+<ol>
+<li>表示具有区分性的短期和非重复性长期动作模式，以进行相关/相似性学习;<br>&emsp;&emsp;包含C3D卷积块的编码器可捕获有区分性的短期动作模式;然后，编码后的特征经过置换不变池化(permutation-invariant pooling)，discards long-term non-repetitive dependencies 。最后，将来自关系描述符的池化后的查询/支持表征馈入比较器中。</li>
+<li>在训练样本数量有限的情况下定位时间域上有区别的动作块；<br>&emsp;&emsp;聚合具有相等权重的时空块次优。 因此，我们设计了时空注意单元来有区分地聚合。 在低样本状态下，<strong><em>jigsaw and rotation</em></strong>的自监督有助于训练更具鲁棒性的编码器，比较器和注意力。普通的注意(和/或自我监督)不能完全促进本文所述的时间(或空间)排列的不变性</li>
+<li>处理此类有区分的长期时域分布偏移（即使对于相同类别的剪辑，这些模式也不会重现在相同的时间位置）</li>
+</ol>
+<p>贡献：</p>
+<ol>
+<li>一种鲁棒方法，基于C3D的编码器提取短期依赖特征，生成块表征，随后通过排列不变池化<em>聚合</em>成固定长度表征，形成关系描述符，<em>用于</em>episodic设置[47]中的关系/相似性学习。</li>
+<li>在聚类过程中，时空注意力单元重新分配权重。为了改善在低样本训练时的编码器、比较器、注意力单元，本文通过旋转和时空<em>jigsaws</em>拼图引入时空自监督。</li>
+<li>一种改进的自监督注意力单元。通过在注意力单元的输入上应用诸如拼图和/或旋转之类的增强模式，并使输出与来自注意力单元的未扩增数据的注意力向量系数的增强方式相同，从而进行对齐。 因此，注意力单元被设计成，对于给定的增强动作是不变的。</li>
+<li>提出了新的数据分割方法，以便系统比较few-shot动作识别算法，并适用于现有方法，e.g. 使用不同的pipeline，数据模态形式，数据分割和实验方法的情况下。</li>
+</ol>
+<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><p>&emsp;&emsp;<strong>Few-shot action recognition</strong>[17]使用3D的图映射；[35]使用生成模型；[52]使用带分类器的膨胀网络。[58]提出了复合记忆网络，使用键值记忆关联。ProtoGAN[6]提出了一个GAN模型来生成动作原型，以解决少镜头动作识别问题</p>
+<h2 id="与现有工作比较"><a href="#与现有工作比较" class="headerlink" title="与现有工作比较"></a>与现有工作比较</h2><p>&emsp;&emsp;<br>与[17]不同，本文使用的是视频剪辑而不是3D骨架坐标。与[52]不同的是，我们使用关系/相似度学习，我们的训练/测试类是不相交的。虽然[58]记忆关键值/帧，但我们对短期和长期依赖性进行建模。虽然[6]通过GAN形成动作原型时，我们专注于自我监督的注意力学习和排列不变聚合。</p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p><img src="https://i.loli.net/2020/12/22/hmYuwj26PXv71TM.png" alt="quicker_b44bc96c-1035-424e-a484-96bcf3304b24.png"></p>
+<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><p>为了排除动作识别中常规操作（复杂数据预处理和帧采样步骤）影响，针对每个数据集沿时间模式均匀采样了20帧。<br><img src="https://i.loli.net/2020/12/22/UP2n1gzFqCoXaDO.png" alt="quicker_1a97f88d-75bb-418a-bfc2-699d183c3483.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1-为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。"><a href="#1-为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。" class="headerlink" title="1. 为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。"></a>1. 为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。</h2><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li>PROTOGAN [6]<br>Dwivedi S K, Gupta V, Mitra R, Ahmed S, Jain A. IEEE, 2019. ProtoGAN: Towards Few Shot Learning for Action Recognition[C]//2019 IEEE/CVF International Conference on Computer Vision Workshop (ICCVW). , 2019Seoul, Korea (South): : 1308–1316.</li>
+<li>GenApp [35]<br>Mishra, A., Verma, V.K., Reddy, M.S.K., Arulkumar, S., Rai, P., Mittal, A.: A generative approach to zero-shot and few-shot action recognition. In: WACV (2018)</li>
+<li>CMN [58]<br>Zhu, L., Yang, Y.: Compound memory networks for few-shot video classification. In: ECCV (2018)</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>行为识别</category>
+      </categories>
+      <tags>
+        <tag>行为识别</tag>
+        <tag>FSL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Note-use-ubuntu</title>
     <url>/2022/01/27/Note-use-ubuntu/</url>
     <content><![CDATA[<!-- ---
@@ -135,174 +303,6 @@ Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCg
 <p>应对网络异常中断，使程序执行不受干扰。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nohup python -u train.py &gt; run_lr_02.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup python -u train.py &gt; run_r3.log &amp;</span><br><span class="line"><span class="comment">#CUDA_VISIBLE_DEVICES=1, python train.py</span></span><br></pre></td></tr></table></figure></p>
 <h1 id="问题速查"><a href="#问题速查" class="headerlink" title="问题速查"></a>问题速查</h1><h2 id="连显示器无显示"><a href="#连显示器无显示" class="headerlink" title="连显示器无显示"></a>连显示器无显示</h2><p>因：nvidia-smi，可看到是输出关闭了<br>解：关闭显示服务，重启。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service lightdm stop</span><br></pre></td></tr></table></figure><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service lightdm restart</span><br></pre></td></tr></table></figure></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>PAPER READING&quot;2020_Wei_Unsupervised Real-world Image Super Resolution via Domain-distance Aware&quot;</title>
-    <url>/2021/04/10/2020-Wei-Unsupervised-Real-world-Image-Super-Resolution-via-Domain-distance-Aware/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Wei, Yunxuan, Shuhang Gu, Yawei Li, and Longcun Jin. </span><br><span class="line">“Unsupervised Real-World Image Super Resolution via Domain-Distance Aware Training.”</span><br><span class="line">ArXiv:2004.01178 [Cs], April 2, 2020. http://arxiv.org/abs/2004.01178.</span><br><span class="line">CVPR-2021</span><br></pre></td></tr></table></figure>
-<p>题目：通过 域距离感知训练 实现 <em>无监督的</em> 真实世界图像超分辨率<br>CVPR-2021 项目页已提<br>code: <a href="https://github.com/ShuhangGu/DASR" target="_blank" rel="noopener">https://github.com/ShuhangGu/DASR</a><br>blog: 一作Yunxuan Wei （华南理工学生，导师<a href="http://www2.scut.edu.cn/sse/2018/0614/c23650a339994/page.htm" target="_blank" rel="noopener">金龙存</a> , 悉尼大学交流生）<br>&emsp;&emsp;二作(<a href="https://shuhanggu.github.io/" target="_blank" rel="noopener">顾舒航</a>, 悉尼大学AP，博后 at ETH Zurich, under the supervision of  Prof. <a href="https://ee.ethz.ch/the-department/faculty/professors/person-detail.OTAyMzM=.TGlzdC80MTEsMTA1ODA0MjU5.html" target="_blank" rel="noopener">Luc Van Gool</a>. )<a href="https://sites.google.com/site/shuhanggu/" target="_blank" rel="noopener">https://sites.google.com/site/shuhanggu/</a></p>
-<p><strong>摘要</strong>：<br>&emsp;&emsp;无监督超分。 现有方法的原理在于增强未配对数据，即首先生成 <em>与真实世界域中LR图像<script type="math/tex">y ^ { r }</script>-（HR）图像<script type="math/tex">x ^ { r }</script>相对应的</em> <strong>合成</strong>低分辨率（LR）图像<script type="math/tex">y ^ { g }</script>；然后利用伪图像对<script type="math/tex">\{ y ^ { g } , x ^ { r } \}</script> 进行监督训练。不幸的是，由于图像迁移本身是一项极具挑战性的任务，因此这些方法的SR性能受到生成的合成LR图像和真实LR图像之间的域间差距的严重限制。<br>在本文中，我们提出了一种无监督的用于现实世界图像SR的新颖的 <strong>域距离感知超分辨率（DASR）</strong>方法。 通过我们的域间差距感知训练和域距离加权监督策略，解决训练数据（<script type="math/tex">y ^ { g }</script>）和测试数据（<script type="math/tex">y ^ { r }</script>）之间的领间差距。 域间差距感知训练充分利用目标域（real）的实际数据；域距离加权监督则更合理使用了有标签的源域（合成）数据。 该方法在合成数据集和真实数据集上得到了验证，实验结果表明，在生成具有更真实自然纹理的SR输出时，DASR始终优于最先进的无监督SR方法。</p>
-<a id="more"></a>
-<h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><p>&emsp;&emsp;然而，现有的无监督SR方法[17,7,38]在SR网络的训练过程中忽略了<script type="math/tex">y ^ { g }</script>和<script type="math/tex">y ^ { r }</script>之间的域差距。在图1中，我们给出了一个可视化的例子来显示：合成LR与真实LR图像之间存在领域间差距。尽管训练有素的下采样网络能够生成比双三次下采样的图像更好的LR图像，但合成LR与真实LR之间仍然存在域间隙。</p>
-<p>&emsp;&emsp;在本文中，我们提出了一种用于现实世界中图像超分辨率的域距离感知超分辨率（DASR）框架。 与以前的非监督方法[7,38,17,24]不同，后者依靠伪对的生成进行监督训练，我们的DASR考虑了生成的图像和真实的LR图像之间的域间隙，即<script type="math/tex">y ^ { g }</script>和<script type="math/tex">y ^ { r }</script>， 并在域自适应机制下用这两个方法解决SR问题。<br><img src="https://i.loli.net/2021/04/10/P4G69vuoMw3tsEQ.png" alt="quicker_87c16169-e9a4-4a1f-8ae2-1739b6af2e60.png"></p>
-<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p>主要贡献：两种训练策略（域间差距感知训练和域距离加权监督策略）。另外，采用了更好的下采样网络结构和更好的对抗损失（小波域中）。<br>系统框架如图<br><img src="https://i.loli.net/2021/04/10/zvZJb7owIXpuUfK.png" alt="quicker_7b0d17d7-a221-420f-9b98-35e32c783c57.png"></p>
-<p>其中，<script type="math/tex">y ^ { b }</script>表示bicubic下采样后的LR。<br>我们遵循以前的最先进的方法[17,7,38]，并提出了一个两阶段的方法。 首先，我们训练下采样网络（DSN）从HR图像 生成贴近真实LR域的LR图像：<script type="math/tex">y _ { i } ^ { g } = D S N ( x _ { i } ^ { r } )</script>。 然后，我们利用生成的LR-HR对<script type="math/tex">\{ y _ { i } ^ { g } , x _ { i } ^ { r } \} _ { i  = 1 , \cdots , M}</script>用于训练超分网络（SRN）。</p>
-<h2 id="下采样网络（DSN）"><a href="#下采样网络（DSN）" class="headerlink" title="下采样网络（DSN）"></a>下采样网络（DSN）</h2><p><img src="https://i.loli.net/2021/04/10/7XBflaKePtYFJI3.png" alt="quicker_864587e3-c8f2-493f-8bfc-6baefb57eed8.png"><br>图3（a）下采样网络（DSN）结构 （b）小波变换高频中的对抗损失</p>
-<p><strong>结构</strong>：DSN利用23个残差块从HR图像中提取信息，每个残差块包含两个卷积层(内核大小为3*3，通道为64)，中间有一个ReLU激活。然后，采用双线性调整算子和两个卷积层来降低特征的空间分辨率，并将特征投影回图像域。</p>
-<p>LOSS:</p>
-<script type="math/tex; mode=display">\mathcal{L}_{\text {con }}=\mathbb{E}_{x^{r}}\left\|y_{i}^{b}-D S N\left(x_{i}^{r}\right)\right\|_{1}, \quad \mathcal{L}_{\text {per }}=\mathbb{E}_{x^{r}}\left\|\phi\left(y_{i}^{b}\right)-\phi\left(D S N\left(x_{i}^{r}\right)\right)\right\|_{1}</script><p>perceptual loss 中<script type="math/tex">\phi ( \cdot )</script> 表示VGG 特征提取器（同ESRGAN）。<br><img src="https://i.loli.net/2021/04/10/QwdCkEHceXvVplJ.png" alt="quicker_7751f111-b6f0-40a6-ad46-193b6d9871f2.png"></p>
-<p>与FSSR不同(处理高频特征的对抗损失)：本文使用Haar小波变换来提取更多有用的高频分量。具体地，将由Haar小波变换分解的四个子带分别表示为LL，LH，HL和HH，我们将LH，HL和HH分量堆叠为鉴别器的输入。 与FSSR中使用的高频提取器相比[17]，我们基于小波的提取器还利用方向信息更好地表征图像细节。同时，网络因维度降低，减小了GAN训练的难度。<br>总loss：</p>
-<script type="math/tex; mode=display">L _ { DSN }  = \alpha L _ { c o n }+ \beta L _ { p e r }  + \gamma L _ { a d v } ^ { G }</script><h2 id="SRN的域间差距感知训练"><a href="#SRN的域间差距感知训练" class="headerlink" title="SRN的域间差距感知训练"></a>SRN的域间差距感知训练</h2><p><img src="https://i.loli.net/2021/04/10/BMPbOoV3rf7naIF.png" alt="quicker_90dc52b3-cb9c-4543-a471-ed06d9c1a09c.png"><br>Loss见原文</p>
-<h1 id="合成数据集的实验结果与消融实验"><a href="#合成数据集的实验结果与消融实验" class="headerlink" title="合成数据集的实验结果与消融实验"></a>合成数据集的实验结果与消融实验</h1><h2 id="合成数据集"><a href="#合成数据集" class="headerlink" title="合成数据集"></a>合成数据集</h2><p>采用AIM dataset：used in the AIM Challenge on Real World SR at ICCV 2019 [39].<br>训练集：Flickr2K dataset-2650，DIV2K-800HR<br>验证集：100images，paired<br>结果见表3，可视化见图5。</p>
-<h2 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h2><h3 id="数据图像对生成效果-更好的DSN"><a href="#数据图像对生成效果-更好的DSN" class="headerlink" title="数据图像对生成效果 更好的DSN"></a>数据图像对生成效果 更好的DSN</h3><p><img src="https://i.loli.net/2021/04/10/qdpYcw6GatNbVTv.png" alt="quicker_4b4bdc50-7452-4ee7-9e4a-dab2ba854e66.png"><br>Gaussian Blur Frequency Separation (GBFS), Wavelet Frequency Separation (WFS) and RGB indicate the model conducts adversarial training in different spaces: GBFS uses the residual between original and Gaussian blurred images to extract high frequency component, our WFS approach adopts Wavelet transform to obtain high frequency component, RGB means we introduce GAN loss directly on RGB images.</p>
-<h3 id="各组件"><a href="#各组件" class="headerlink" title="各组件"></a>各组件</h3><p><img src="https://i.loli.net/2021/04/10/E8MmpOeVN5K2zvx.png" alt="quicker_27c2b219-07f7-4e9b-8c38-c86dff4a6055.png"></p>
-<h1 id="真实世界数据集的实验"><a href="#真实世界数据集的实验" class="headerlink" title="真实世界数据集的实验"></a>真实世界数据集的实验</h1><h2 id="真实世界数据集"><a href="#真实世界数据集" class="headerlink" title="真实世界数据集"></a>真实世界数据集</h2><p>2个：RealSR [8] (@ ICCV2019)选200LR and CameraSR [9]（City100 @ CVPR2019）选100LR<br>训练时同合成的方法，加入了DIV2K-800HR</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="https://i.loli.net/2021/04/10/WfynIpcDXvUojMi.png" alt="quicker_b5b5d705-f9b7-4262-9c8f-0ec92cd932b1.png"></p>
-<p><img src="https://i.loli.net/2021/04/10/VBepU9fsGah56c2.png" alt="quicker_710ca11d-4d3b-476f-915c-c2922d343d18.png"></p>
-<p><img src="https://i.loli.net/2021/04/10/tJaZEXpN6GVi3Pv.png" alt="quicker_8d0dd79b-8dcb-4207-bae1-d8b79c2cbf7e.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>四问</p>
-<pre><code>1. 作者想要完成什么（已经完成了什么）？
-</code></pre><p>一种无监督的用于现实世界图像SR的新颖的 <strong>域距离感知超分辨率（DASR）</strong>方法。两种训练策略消除LR图像的合成域和真实域的间距。该文在FSSR基础上实现，采用了Haar小波变换 分离出高频信息，优化了对抗损失。</p>
-<pre><code>2. 新方法的关键元素是什么？
-</code></pre><p>两种训练策略消除LR图像的合成域和真实域的间距。该文在FSSR基础上实现，采用了Haar小波变换 分离出高频信息，优化了对抗损失</p>
-<pre><code>3. 对我有用吗？
-</code></pre><p>本文Real world SR 中的基于域适应的方法。  启发 风格迁移用于SR问题（数据集合成、损失LOSS）</p>
-<pre><code>4. 想看他的哪些参考文献？
-</code></pre><p>暂无</p>
-<p>其他疑问：</p>
-<ol>
-<li>未明白 作者的表述pre-trained ESRGAN (P.T. ESRGAN)和supervisely trained ESRGAN (S.T. ESRGAN)</li>
-<li>SRN结构, 估计得从代码上看。可能同FSSR吧</li>
-<li>补充材料未看</li>
-</ol>
-<hr>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>Super resolution</category>
-      </categories>
-      <tags>
-        <tag>Super resolution</tag>
-        <tag>real world</tag>
-        <tag>DASR</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PAPER READING 2020_Lei_Coupled Adversarial Training for Remote Sensing Image Super-Resolution</title>
-    <url>/2020/08/17/2020_Lei_Coupled-Adversarial-Training/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">article&#123;leiCoupledAdversarialTraining2020,</span><br><span class="line">  title = &#123;Coupled &#123;&#123;Adversarial Training&#125;&#125; <span class="keyword">for</span> &#123;&#123;Remote Sensing Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Lei, Sen and Shi, Zhenwei and Zou, Zhengxia&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  month = may,</span><br><span class="line">  volume = &#123;58&#125;,</span><br><span class="line">  pages = &#123;3633--3643&#125;,</span><br><span class="line">  issn = &#123;1558-0644&#125;,</span><br><span class="line">  doi = &#123;10.1109/TGRS.2019.2959020&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  number = &#123;5&#125;</span><br></pre></td></tr></table></figure>
-<p>题目：结合对抗训练进行遥感影像超分辨率<br>JCRQ1/中科院1区<br>指导老师：史振威，北航宇航学院<br>group web：<a href="http://levir.buaa.edu.cn/" target="_blank" rel="noopener">http://levir.buaa.edu.cn/</a><br>无code。</p>
-<p>摘要：<br>生成对抗网络（GAN）在最近的自然图像超分辨率任务中取得了巨大进展，其成功的关键是集成了一个鉴别器，该鉴别器经过训练可以对输入是真实的高分辨率（HR）图像还是生成的图像进行分类。可以说，学习强大的判别先验对于生成高质量图像至关重要。然而，通过广泛的统计分析，我们发现，遥感图像中的低频分量比自然图像更多，这可能会导致“判别器歧义”问题，即在处理这些低频分量多的图像时，辨别器将“困惑”于判断其输入是真实的还是非真实的，因此，生成的HR图像质量可能会受到严重影响。为了解决这个问题，我们提出了一种新颖的基于GAN的超分辨率算法，称为<strong>耦合鉴别GAN（CDGAN）</strong>，用于遥感图像。与以前的基于GAN的超分辨率模型不同，鉴别器一次获取一张图像；在该模型中，该鉴别器经过专门设计，可以获取一对图像：生成的图像及其HR GT，以便更好地区分输入。我们进一步介绍了<strong>双路径网络架构，随机门和耦合对抗损失</strong>，以更好地学习判别结果与输入样本对之间的对应关系。在两个公共数据集上的实验结果表明，与其他现有技术相比，我们的模型在视觉外观和局部细节方面都可以获得更准确的超分辨率结果。<em>我们的代码将公开提供。（暂时还没公布）</em></p>
-<a id="more"></a>
-<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>遥感图像使用GAN的“判别器歧义”问题：<br>遥感图像很难直接判别。e.g.沙漠和海滩的遥感图像，高频信息和局部细节很少，其HR和LR图相差无几。</p>
-<blockquote>
-<p>在遥感图像中，我们通过广泛的统计分析发现，与自然图像相比，例如沙漠和海滩地区，存在更多的平坦区域和更多的低频图像成分。</p>
-<blockquote>
-<p>However, in remote sensing images, we discoverthrough extensive statistical analysis that there are more flatregions and more low-frequency image components than thenatural images, e.g., the areas of the desert and beach.</p>
-</blockquote>
-</blockquote>
-<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><h2 id="总结构"><a href="#总结构" class="headerlink" title="总结构"></a>总结构</h2><p>生成器借鉴了SRGAN、EDSR、ESRGAN的结构。总结构见图4（下图）和表I.<br><img src="https://i.loli.net/2020/08/21/rtEzkKGhOM1Je6x.png" alt="image.png"></p>
-<p><strong>耦合判别器</strong>：<br>输入对（SR和GT),先过<strong>随机门</strong>（打乱输入对的顺序，并加顺序标签<script type="math/tex">d_z</script>bool值）。送入双路。<br><img src="https://i.loli.net/2020/08/21/iSeHvONXczCwYI1.png" alt="image.png"></p>
-<p>判别器网络借鉴了DCGAN的结构（所有的pooling层使用步幅卷积，及使用LeakyReLU激活函数）。</p>
-<h2 id="LOSS"><a href="#LOSS" class="headerlink" title="LOSS"></a>LOSS</h2><p>采用<script type="math/tex">L_{ads} + L_{content}</script><br>设置<script type="math/tex">\lambda = 10^4</script> ？？<br><img src="https://i.loli.net/2020/08/23/KeHhBpraq9JcXuz.png" alt="image.png"></p>
-<h2 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h2><p>传统的两阶段，阶段一预训练仅采用均方差loss；阶段二完整loss，迭代训练。</p>
-<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>遥感图像：</p>
-<ol>
-<li>“UCMerced”<a href="http://www.graphnetcloud.cn/1-1" target="_blank" rel="noopener">中科链接</a> <a href="http://weegee.vision.ucmerced.edu/datasets/landuse.html" target="_blank" rel="noopener">官方链接</a>[45] and “WHU-RS19”<a href="http://www.graphnetcloud.cn/1-22" target="_blank" rel="noopener">中科链接</a> [46]<br>40%用于训练，10%用于验证，剩余50%用于测试</li>
-<li>自选 “高分2”数据集 ，作测试。无HR GT。</li>
-</ol>
-<h2 id="评估标准"><a href="#评估标准" class="headerlink" title="评估标准"></a>评估标准</h2><p>PSNR[Python]+perception index (PI)[Matlab]+ Learned Perceptual ImagePatch Similarity (LPIPS) [Python]<br>PI是无需GT的。</p>
-<blockquote>
-<p>The implementation of the evaluation metrics can be found in thefollowing websites. PSNR: <a href="https://github.com/scikit-image/scikit-image" target="_blank" rel="noopener">https://github.com/scikit-image/scikit-image</a>, PI:<a href="https://github.com/roimehrez/PIRM2018" target="_blank" rel="noopener">https://github.com/roimehrez/PIRM2018</a>, LPIPS: <a href="https://github.com/richzhang/PerceptualSimilarity" target="_blank" rel="noopener">https://github.com/richzhang/PerceptualSimilarity</a></p>
-</blockquote>
-<p>对于 “高分2”数据集（无HR GT），使用了另两个无需参考的评价指标NIQE和SSEQ。</p>
-<h2 id="消融研究"><a href="#消融研究" class="headerlink" title="消融研究"></a>消融研究</h2><p><img src="https://i.loli.net/2020/08/23/36lWvQj9BfZHD5N.png" alt="image.png"></p>
-<h2 id="与其他方法的比较"><a href="#与其他方法的比较" class="headerlink" title="与其他方法的比较"></a>与其他方法的比较</h2><p>在UCMerced集和WHU-RS19数据集上，与SRCNN [57]，LGCNet [16]，EDSR [32]，RCAN [58]和SRGAN [25]等一些超分辨率方法进行了比较。<br>图9展示了，在“高分2”数据集（无HR GT）上的比较，则没比较PSNR、PI、LPIPS，使用了另两个无需参考的评价指标NIQE和SSEQ。<br>表V中，我们报告了三个关于模型效率的指标，即模型参数，浮点运算数<script type="math/tex">{FLOP}^2</script>和推理时间（GPU或CPU模式下）。我们使用WHU-RS19数据集来计算FLOPs和推理时间。硬件1080Ti、i7-6700K、32GB RAM。应当指出的是，由于基于GAN的方法的推理时间是由其生成器确定的，因此我们在这里仅列出生成器的参数。如表V所示，尽管CDGAN的参数比SRCNN的大20倍，推理时间要少。（原文这SRCNN比得有点吃亏，应该和SRGAN比。效率方面的结果也是比SRGAN好的）</p>
-<blockquote>
-<p>The model parameters and FLOPs can be counted by the following repository: <a href="https://github.com/Lyken17/pytorch-OpCounter" target="_blank" rel="noopener">https://github.com/Lyken17/pytorch-OpCounter</a></p>
-</blockquote>
-<p><img src="https://i.loli.net/2020/08/23/MKnGzYV5ENA8Usd.png" alt="image.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>针对遥感特定应用缺点“判别器歧义”，<strong>采用成对输入的判别器</strong>，解决了这个问题，特别是遥感图像中的低频区域。</p>
-<ol>
-<li>为了实现，结构上设计了双路径网络架构，随机门。损失函数相应采用耦合对抗损失。</li>
-</ol>
-<hr>
-<h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
-<li>特定域的超分。将超分应用于遥感图像，对其分类计算了实验效果，在LPIPS上，所比较的方法中最优。</li>
-<li>采用成对输入的判别器是创新点。但其中随机门的设计，没有理解作者的用途（原文：To learn better correspondence between the input pair and the discriminative outputs）</li>
-<li>数据集（4：1：5）比例划分。验证和测试的区别在哪。<a href="https://blog.csdn.net/qq_43741312/article/details/96994243" target="_blank" rel="noopener">https://blog.csdn.net/qq_43741312/article/details/96994243</a></li>
-<li>学到的：对于无GT的自然图，采用了NIQE和SSEQ评价，也可采用PI。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>Super resolution</category>
-      </categories>
-      <tags>
-        <tag>GAN</tag>
-        <tag>Super resolution</tag>
-        <tag>CDGAN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PAPER READING&quot;Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition&quot;</title>
-    <url>/2020/12/30/Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Si, Chenyang, Xuecheng Nie, Wei Wang, Liang Wang, Tieniu Tan, and Jiashi Feng. </span><br><span class="line"><span class="string">"Adversarial Self-Supervised Learning for Semi-Supervised 3D Action Recognition."</span> </span><br><span class="line">In European Conference on Computer Vision, pp. 35-51. Springer, Cham, 2020.</span><br></pre></td></tr></table></figure>
-<p>题目：对抗式自我监督学习，实现半监督3D动作识别<br>ECCV2020<br>一作 司晨阳，中科院自动化所博士生，新加坡国立大学访问学生<br>指导老师：Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item80.shtml" target="_blank" rel="noopener">Tieniu Tan</a>, Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item125.shtml" target="_blank" rel="noopener">Liang Wang</a> and associate Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item118.shtml" target="_blank" rel="noopener">Wei Wang</a><br>web：<a href="http://chenyangsi.top/" target="_blank" rel="noopener">http://chenyangsi.top/</a><br>无code。作者开源代码少。<br><a id="more"></a><br><strong>摘要</strong>：<br>&emsp;&emsp;We consider the problem of semi-supervised <strong>3D action recognition</strong> which has been rarely explored before. Its major challenge lies in how to effectively learn motion representations from unlabeled data. Self-supervised learning (SSL) has been proved very effective at learning representations from unlabeled data in the image domain. However, few effective self-supervised approaches exist for 3D action recognition, and directly applying SSL for semi-supervised learning suffers from misalignment of representations learned from SSL and supervised learning tasks. <strong>To address these issues, we present Adversarial Self-Supervised Learning (ASSL), a novel framework that tightly couples SSL and the semi-supervised scheme via neighbor relation exploration and adversarial learning.</strong> Specifically, we design an effective SSL scheme to improve the discrimination capability of learned representations for 3D action recognition, through exploring the data relations within a neighborhood. We further propose an adversarial regularization to align the feature distributions of labeled and unlabeled samples. To demonstrate effectiveness of the proposed ASSL in semi-supervised 3D action recognition, we conduct extensive experiments on <strong>NTU and N-UCLA datasets</strong>. The results confirm its advantageous performance over state-of-the-art semi-supervised methods in the few label regime for 3D action recognition.</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>3D-Action-Recognition，即，基于骨架的行为识别</li>
-<li>通过邻域关系结合了对抗学习和自监督</li>
-<li>NTU RGB+D dataset 40个人、60个动作类别，56880个样本。三个摄像机在不同水平视角位置同时采集。</li>
-</ol>
-<hr>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>行为识别</category>
-      </categories>
-      <tags>
-        <tag>行为识别</tag>
-        <tag>FSL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PAPER READING&quot;Few-shot-action-recognition-with-permutation-invariant-attention&quot;</title>
-    <url>/2020/12/18/Few-shot-action-recognition-with-permutation-invariant-attention/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@inproceedings&#123;Zhang2020FewShotAR,</span><br><span class="line">  title=&#123;Few-Shot Action Recognition with Permutation-Invariant Attention&#125;,</span><br><span class="line">  author=&#123;Hongguang Zhang and Liyong Zhang and Xiaojuan Qi and Hongdong Li and P. Torr and Piotr Koniusz&#125;,</span><br><span class="line">  booktitle=&#123;ECCV&#125;,</span><br><span class="line">  year=&#123;2020&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>题目：<br>2020ECCV</p>
-<p><strong>摘要</strong>：<br>&emsp;&emsp;我们构建了一个C3D编码器的视频时空块，以捕获短距离的动作模式。这些编码块通过排列不变性池化聚合；使我们的方法具有强大的鲁棒性，能应对变化的动作长度和长期的时间依赖性，这些模式，即使在同一类别的剪辑中，不太可能重复。随后，合并的表征被组合成简单的关系描述符，用于编码所谓的查询和支持片段。最后，将关系描述符输入到比较器，以实现查询和支持片段之间的相似性学习。重要的是，为了在池化中重新计算块贡献的权重，我们利用了时空注意力模块和自我监督。在自然剪辑中(同类别)存在着时间分布的偏移——区分性时间动作热点的位置不同。因此，我们对片段的块进行置换，并将结果的注意区域与非置换片段的类似置换的注意区域进行比对，以训练不改变块(从而不改变长期热点)置换的注意机制。我们的方法优于目前最先进的HMDB51, UCF101,miniMIT数据集</p>
-<a id="more"></a>
-<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>&emsp;&emsp;对于少样本学习问题，尝试的方法有：元学习，通过关系学习进行的鲁棒特征表示法，基于梯度的，对数据集进行生成扩展。<br>相比其他的FSL FOR AR，我们更关注于<strong>鲁棒的关系/相似性特征</strong>，通过<strong>置换不变池化和注意力机制</strong>对短期和长期动作模式进行<strong>时空建模</strong>。<br>研究内容如下：</p>
-<ol>
-<li>表示具有区分性的短期和非重复性长期动作模式，以进行相关/相似性学习;<br>&emsp;&emsp;包含C3D卷积块的编码器可捕获有区分性的短期动作模式;然后，编码后的特征经过置换不变池化(permutation-invariant pooling)，discards long-term non-repetitive dependencies 。最后，将来自关系描述符的池化后的查询/支持表征馈入比较器中。</li>
-<li>在训练样本数量有限的情况下定位时间域上有区别的动作块；<br>&emsp;&emsp;聚合具有相等权重的时空块次优。 因此，我们设计了时空注意单元来有区分地聚合。 在低样本状态下，<strong><em>jigsaw and rotation</em></strong>的自监督有助于训练更具鲁棒性的编码器，比较器和注意力。普通的注意(和/或自我监督)不能完全促进本文所述的时间(或空间)排列的不变性</li>
-<li>处理此类有区分的长期时域分布偏移（即使对于相同类别的剪辑，这些模式也不会重现在相同的时间位置）</li>
-</ol>
-<p>贡献：</p>
-<ol>
-<li>一种鲁棒方法，基于C3D的编码器提取短期依赖特征，生成块表征，随后通过排列不变池化<em>聚合</em>成固定长度表征，形成关系描述符，<em>用于</em>episodic设置[47]中的关系/相似性学习。</li>
-<li>在聚类过程中，时空注意力单元重新分配权重。为了改善在低样本训练时的编码器、比较器、注意力单元，本文通过旋转和时空<em>jigsaws</em>拼图引入时空自监督。</li>
-<li>一种改进的自监督注意力单元。通过在注意力单元的输入上应用诸如拼图和/或旋转之类的增强模式，并使输出与来自注意力单元的未扩增数据的注意力向量系数的增强方式相同，从而进行对齐。 因此，注意力单元被设计成，对于给定的增强动作是不变的。</li>
-<li>提出了新的数据分割方法，以便系统比较few-shot动作识别算法，并适用于现有方法，e.g. 使用不同的pipeline，数据模态形式，数据分割和实验方法的情况下。</li>
-</ol>
-<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><p>&emsp;&emsp;<strong>Few-shot action recognition</strong>[17]使用3D的图映射；[35]使用生成模型；[52]使用带分类器的膨胀网络。[58]提出了复合记忆网络，使用键值记忆关联。ProtoGAN[6]提出了一个GAN模型来生成动作原型，以解决少镜头动作识别问题</p>
-<h2 id="与现有工作比较"><a href="#与现有工作比较" class="headerlink" title="与现有工作比较"></a>与现有工作比较</h2><p>&emsp;&emsp;<br>与[17]不同，本文使用的是视频剪辑而不是3D骨架坐标。与[52]不同的是，我们使用关系/相似度学习，我们的训练/测试类是不相交的。虽然[58]记忆关键值/帧，但我们对短期和长期依赖性进行建模。虽然[6]通过GAN形成动作原型时，我们专注于自我监督的注意力学习和排列不变聚合。</p>
-<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p><img src="https://i.loli.net/2020/12/22/hmYuwj26PXv71TM.png" alt="quicker_b44bc96c-1035-424e-a484-96bcf3304b24.png"></p>
-<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><p>为了排除动作识别中常规操作（复杂数据预处理和帧采样步骤）影响，针对每个数据集沿时间模式均匀采样了20帧。<br><img src="https://i.loli.net/2020/12/22/UP2n1gzFqCoXaDO.png" alt="quicker_1a97f88d-75bb-418a-bfc2-699d183c3483.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1-为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。"><a href="#1-为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。" class="headerlink" title="1. 为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。"></a>1. 为公平性，提出了一种benchmark数据分割方法，拆分HMDB51、miniMIT、UCF101数据集的类别，并公开在附录中。相比之前的，增加了验证集。集齐了训练集、（交叉）验证集、测试集。</h2><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
-<li>PROTOGAN [6]<br>Dwivedi S K, Gupta V, Mitra R, Ahmed S, Jain A. IEEE, 2019. ProtoGAN: Towards Few Shot Learning for Action Recognition[C]//2019 IEEE/CVF International Conference on Computer Vision Workshop (ICCVW). , 2019Seoul, Korea (South): : 1308–1316.</li>
-<li>GenApp [35]<br>Mishra, A., Verma, V.K., Reddy, M.S.K., Arulkumar, S., Rai, P., Mittal, A.: A generative approach to zero-shot and few-shot action recognition. In: WACV (2018)</li>
-<li>CMN [58]<br>Zhu, L., Yang, Y.: Compound memory networks for few-shot video classification. In: ECCV (2018)</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>行为识别</category>
-      </categories>
-      <tags>
-        <tag>行为识别</tag>
-        <tag>FSL</tag>
-      </tags>
   </entry>
   <entry>
     <title>PAPER READING&quot;ZSL-action-recognition-survey&quot;</title>
@@ -412,6 +412,28 @@ Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCg
       </tags>
   </entry>
   <entry>
+    <title>SLAM预备知识</title>
+    <url>/2020/07/26/note-slam-pre/</url>
+    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
+<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
+<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
+<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
+<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
+<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
+<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
+<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
+<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
+<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
+]]></content>
+      <categories>
+        <category>SLAM</category>
+      </categories>
+      <tags>
+        <tag>SLAM</tag>
+        <tag>notebook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何做好学术报告</title>
     <url>/2020/07/28/how_to_do_Academic_report/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
@@ -449,202 +471,6 @@ Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCg
         <tag>Research</tag>
         <tag>PPT</tag>
         <tag>presentation</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>测试hello！</title>
-    <url>/2020/07/19/test1/</url>
-    <content><![CDATA[<p>你好！</p>
-<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
-<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
-]]></content>
-      <categories>
-        <category>测试分类</category>
-      </categories>
-      <tags>
-        <tag>ceshi_tags1</tag>
-        <tag>tags2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SLAM预备知识</title>
-    <url>/2020/07/26/note-slam-pre/</url>
-    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
-<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
-<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
-<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
-<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
-<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
-<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
-<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
-<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
-<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
-]]></content>
-      <categories>
-        <category>SLAM</category>
-      </categories>
-      <tags>
-        <tag>SLAM</tag>
-        <tag>notebook</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Useful Links for Scholar</title>
-    <url>/2022/03/21/useful-links-SC/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>&emsp;&emsp;记录一些有用的Link。</p>
-<h2 id="查文献"><a href="#查文献" class="headerlink" title="查文献"></a>查文献</h2><h3 id="常用的"><a href="#常用的" class="headerlink" title="常用的"></a>常用的</h3><ol>
-<li><a href="https://www.semanticscholar.org/" target="_blank" rel="noopener">Semantic Scholar</a><br>常用1</li>
-<li><a href="https://www.connectedpapers.com/" target="_blank" rel="noopener">Connected Papers</a><br>图形化地查一篇文章的引用与被引。</li>
-<li><p><a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a><br>常用2。打不开？！见后面5个镜像站：</p>
-<ul>
-<li><a href="https://ac.scmor.com/" target="_blank" rel="noopener">谷歌学术镜像和其他资源</a></li>
-<li><a href="https://scholar.chongbuluo.com/" target="_blank" rel="noopener">学术搜索 - 虫部落</a></li>
-<li><a href="https://sc.panda321.com/" target="_blank" rel="noopener">熊猫学术-Google scholar</a></li>
-<li><a href="https://www.library.ac.cn/" target="_blank" rel="noopener">Mirror List</a></li>
-<li><a href="https://gfsoso.99lb.net/" target="_blank" rel="noopener">谷粉学术</a></li>
-</ul>
-</li>
-<li><p><a href="https://arxiv.org/" target="_blank" rel="noopener">arXiv官网</a><br>常用3。没发表和即将发表的论文提前看</p>
-</li>
-<li><a href="http://xxx.itp.ac.cn/" target="_blank" rel="noopener">cn.arxiv</a><br>arXiv国内镜像站</li>
-<li><a href="http://www.arxiv-sanity.com/" target="_blank" rel="noopener"><del>Arxiv更友好的展示 | Sanity</del></a><br>疑似停站</li>
-<li><a href="https://arxiv-sanity-lite.com/" target="_blank" rel="noopener">arxiv-sanity Lite版</a><br>换种视角来逛arXiv，支持订阅</li>
-<li><a href="https://paperswithcode.com/" target="_blank" rel="noopener">Papers With Code</a><br>Paper连接Code，（数据集）榜单，Task。</li>
-</ol>
-<a id="more"></a>
-<h3 id="会议集官网"><a href="#会议集官网" class="headerlink" title="会议集官网"></a>会议集官网</h3><ol>
-<li><a href="https://openaccess.thecvf.com/menu" target="_blank" rel="noopener">CVPR+ICCV+WACV</a></li>
-<li><a href="https://www.ecva.net/index.php" target="_blank" rel="noopener">ECCV的总集 | ECVA</a></li>
-<li><a href="https://www.aaai.org/Library/AAAI/aaai-library.php" target="_blank" rel="noopener">AAAI官网</a></li>
-<li><a href="https://proceedings.neurips.cc/" target="_blank" rel="noopener">NeurIPS官方论文集</a></li>
-<li><a href="https://openreview.net/" target="_blank" rel="noopener">OpenReview</a><br>部分会议在此公开Review全过程</li>
-</ol>
-<h3 id="专利"><a href="#专利" class="headerlink" title="专利"></a>专利</h3><ol>
-<li><a href="http://www.soopat.com/" target="_blank" rel="noopener">SooPAT 专利搜索（优选2）</a></li>
-<li><a href="http://www.innojoy.com/search/home.html" target="_blank" rel="noopener">专利查询（优选1）</a></li>
-<li><a href="https://www.drugfuture.com/cnpat/cn_patent.asp" target="_blank" rel="noopener"><del>中国专利下载</del></a></li>
-</ol>
-<h3 id="会议排名"><a href="#会议排名" class="headerlink" title="会议排名"></a>会议排名</h3><ol>
-<li><a href="https://www.guide2research.com/topconf/" target="_blank" rel="noopener">Top Conferences -Ranking</a><br>计算机科学相关会议排名。自开发一个油猴插件（<a href="https://wx.mail.qq.com/ftn/download?func=3&amp;key=c8994c658b45ef2cfaea1765633862380c633965613862381249085d525e005a5254145054095b1503570e564c015b0d0e4b0b00555c040f53020956035a463874095703416b07594505513a15590f485214540a0f53074168155a170848164b191c5015758254e576fb68fda223815d862523edea92f946cf&amp;code=7f9ea8b8&amp;k=c8994c658b45ef2cfaea1765633862380c633965613862381249085d525e005a5254145054095b1503570e564c015b0d0e4b0b00555c040f53020956035a463874095703416b07594505513a15590f485214540a0f53074168155a170848164b191c5015758254e576fb68fda223815d862523edea92f946cf&amp;fweb=1&amp;cl=1" target="_blank" rel="noopener">Conf Search_tampermonkey_scripts.zip</a>），在这个页面增加搜索功能。</li>
-<li><a href="http://www.conferenceranks.com/" target="_blank" rel="noopener">Conference Ranks</a></li>
-</ol>
-<h3 id="会议截稿时间"><a href="#会议截稿时间" class="headerlink" title="会议截稿时间"></a>会议截稿时间</h3><ol>
-<li><a href="https://jackietseng.github.io/conference_call_for_paper/conferences.html" target="_blank" rel="noopener">conference_call_for_paper</a></li>
-<li><a href="https://jackietseng.github.io/conference_call_for_paper/conferences-with-ccf.html" target="_blank" rel="noopener">conferences-with-ccf [call for paper]</a><br>这两个原作者疑似弃坑。虽很久未更新DDL数据，但也可参考。</li>
-<li><a href="https://www.call4paper.com/search?type=event&amp;t=&amp;category=&amp;query=computer+vision" target="_blank" rel="noopener">Call For Papers - The World’s Largest Index/List of Call For Papers</a></li>
-</ol>
-<h3 id="中科院分区表"><a href="#中科院分区表" class="headerlink" title="中科院分区表"></a>中科院分区表</h3><ol>
-<li><a href="https://www.yuque.com/scientometrics/fenqubiao_blog" target="_blank" rel="noopener">期刊分区表博客 · 语雀</a></li>
-<li><a href="https://earlywarning.fenqubiao.com/" target="_blank" rel="noopener">国际期刊预警名单</a></li>
-</ol>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
-<li><a href="https://dblp.uni-trier.de/" target="_blank" rel="noopener">[查文献bib] dblp官网</a><br>bib信息不全？搜下试试</li>
-<li><a href="https://www.zhihu.com/column/zotero" target="_blank" rel="noopener">Zotero文献生态 - 知乎</a><br>Zotero文献管理软件，真香，习惯了比Endnote香</li>
-<li><a href="https://editor.citationstyles.org/about/" target="_blank" rel="noopener">引文样式csl查找</a><br>Zotero csl样式，用于在纯文本/word。</li>
-<li><a href="https://distill.pub/" target="_blank" rel="noopener">Distill — Latest articles about machine learning</a></li>
-<li><a href="https://www.paperdigest.org/conference-paper-digest/" target="_blank" rel="noopener">文献一句话概述Conference Paper Digest – Paper Digest</a></li>
-<li><a href="https://www.graviti.cn/open-datasets" target="_blank" rel="noopener">公开数据集收集 | Graviti 格物钛</a></li>
-<li><a href="https://ijournal.topeditsci.com/search?keywordType=title&amp;keyword=&amp;ifStart2019=&amp;ifEnd2019=&amp;jcr=&amp;sub=&amp;isDomestic=&amp;selfCitingRate=all&amp;compatriotRate=all&amp;totalReviewRatio=all&amp;categoryId=1aa5cec81cf6470ffe5a5c7cad245756&amp;pageNum=1&amp;order=impactFactor_2019&amp;orderType=desc" target="_blank" rel="noopener">期刊查询与选择</a></li>
-<li><a href="https://www.xueky.com/xuankan.html" target="_blank" rel="noopener">查期刊影响因子+智能选刊助手-Scidown</a></li>
-<li><a href="https://www.scimagojr.com/index.php" target="_blank" rel="noopener">查期刊 优选</a></li>
-<li><a href="https://readpaper.com/" target="_blank" rel="noopener">readpaper-粤港澳大湾区</a></li>
-<li><a href="https://www.aminer.cn/" target="_blank" rel="noopener">AMiner - 找人</a></li>
-</ol>
-<h2 id="如何阅读文章"><a href="#如何阅读文章" class="headerlink" title="如何阅读文章"></a>如何阅读文章</h2><ol>
-<li><a href="https://zhuanlan.zhihu.com/p/280750898" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/280750898</a>  吴恩达-如何有效阅读论文<br>四问<ol>
-<li>作者想要完成什么（已经完成了什么）？</li>
-<li>新方法的关键元素是什么？</li>
-<li>对我有用吗？</li>
-<li>想看他的哪些参考文献？</li>
-</ol>
-</li>
-</ol>
-<h2 id="团队或学者"><a href="#团队或学者" class="headerlink" title="团队或学者"></a>团队或学者</h2><p>待整理，以下简单搬运自 <a href="https://sites.google.com/view/honggangchen/" target="_blank" rel="noopener">陈洪刚教授的主页</a></p>
-<ul>
-<li><p>Lab/Group<br> Multimedai Lab (CUHK)</p>
-<p> Video Processing Lab (UCSD)</p>
-<p> Vision and Learning Lab (UCM)</p>
-<p> NYU Video Lab (NYU)</p>
-<p> Machine Learning Group (Adelaide)</p>
-<p> Laboratory for Image &amp; Video Engineering (TEXAS)</p>
-<p> Image and Video Processing Lab (NU)</p>
-<p> Computer Vision and Image Processing (UoD)</p>
-<p> Spatial and Temporal Restoration, Understanding and Compression Team (PKU)</p>
-<p> Computational Imaging Group (TUT)</p>
-<p> Computer Vision Laboratory (SNU)</p>
-<p> Bio Imaging &amp; Signal Processing Lab</p>
-<p> DUT MEDIA LAB</p>
-</li>
-<li><p>Scholars’ Homepage</p>
-<p>  B</p>
-<pre><code>Alan Bovik
-</code></pre><p>  C</p>
-<pre><code>Mingming Chen   Chen Chen     Wan-Chi Siu       Yunjin Chen
-</code></pre><p>  D</p>
-<pre><code>Weisheng Dong
-</code></pre><p>  E</p>
-<pre><code>Michael Elad
-</code></pre><p>  F</p>
-<pre><code>Alessandro Foi      Sina Farsiu     Xueyang Fu
-</code></pre><p>  G</p>
-<pre><code>Xinbo Gao       Zongming Guo      Shuhang Gu
-</code></pre><p>  H</p>
-<pre><code>Kaiming He      Jia-bin Huang     Jun-jie Huang     Zhe Hu      Muhammad Haris
-</code></pre><p>  I</p>
-<pre><code>Michal Irani
-</code></pre><p>  J</p>
-<pre><code>Jiaya Jia      Junjun Jiang 
-</code></pre><p>  L</p>
-<pre><code>Weisi Lin    Ce Liu     Baoxin Li       Chen Change (Cavan) Loy     Enming Luo      Xin Liu    
-
-Renjie Liao     Xianming Liu      Sifei Liu     Zhouchen Lin      Liang Lin     Leida Li      Jiaying Liu    
-
-Weisheng Lai      Dong Liu      Stamatios Lefkimmiatis
-</code></pre><p>  M</p>
-<pre><code>Peyman Milanfar     Kai-Kuang Ma      Kede Ma
-</code></pre><p>  N</p>
-<pre><code>Truong Q. Nguyen
-</code></pre><p>  P</p>
-<pre><code>Jinshan Pan
-</code></pre><p>  R</p>
-<pre><code>Wenqi Ren    
-</code></pre><p>  S</p>
-<pre><code>Chunhua Shen     Jian Sun     Eero Simoncelli     Xiaoyong Shen
-</code></pre><p>  T</p>
-<pre><code>Radu Timofte     Yapeng Tian     Ying Tai     Dacheng Tao     Robby T. Tan
-</code></pre><p>  W</p>
-<pre><code>Xiaolin Wu      Yao Wang     Xiaogang Wang     Linfeng Wang     Bihan Wen     Keze Wang    
-
-Xiushen Wei     Zhou Wang     Zhangyang Wang
-</code></pre><p>  X</p>
-<pre><code>Li Xu     Xiangyu Xu     Ruiqing Xiong     Jiu Xu
-</code></pre><p>  Y</p>
-<pre><code>Ming-Hsuan Yang    Jianchao Yang     Huanjing Yue    Hantao Yao
-</code></pre><p>  Z</p>
-<pre><code>Lei Zhang     Zhihua Zhou      Wangmeng Zuo     Yongbing Zhang     Xinfeng Zhang   
-
-Jian Zhang     Yulun Zhang     Yang Zhao     He Zhang    Liming Zhao     Zhiyuan Zha   
-</code></pre></li>
-<li><p>Scholars’ Github</p>
-<p> Bihan Wen (State-of-the-art denoising)</p>
-<p> Zehao Huang (Super-resolution benchmark)</p>
-<p> Wenhan Yang</p>
-<p> Kai Zhang</p>
-</li>
-</ul>
-<hr>
-<p>REF</p>
-<ol>
-<li><a href="https://zhuanlan.zhihu.com/p/22323250" target="_blank" rel="noopener">ResearchGo:研究生活第一帖——文献检索与管理</a></li>
-<li><a href="https://sites.google.com/view/honggangchen/" target="_blank" rel="noopener">陈洪刚教授的主页</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>Note</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-        <tag>Links</tag>
       </tags>
   </entry>
   <entry>
@@ -932,33 +758,177 @@ Jian Zhang     Yulun Zhang     Yang Zhao     He Zhang    Liming Zhao     Zhiyuan
       </tags>
   </entry>
   <entry>
-    <title>XMind安卓版和PC端同步BY第三方云端</title>
-    <url>/2020/08/13/xmind-Android-sync-by-onedrive/</url>
-    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>之前一直使用幕布，由于种种原因（私档泄露、免费版功能已不能满足需求），不想使用此软件了。<br>故转而找替代产品。<br>定位需求是：<br>1、free；<br>2、思维导图基本功能（大纲），能图片更好；<br>3、多端多台（windows+Android）同步。</p>
-<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。<br><a id="more"></a></p>
-<h2 id="XMind同步问题"><a href="#XMind同步问题" class="headerlink" title="XMind同步问题"></a>XMind同步问题</h2><p><a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">XMind安卓版和PC端同步</a>不“完美”，IOS版官方有完美同步教程。</p>
+    <title>Useful Links for Scholar</title>
+    <url>/2022/03/21/useful-links-SC/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>&emsp;&emsp;记录一些有用的Link。</p>
+<h2 id="查文献"><a href="#查文献" class="headerlink" title="查文献"></a>查文献</h2><h3 id="常用的"><a href="#常用的" class="headerlink" title="常用的"></a>常用的</h3><ol>
+<li><a href="https://www.semanticscholar.org/" target="_blank" rel="noopener">Semantic Scholar</a><br>常用1</li>
+<li><a href="https://www.connectedpapers.com/" target="_blank" rel="noopener">Connected Papers</a><br>图形化地查一篇文章的引用与被引。</li>
+<li><p><a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a><br>常用2。打不开？！见后面5个镜像站：</p>
+<ul>
+<li><a href="https://ac.scmor.com/" target="_blank" rel="noopener">谷歌学术镜像和其他资源</a></li>
+<li><a href="https://scholar.chongbuluo.com/" target="_blank" rel="noopener">学术搜索 - 虫部落</a></li>
+<li><a href="https://sc.panda321.com/" target="_blank" rel="noopener">熊猫学术-Google scholar</a></li>
+<li><a href="https://www.library.ac.cn/" target="_blank" rel="noopener">Mirror List</a></li>
+<li><a href="https://gfsoso.99lb.net/" target="_blank" rel="noopener">谷粉学术</a></li>
+</ul>
+</li>
+<li><p><a href="https://arxiv.org/" target="_blank" rel="noopener">arXiv官网</a><br>常用3。没发表和即将发表的论文提前看</p>
+</li>
+<li><a href="http://xxx.itp.ac.cn/" target="_blank" rel="noopener">cn.arxiv</a><br>arXiv国内镜像站</li>
+<li><a href="http://www.arxiv-sanity.com/" target="_blank" rel="noopener"><del>Arxiv更友好的展示 | Sanity</del></a><br>疑似停站</li>
+<li><a href="https://arxiv-sanity-lite.com/" target="_blank" rel="noopener">arxiv-sanity Lite版</a><br>换种视角来逛arXiv，支持订阅</li>
+<li><a href="https://paperswithcode.com/" target="_blank" rel="noopener">Papers With Code</a><br>Paper连接Code，（数据集）榜单，Task。</li>
+</ol>
+<a id="more"></a>
+<h3 id="会议集官网"><a href="#会议集官网" class="headerlink" title="会议集官网"></a>会议集官网</h3><ol>
+<li><a href="https://openaccess.thecvf.com/menu" target="_blank" rel="noopener">CVPR+ICCV+WACV</a></li>
+<li><a href="https://www.ecva.net/index.php" target="_blank" rel="noopener">ECCV的总集 | ECVA</a></li>
+<li><a href="https://www.aaai.org/Library/AAAI/aaai-library.php" target="_blank" rel="noopener">AAAI官网</a></li>
+<li><a href="https://proceedings.neurips.cc/" target="_blank" rel="noopener">NeurIPS官方论文集</a></li>
+<li><a href="https://openreview.net/" target="_blank" rel="noopener">OpenReview</a><br>部分会议在此公开Review全过程</li>
+</ol>
+<h3 id="专利"><a href="#专利" class="headerlink" title="专利"></a>专利</h3><ol>
+<li><a href="http://www.soopat.com/" target="_blank" rel="noopener">SooPAT 专利搜索（优选2）</a></li>
+<li><a href="http://www.innojoy.com/search/home.html" target="_blank" rel="noopener">专利查询（优选1）</a></li>
+<li><a href="https://www.drugfuture.com/cnpat/cn_patent.asp" target="_blank" rel="noopener"><del>中国专利下载</del></a></li>
+</ol>
+<h3 id="会议排名"><a href="#会议排名" class="headerlink" title="会议排名"></a>会议排名</h3><ol>
+<li><a href="https://www.guide2research.com/topconf/" target="_blank" rel="noopener">Top Conferences -Ranking</a><br>计算机科学相关会议排名。自开发一个油猴插件（<a href="https://wx.mail.qq.com/ftn/download?func=3&amp;key=c8994c658b45ef2cfaea1765633862380c633965613862381249085d525e005a5254145054095b1503570e564c015b0d0e4b0b00555c040f53020956035a463874095703416b07594505513a15590f485214540a0f53074168155a170848164b191c5015758254e576fb68fda223815d862523edea92f946cf&amp;code=7f9ea8b8&amp;k=c8994c658b45ef2cfaea1765633862380c633965613862381249085d525e005a5254145054095b1503570e564c015b0d0e4b0b00555c040f53020956035a463874095703416b07594505513a15590f485214540a0f53074168155a170848164b191c5015758254e576fb68fda223815d862523edea92f946cf&amp;fweb=1&amp;cl=1" target="_blank" rel="noopener">Conf Search_tampermonkey_scripts.zip</a>），在这个页面增加搜索功能。</li>
+<li><a href="http://www.conferenceranks.com/" target="_blank" rel="noopener">Conference Ranks</a></li>
+</ol>
+<h3 id="会议截稿时间"><a href="#会议截稿时间" class="headerlink" title="会议截稿时间"></a>会议截稿时间</h3><ol>
+<li><a href="https://jackietseng.github.io/conference_call_for_paper/conferences.html" target="_blank" rel="noopener">conference_call_for_paper</a></li>
+<li><a href="https://jackietseng.github.io/conference_call_for_paper/conferences-with-ccf.html" target="_blank" rel="noopener">conferences-with-ccf [call for paper]</a><br>这两个原作者疑似弃坑。虽很久未更新DDL数据，但也可参考。</li>
+<li><a href="https://www.call4paper.com/search?type=event&amp;t=&amp;category=&amp;query=computer+vision" target="_blank" rel="noopener">Call For Papers - The World’s Largest Index/List of Call For Papers</a></li>
+</ol>
+<h3 id="中科院分区表"><a href="#中科院分区表" class="headerlink" title="中科院分区表"></a>中科院分区表</h3><ol>
+<li><a href="https://www.yuque.com/scientometrics/fenqubiao_blog" target="_blank" rel="noopener">期刊分区表博客 · 语雀</a></li>
+<li><a href="https://earlywarning.fenqubiao.com/" target="_blank" rel="noopener">国际期刊预警名单</a></li>
+</ol>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
+<li><a href="https://dblp.uni-trier.de/" target="_blank" rel="noopener">[查文献bib] dblp官网</a><br>bib信息不全？搜下试试</li>
+<li><a href="https://www.zhihu.com/column/zotero" target="_blank" rel="noopener">Zotero文献生态 - 知乎</a><br>Zotero文献管理软件，真香，习惯了比Endnote香</li>
+<li><a href="https://editor.citationstyles.org/about/" target="_blank" rel="noopener">引文样式csl查找</a><br>Zotero csl样式，用于在纯文本/word。</li>
+<li><a href="https://distill.pub/" target="_blank" rel="noopener">Distill — Latest articles about machine learning</a></li>
+<li><a href="https://www.paperdigest.org/conference-paper-digest/" target="_blank" rel="noopener">文献一句话概述Conference Paper Digest – Paper Digest</a></li>
+<li><a href="https://www.graviti.cn/open-datasets" target="_blank" rel="noopener">公开数据集收集 | Graviti 格物钛</a></li>
+<li><a href="https://ijournal.topeditsci.com/search?keywordType=title&amp;keyword=&amp;ifStart2019=&amp;ifEnd2019=&amp;jcr=&amp;sub=&amp;isDomestic=&amp;selfCitingRate=all&amp;compatriotRate=all&amp;totalReviewRatio=all&amp;categoryId=1aa5cec81cf6470ffe5a5c7cad245756&amp;pageNum=1&amp;order=impactFactor_2019&amp;orderType=desc" target="_blank" rel="noopener">期刊查询与选择</a></li>
+<li><a href="https://www.xueky.com/xuankan.html" target="_blank" rel="noopener">查期刊影响因子+智能选刊助手-Scidown</a></li>
+<li><a href="https://www.scimagojr.com/index.php" target="_blank" rel="noopener">查期刊 优选</a></li>
+<li><a href="https://readpaper.com/" target="_blank" rel="noopener">readpaper-粤港澳大湾区</a></li>
+<li><a href="https://www.aminer.cn/" target="_blank" rel="noopener">AMiner - 找人</a></li>
+</ol>
+<h2 id="如何阅读文章"><a href="#如何阅读文章" class="headerlink" title="如何阅读文章"></a>如何阅读文章</h2><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/280750898" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/280750898</a>  吴恩达-如何有效阅读论文<br>四问<ol>
+<li>作者想要完成什么（已经完成了什么）？</li>
+<li>新方法的关键元素是什么？</li>
+<li>对我（实验室团队）有用吗？</li>
+<li>想看他的哪些（引用或被引、或作者团队最新的）文献？</li>
+</ol>
+</li>
+</ol>
+<h2 id="团队或学者"><a href="#团队或学者" class="headerlink" title="团队或学者"></a>团队或学者</h2><p>待整理，以下简单搬运自 <a href="https://sites.google.com/view/honggangchen/" target="_blank" rel="noopener">陈洪刚教授的主页</a></p>
+<ul>
+<li><p>Lab/Group<br> Multimedai Lab (CUHK)</p>
+<p> Video Processing Lab (UCSD)</p>
+<p> Vision and Learning Lab (UCM)</p>
+<p> NYU Video Lab (NYU)</p>
+<p> Machine Learning Group (Adelaide)</p>
+<p> Laboratory for Image &amp; Video Engineering (TEXAS)</p>
+<p> Image and Video Processing Lab (NU)</p>
+<p> Computer Vision and Image Processing (UoD)</p>
+<p> Spatial and Temporal Restoration, Understanding and Compression Team (PKU)</p>
+<p> Computational Imaging Group (TUT)</p>
+<p> Computer Vision Laboratory (SNU)</p>
+<p> Bio Imaging &amp; Signal Processing Lab</p>
+<p> DUT MEDIA LAB</p>
+</li>
+<li><p>Scholars’ Homepage</p>
+<p>  B</p>
+<pre><code>Alan Bovik
+</code></pre><p>  C</p>
+<pre><code>Mingming Chen   Chen Chen     Wan-Chi Siu       Yunjin Chen
+</code></pre><p>  D</p>
+<pre><code>Weisheng Dong
+</code></pre><p>  E</p>
+<pre><code>Michael Elad
+</code></pre><p>  F</p>
+<pre><code>Alessandro Foi      Sina Farsiu     Xueyang Fu
+</code></pre><p>  G</p>
+<pre><code>Xinbo Gao       Zongming Guo      Shuhang Gu
+</code></pre><p>  H</p>
+<pre><code>Kaiming He      Jia-bin Huang     Jun-jie Huang     Zhe Hu      Muhammad Haris
+</code></pre><p>  I</p>
+<pre><code>Michal Irani
+</code></pre><p>  J</p>
+<pre><code>Jiaya Jia      Junjun Jiang 
+</code></pre><p>  L</p>
+<pre><code>Weisi Lin    Ce Liu     Baoxin Li       Chen Change (Cavan) Loy     Enming Luo      Xin Liu    
+
+Renjie Liao     Xianming Liu      Sifei Liu     Zhouchen Lin      Liang Lin     Leida Li      Jiaying Liu    
+
+Weisheng Lai      Dong Liu      Stamatios Lefkimmiatis
+</code></pre><p>  M</p>
+<pre><code>Peyman Milanfar     Kai-Kuang Ma      Kede Ma
+</code></pre><p>  N</p>
+<pre><code>Truong Q. Nguyen
+</code></pre><p>  P</p>
+<pre><code>Jinshan Pan
+</code></pre><p>  R</p>
+<pre><code>Wenqi Ren    
+</code></pre><p>  S</p>
+<pre><code>Chunhua Shen     Jian Sun     Eero Simoncelli     Xiaoyong Shen
+</code></pre><p>  T</p>
+<pre><code>Radu Timofte     Yapeng Tian     Ying Tai     Dacheng Tao     Robby T. Tan
+</code></pre><p>  W</p>
+<pre><code>Xiaolin Wu      Yao Wang     Xiaogang Wang     Linfeng Wang     Bihan Wen     Keze Wang    
+
+Xiushen Wei     Zhou Wang     Zhangyang Wang
+</code></pre><p>  X</p>
+<pre><code>Li Xu     Xiangyu Xu     Ruiqing Xiong     Jiu Xu
+</code></pre><p>  Y</p>
+<pre><code>Ming-Hsuan Yang    Jianchao Yang     Huanjing Yue    Hantao Yao
+</code></pre><p>  Z</p>
+<pre><code>Lei Zhang     Zhihua Zhou      Wangmeng Zuo     Yongbing Zhang     Xinfeng Zhang   
+
+Jian Zhang     Yulun Zhang     Yang Zhao     He Zhang    Liming Zhao     Zhiyuan Zha   
+</code></pre></li>
+<li><p>Scholars’ Github</p>
+<p> Bihan Wen (State-of-the-art denoising)</p>
+<p> Zehao Huang (Super-resolution benchmark)</p>
+<p> Wenhan Yang</p>
+<p> Kai Zhang</p>
+</li>
+</ul>
 <hr>
-<h1 id="同步方案"><a href="#同步方案" class="headerlink" title="同步方案"></a>同步方案</h1><p>借助第三方云（本人使用OneDirve、类似云有许多，坚果云也可以）：<br>1、PC端同步至云（文件保存在OneDrive目录下);<br>2、Android端同步至云（本人使用FolderSync（名气大啊），类似软件有Autosync for OneDrive等）</p>
-<h2 id="PC端同步至OneDrive"><a href="#PC端同步至OneDrive" class="headerlink" title="PC端同步至OneDrive"></a>PC端同步至OneDrive</h2><p>这步简单。</p>
-<h2 id="使用FolderSync，Android端同步至OneDrive"><a href="#使用FolderSync，Android端同步至OneDrive" class="headerlink" title="使用FolderSync，Android端同步至OneDrive"></a>使用FolderSync，Android端同步至OneDrive</h2><p>FolderSync这类软件获取，需借梯子。安装后，继续下步。</p>
-<blockquote>
-<p>借鉴<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
-<blockquote>
-<p>FolderSync 是一款Android 端的文件同步工具，可以将手机中的文件自动同步到云端空间或者PC端。它目前支援 OneDrive, Dropbox, SugarSync, Box.net,  LiveDrive,  HiDrive,  Google Docs,  NetDocuments,  Amazon S3、 FTP,  FTP,  SFTP，WebDAV 。</p>
-<h3 id="添加账户OneDrive"><a href="#添加账户OneDrive" class="headerlink" title="添加账户OneDrive"></a>添加账户OneDrive</h3><p>注意此步不能添加OneDrive校园账户</p>
-</blockquote>
-</blockquote>
-<h3 id="添加同步的文件夹"><a href="#添加同步的文件夹" class="headerlink" title="添加同步的文件夹"></a>添加同步的文件夹</h3><p>名称：随便起（e.g. XMind同步onedrive）<br>同步类型：双向<br>远程文件夹：/XMind/  （云上自建的）<br>本地文件夹：安卓端本地储存中的 XMind -&gt; workbook 文件夹<br>保存OK。（计划设置可自行按需设置。）</p>
-<hr>
-<p>参考：<br>1、<a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">如何将 XMind 文件从电脑上传输至 XMind 安卓版？</a><br>2、<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
+<p>REF</p>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/22323250" target="_blank" rel="noopener">ResearchGo:研究生活第一帖——文献检索与管理</a></li>
+<li><a href="https://sites.google.com/view/honggangchen/" target="_blank" rel="noopener">陈洪刚教授的主页</a></li>
+</ol>
 ]]></content>
       <categories>
-        <category>Software</category>
+        <category>Note</category>
       </categories>
       <tags>
-        <tag>XMind</tag>
-        <tag>FolderSync</tag>
-        <tag>OneDirve</tag>
+        <tag>工具</tag>
+        <tag>Links</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>测试hello！</title>
+    <url>/2020/07/19/test1/</url>
+    <content><![CDATA[<p>你好！</p>
+<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
+<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
+]]></content>
+      <categories>
+        <category>测试分类</category>
+      </categories>
+      <tags>
+        <tag>ceshi_tags1</tag>
+        <tag>tags2</tag>
       </tags>
   </entry>
   <entry>
@@ -990,6 +960,36 @@ Jian Zhang     Yulun Zhang     Yang Zhao     He Zhang    Liming Zhao     Zhiyuan
         <tag>Super resolution</tag>
         <tag>GNN</tag>
         <tag>non-local</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XMind安卓版和PC端同步BY第三方云端</title>
+    <url>/2020/08/13/xmind-Android-sync-by-onedrive/</url>
+    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>之前一直使用幕布，由于种种原因（私档泄露、免费版功能已不能满足需求），不想使用此软件了。<br>故转而找替代产品。<br>定位需求是：<br>1、free；<br>2、思维导图基本功能（大纲），能图片更好；<br>3、多端多台（windows+Android）同步。</p>
+<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。<br><a id="more"></a></p>
+<h2 id="XMind同步问题"><a href="#XMind同步问题" class="headerlink" title="XMind同步问题"></a>XMind同步问题</h2><p><a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">XMind安卓版和PC端同步</a>不“完美”，IOS版官方有完美同步教程。</p>
+<hr>
+<h1 id="同步方案"><a href="#同步方案" class="headerlink" title="同步方案"></a>同步方案</h1><p>借助第三方云（本人使用OneDirve、类似云有许多，坚果云也可以）：<br>1、PC端同步至云（文件保存在OneDrive目录下);<br>2、Android端同步至云（本人使用FolderSync（名气大啊），类似软件有Autosync for OneDrive等）</p>
+<h2 id="PC端同步至OneDrive"><a href="#PC端同步至OneDrive" class="headerlink" title="PC端同步至OneDrive"></a>PC端同步至OneDrive</h2><p>这步简单。</p>
+<h2 id="使用FolderSync，Android端同步至OneDrive"><a href="#使用FolderSync，Android端同步至OneDrive" class="headerlink" title="使用FolderSync，Android端同步至OneDrive"></a>使用FolderSync，Android端同步至OneDrive</h2><p>FolderSync这类软件获取，需借梯子。安装后，继续下步。</p>
+<blockquote>
+<p>借鉴<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
+<blockquote>
+<p>FolderSync 是一款Android 端的文件同步工具，可以将手机中的文件自动同步到云端空间或者PC端。它目前支援 OneDrive, Dropbox, SugarSync, Box.net,  LiveDrive,  HiDrive,  Google Docs,  NetDocuments,  Amazon S3、 FTP,  FTP,  SFTP，WebDAV 。</p>
+<h3 id="添加账户OneDrive"><a href="#添加账户OneDrive" class="headerlink" title="添加账户OneDrive"></a>添加账户OneDrive</h3><p>注意此步不能添加OneDrive校园账户</p>
+</blockquote>
+</blockquote>
+<h3 id="添加同步的文件夹"><a href="#添加同步的文件夹" class="headerlink" title="添加同步的文件夹"></a>添加同步的文件夹</h3><p>名称：随便起（e.g. XMind同步onedrive）<br>同步类型：双向<br>远程文件夹：/XMind/  （云上自建的）<br>本地文件夹：安卓端本地储存中的 XMind -&gt; workbook 文件夹<br>保存OK。（计划设置可自行按需设置。）</p>
+<hr>
+<p>参考：<br>1、<a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">如何将 XMind 文件从电脑上传输至 XMind 安卓版？</a><br>2、<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>XMind</tag>
+        <tag>FolderSync</tag>
+        <tag>OneDirve</tag>
       </tags>
   </entry>
 </search>
