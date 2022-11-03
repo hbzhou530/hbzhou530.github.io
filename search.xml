@@ -21,49 +21,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PAPER READING 2020_Chen_Guided Dual Networks for Single Image Super-Resolution</title>
-    <url>/2020/08/24/2020-Chen-Guided-Dual-Networks/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@article&#123;chenGuidedDualNetworks2020,</span><br><span class="line">  title = &#123;Guided &#123;&#123;Dual Networks&#125;&#125; <span class="keyword">for</span> &#123;&#123;Single Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Chen, Wenhui and Liu, Chuangchuang and Yan, Yitong and Jin, Longcun and Sun, Xianfang and Peng, Xinyi&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  volume = &#123;8&#125;,</span><br><span class="line">  pages = &#123;93608--93620&#125;,</span><br><span class="line">  issn = &#123;2169-3536&#125;,</span><br><span class="line">  doi = &#123;10.1109/ACCESS.2020.2995175&#125;,</span><br><span class="line">  journal = &#123;IEEE Access&#125;</span><br></pre></td></tr></table></figure>
-<p>题目：引导式双路网络实现单图像超分辨率<br>Access  Q2/中科院2区<br>M.S.degree<br>指导老师： <a href="http://www2.scut.edu.cn/sse/2018/0614/c16789a270675/page.htm" target="_blank" rel="noopener">金龙存</a> 华工软件学院<br>group web：无<br>code：<a href="https://github.com/wenchen4321/GDSR" target="_blank" rel="noopener">https://github.com/wenchen4321/GDSR</a></p>
-<p><strong>摘要</strong>：面向PSNR的超分辨率（SR）方法追求较高的重建精度，但会产生过度平滑的结果并丢失大量的高频细节。基于GAN的SR方法旨在生成更多逼真的图像，但是幻觉的细节通常会伴随着令人不满意的伪像和噪点。为了解决这些问题，我们提出了一种<strong>引导式双路超分辨率网络（GDSR）</strong>，该网络利用面向PSNR的方法和基于GAN的方法的优势，在重建精度和感知质量之间取得良好的平衡。具体来说，我们的网络包含<strong>两个分支</strong>，其中一个训练以提取全局信息，而另一个则专注于详细信息。通过这种方式，我们的网络可以生成同时具有高精度和令人满意的视觉质量的SR图像。<em>为了获得更多的高频特征，我们使用从低频分支中提取的全局特征来指导高频分支的训练。</em>此外，我们的方法利用掩模网络来自适应地恢复最终的超分辨图像。在几个标准基准上的广泛实验表明，与最新方法相比，我们提出的方法具有更好的性能。GDSR的开源代码和结果：<a href="https://github.com/wenchen4321/GDSR" target="_blank" rel="noopener">https://github.com/wenchen4321/GDSR</a></p>
-<a id="more"></a>
-<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>现存双路方法都是以PSNR为导向的，如DualCNN[16]和Dual-way SR[17]。我们的两路则一条PSNR导向，一条基于GAN。<br>受双路跳跃网络[18]（用于目标分类）的启发，我们提出GDSR。两个分支：高频分支（HFB）和低频分支（LFB）。 HFB采用对抗损失，旨在提取高频特征并使SR图像包含更多的详细信息；LFB经过MSE损失训练，以提取全局信息。与双路跳跃网络类似，我们采用自上而下的全局指导机制来指导HFB。简而言之，该指南将LFB的高级全局信息提供给HFB的相应低级功能处理模块。<br>此外，我们使用掩码网络来生成注意力掩码，以加权LFB和HFB的输出，自适应地恢复最终的超分辨图像。<br>创新点：</p>
-<ol>
-<li>通过整合基于GAN和面向PNSR的方法，提出了一种左右非对称的超分辨率网络，以提高SR图像质量。</li>
-<li>我们采用了自上而下的全局指导，以提供从低频分支到高频分支的高级全局特征，以生成详细信息。</li>
-<li>该方法在多个基准上均达到了SOTA的性能</li>
-</ol>
-<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><h2 id="SR"><a href="#SR" class="headerlink" title="SR"></a>SR</h2><p>ESRGAN<br>EEGAN [39]提出了一个基于GAN的边缘增强网络，该网络具有两个子网：一个基于GAN的超密集子网和一个基于CNN的边缘增强子网。然而，EEGAN专为卫星图像SR重建而设计，其中基于CNN的边缘增强子网用于从卫星图像中提取边缘的特殊特征。 </p>
-<h2 id="双路跳跃网络"><a href="#双路跳跃网络" class="headerlink" title="双路跳跃网络"></a>双路跳跃网络</h2><p>双路跳跃网络[18]是一个左右非对称跳跃网络。一个分支用于细粒度级别分类，它模拟了处理空间高频信息的左半球；另一支用于粗分类，它模拟了处理空间低频信息的右半球机制。自上而下的引导识别：该引导将高级信息从粗分支馈送到细粒度分支的较低级别的视觉处理模块。<br>受此启发，我们设计了高频分支来模拟左半球处理机制，并设计了非对称的低频分支来处理右半球机制。此外，我们还设计了一个面具网络来模拟小脑的功能，它涉及平衡和运动控制。（这“类脑”有点神奇的感觉）</p>
-<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p><img src="https://i.loli.net/2020/08/24/hniq9bDGaERgMVp.png" alt="image.png"><br>如图，三个关键组件组成：</p>
-<ol>
-<li>左右非对称SR网络；（两个分支组成：高频分支（HFB）和低频分支（LFB））</li>
-<li>全局引导机制；将引导全局特征映射，从LFB到HFB的低级模块的全局特征映射，帮助HFB生成更多的高频细节。</li>
-<li>掩码网络。自适应地重构来自LFB和HFB的最终输出，以提高SR图像的感知质量和重构精度。<h2 id="左右非对称"><a href="#左右非对称" class="headerlink" title="左右非对称"></a>左右非对称</h2>HFB用于恢复详细信息，而LFB用于重建全局信息。<h3 id="共享模块shared-module-SM"><a href="#共享模块shared-module-SM" class="headerlink" title="共享模块shared module (SM)"></a>共享模块shared module (SM)</h3>SM，包含S个RRDB块，由低频分支，高频分支和掩码网络共享，可以有效地提取浅层特征图并减少参数。<h3 id="低频分支LFB"><a href="#低频分支LFB" class="headerlink" title="低频分支LFB"></a>低频分支LFB</h3>由MSE loss训练，L个RRDB块<h3 id="高频分支HFB"><a href="#高频分支HFB" class="headerlink" title="高频分支HFB"></a>高频分支HFB</h3>包含生成网络G和判别网络D。G有H个RRDB块；D与ESRGAN类似，采用Ragan。<script type="math/tex; mode=display">L_1$$+$$L_percep$$+$$L_adv</script><img src="https://i.loli.net/2020/08/24/WP5gzkDa6ftEn3w.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/24/TSfCmEMXbV2K45R.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/24/V25IsUyc1BLlkdo.png" alt="image.png"></li>
-</ol>
-<h2 id="全局引导机制"><a href="#全局引导机制" class="headerlink" title="全局引导机制"></a>全局引导机制</h2><p>LSF低空间频率 双路跳跃网络[18]的启发，我们认为LFB能指导HFB使用输入的全局上下文特征来恢复更多详细信息。从全局级别注入反馈信息可能对细粒度的重构很有帮助。<br>the output feature maps of the l-th RRDB in the LFB <em>concatenated </em>into the input feature maps of the h-th RRDB in the HFB. </p>
-<h2 id="掩码网络"><a href="#掩码网络" class="headerlink" title="掩码网络"></a>掩码网络</h2><p>为了使SR图专注于高频细节，我们嵌入注意力机制。M个RRDB块。<br>非在最终输出时融合，而在重建过程中融合特征图。</p>
-<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><h2 id="训练设置"><a href="#训练设置" class="headerlink" title="训练设置"></a>训练设置</h2><p>DIV2K数据集，分800、100和100张图像，分别用于训练，验证和测试。<br>测试：Set5, Set14, BSD100, Urban100, Manga109. LR图像由Bicubic降采样得到。<br>以PI和RMSE作为评价尺度。<br><img src="https://i.loli.net/2020/08/24/jyPner7wvKIqDQa.png" alt="image.png"><br>硬件：2块2080Ti GPU</p>
-<h2 id="定量比较"><a href="#定量比较" class="headerlink" title="定量比较"></a>定量比较</h2><p>在所有基于GAN的方法（包括SRGAN [33]，EnhancedNet [34]，ESRGAN [15]，RankSRGAN [40]）中，我们的GDSR均具有最低的RMSE损耗和相对较低的PI值，并且可以生成具有更好的感知质量和相对较高的重建精度的SR图像</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1"><a href="#1" class="headerlink" title="1. "></a>1. </h2><h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
-<li></li>
-<li></li>
-<li>计算机学术会议分级列表</li>
-</ol>
-<p>根据网络资料整理的计算机领域国际学术会议分级列表<a href="http://idc.hust.edu.cn/~rxli/csrank.htm以及国际学术期刊分级列表http://idc.hust.edu.cn/~rxli/csjrank.htm" target="_blank" rel="noopener">http://idc.hust.edu.cn/~rxli/csrank.htm以及国际学术期刊分级列表http://idc.hust.edu.cn/~rxli/csjrank.htm</a></p>
-<p> <a href="https://www.cnblogs.com/bnuvincent/p/6809353.html" target="_blank" rel="noopener">https://www.cnblogs.com/bnuvincent/p/6809353.html</a></p>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>Super resolution</category>
-      </categories>
-      <tags>
-        <tag>GDSR</tag>
-        <tag>GAN</tag>
-        <tag>Super resolution</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PAPER READING&quot;2020_Wei_Unsupervised Real-world Image Super Resolution via Domain-distance Aware&quot;</title>
     <url>/2021/04/10/2020-Wei-Unsupervised-Real-world-Image-Super-Resolution-via-Domain-distance-Aware/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Wei, Yunxuan, Shuhang Gu, Yawei Li, and Longcun Jin. </span><br><span class="line">“Unsupervised Real-World Image Super Resolution via Domain-Distance Aware Training.”</span><br><span class="line">ArXiv:2004.01178 [Cs], April 2, 2020. http://arxiv.org/abs/2004.01178.</span><br><span class="line">CVPR-2021</span><br></pre></td></tr></table></figure>
@@ -112,27 +69,6 @@
         <tag>Super resolution</tag>
         <tag>real world</tag>
         <tag>DASR</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PAPER READING&quot;Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition&quot;</title>
-    <url>/2020/12/30/Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Si, Chenyang, Xuecheng Nie, Wei Wang, Liang Wang, Tieniu Tan, and Jiashi Feng. </span><br><span class="line"><span class="string">"Adversarial Self-Supervised Learning for Semi-Supervised 3D Action Recognition."</span> </span><br><span class="line">In European Conference on Computer Vision, pp. 35-51. Springer, Cham, 2020.</span><br></pre></td></tr></table></figure>
-<p>题目：对抗式自我监督学习，实现半监督3D动作识别<br>ECCV2020<br>一作 司晨阳，中科院自动化所博士生，新加坡国立大学访问学生<br>指导老师：Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item80.shtml" target="_blank" rel="noopener">Tieniu Tan</a>, Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item125.shtml" target="_blank" rel="noopener">Liang Wang</a> and associate Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item118.shtml" target="_blank" rel="noopener">Wei Wang</a><br>web：<a href="http://chenyangsi.top/" target="_blank" rel="noopener">http://chenyangsi.top/</a><br>无code。作者开源代码少。<br><a id="more"></a><br><strong>摘要</strong>：<br>&emsp;&emsp;We consider the problem of semi-supervised <strong>3D action recognition</strong> which has been rarely explored before. Its major challenge lies in how to effectively learn motion representations from unlabeled data. Self-supervised learning (SSL) has been proved very effective at learning representations from unlabeled data in the image domain. However, few effective self-supervised approaches exist for 3D action recognition, and directly applying SSL for semi-supervised learning suffers from misalignment of representations learned from SSL and supervised learning tasks. <strong>To address these issues, we present Adversarial Self-Supervised Learning (ASSL), a novel framework that tightly couples SSL and the semi-supervised scheme via neighbor relation exploration and adversarial learning.</strong> Specifically, we design an effective SSL scheme to improve the discrimination capability of learned representations for 3D action recognition, through exploring the data relations within a neighborhood. We further propose an adversarial regularization to align the feature distributions of labeled and unlabeled samples. To demonstrate effectiveness of the proposed ASSL in semi-supervised 3D action recognition, we conduct extensive experiments on <strong>NTU and N-UCLA datasets</strong>. The results confirm its advantageous performance over state-of-the-art semi-supervised methods in the few label regime for 3D action recognition.</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>3D-Action-Recognition，即，基于骨架的行为识别</li>
-<li>通过邻域关系结合了对抗学习和自监督</li>
-<li>NTU RGB+D dataset 40个人、60个动作类别，56880个样本。三个摄像机在不同水平视角位置同时采集。</li>
-</ol>
-<hr>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>行为识别</category>
-      </categories>
-      <tags>
-        <tag>行为识别</tag>
-        <tag>FSL</tag>
       </tags>
   </entry>
   <entry>
@@ -187,9 +123,187 @@
         <category>Super resolution</category>
       </categories>
       <tags>
-        <tag>GAN</tag>
         <tag>Super resolution</tag>
         <tag>CDGAN</tag>
+        <tag>GAN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING 2020_Chen_Guided Dual Networks for Single Image Super-Resolution</title>
+    <url>/2020/08/24/2020-Chen-Guided-Dual-Networks/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@article&#123;chenGuidedDualNetworks2020,</span><br><span class="line">  title = &#123;Guided &#123;&#123;Dual Networks&#125;&#125; <span class="keyword">for</span> &#123;&#123;Single Image Super&#125;&#125;-&#123;&#123;Resolution&#125;&#125;&#125;,</span><br><span class="line">  author = &#123;Chen, Wenhui and Liu, Chuangchuang and Yan, Yitong and Jin, Longcun and Sun, Xianfang and Peng, Xinyi&#125;,</span><br><span class="line">  year = &#123;2020&#125;,</span><br><span class="line">  volume = &#123;8&#125;,</span><br><span class="line">  pages = &#123;93608--93620&#125;,</span><br><span class="line">  issn = &#123;2169-3536&#125;,</span><br><span class="line">  doi = &#123;10.1109/ACCESS.2020.2995175&#125;,</span><br><span class="line">  journal = &#123;IEEE Access&#125;</span><br></pre></td></tr></table></figure>
+<p>题目：引导式双路网络实现单图像超分辨率<br>Access  Q2/中科院2区<br>M.S.degree<br>指导老师： <a href="http://www2.scut.edu.cn/sse/2018/0614/c16789a270675/page.htm" target="_blank" rel="noopener">金龙存</a> 华工软件学院<br>group web：无<br>code：<a href="https://github.com/wenchen4321/GDSR" target="_blank" rel="noopener">https://github.com/wenchen4321/GDSR</a></p>
+<p><strong>摘要</strong>：面向PSNR的超分辨率（SR）方法追求较高的重建精度，但会产生过度平滑的结果并丢失大量的高频细节。基于GAN的SR方法旨在生成更多逼真的图像，但是幻觉的细节通常会伴随着令人不满意的伪像和噪点。为了解决这些问题，我们提出了一种<strong>引导式双路超分辨率网络（GDSR）</strong>，该网络利用面向PSNR的方法和基于GAN的方法的优势，在重建精度和感知质量之间取得良好的平衡。具体来说，我们的网络包含<strong>两个分支</strong>，其中一个训练以提取全局信息，而另一个则专注于详细信息。通过这种方式，我们的网络可以生成同时具有高精度和令人满意的视觉质量的SR图像。<em>为了获得更多的高频特征，我们使用从低频分支中提取的全局特征来指导高频分支的训练。</em>此外，我们的方法利用掩模网络来自适应地恢复最终的超分辨图像。在几个标准基准上的广泛实验表明，与最新方法相比，我们提出的方法具有更好的性能。GDSR的开源代码和结果：<a href="https://github.com/wenchen4321/GDSR" target="_blank" rel="noopener">https://github.com/wenchen4321/GDSR</a></p>
+<a id="more"></a>
+<h1 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h1><p>现存双路方法都是以PSNR为导向的，如DualCNN[16]和Dual-way SR[17]。我们的两路则一条PSNR导向，一条基于GAN。<br>受双路跳跃网络[18]（用于目标分类）的启发，我们提出GDSR。两个分支：高频分支（HFB）和低频分支（LFB）。 HFB采用对抗损失，旨在提取高频特征并使SR图像包含更多的详细信息；LFB经过MSE损失训练，以提取全局信息。与双路跳跃网络类似，我们采用自上而下的全局指导机制来指导HFB。简而言之，该指南将LFB的高级全局信息提供给HFB的相应低级功能处理模块。<br>此外，我们使用掩码网络来生成注意力掩码，以加权LFB和HFB的输出，自适应地恢复最终的超分辨图像。<br>创新点：</p>
+<ol>
+<li>通过整合基于GAN和面向PNSR的方法，提出了一种左右非对称的超分辨率网络，以提高SR图像质量。</li>
+<li>我们采用了自上而下的全局指导，以提供从低频分支到高频分支的高级全局特征，以生成详细信息。</li>
+<li>该方法在多个基准上均达到了SOTA的性能</li>
+</ol>
+<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><h2 id="SR"><a href="#SR" class="headerlink" title="SR"></a>SR</h2><p>ESRGAN<br>EEGAN [39]提出了一个基于GAN的边缘增强网络，该网络具有两个子网：一个基于GAN的超密集子网和一个基于CNN的边缘增强子网。然而，EEGAN专为卫星图像SR重建而设计，其中基于CNN的边缘增强子网用于从卫星图像中提取边缘的特殊特征。 </p>
+<h2 id="双路跳跃网络"><a href="#双路跳跃网络" class="headerlink" title="双路跳跃网络"></a>双路跳跃网络</h2><p>双路跳跃网络[18]是一个左右非对称跳跃网络。一个分支用于细粒度级别分类，它模拟了处理空间高频信息的左半球；另一支用于粗分类，它模拟了处理空间低频信息的右半球机制。自上而下的引导识别：该引导将高级信息从粗分支馈送到细粒度分支的较低级别的视觉处理模块。<br>受此启发，我们设计了高频分支来模拟左半球处理机制，并设计了非对称的低频分支来处理右半球机制。此外，我们还设计了一个面具网络来模拟小脑的功能，它涉及平衡和运动控制。（这“类脑”有点神奇的感觉）</p>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p><img src="https://i.loli.net/2020/08/24/hniq9bDGaERgMVp.png" alt="image.png"><br>如图，三个关键组件组成：</p>
+<ol>
+<li>左右非对称SR网络；（两个分支组成：高频分支（HFB）和低频分支（LFB））</li>
+<li>全局引导机制；将引导全局特征映射，从LFB到HFB的低级模块的全局特征映射，帮助HFB生成更多的高频细节。</li>
+<li>掩码网络。自适应地重构来自LFB和HFB的最终输出，以提高SR图像的感知质量和重构精度。<h2 id="左右非对称"><a href="#左右非对称" class="headerlink" title="左右非对称"></a>左右非对称</h2>HFB用于恢复详细信息，而LFB用于重建全局信息。<h3 id="共享模块shared-module-SM"><a href="#共享模块shared-module-SM" class="headerlink" title="共享模块shared module (SM)"></a>共享模块shared module (SM)</h3>SM，包含S个RRDB块，由低频分支，高频分支和掩码网络共享，可以有效地提取浅层特征图并减少参数。<h3 id="低频分支LFB"><a href="#低频分支LFB" class="headerlink" title="低频分支LFB"></a>低频分支LFB</h3>由MSE loss训练，L个RRDB块<h3 id="高频分支HFB"><a href="#高频分支HFB" class="headerlink" title="高频分支HFB"></a>高频分支HFB</h3>包含生成网络G和判别网络D。G有H个RRDB块；D与ESRGAN类似，采用Ragan。<script type="math/tex; mode=display">L_1$$+$$L_percep$$+$$L_adv</script><img src="https://i.loli.net/2020/08/24/WP5gzkDa6ftEn3w.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/24/TSfCmEMXbV2K45R.png" alt="image.png"><br><img src="https://i.loli.net/2020/08/24/V25IsUyc1BLlkdo.png" alt="image.png"></li>
+</ol>
+<h2 id="全局引导机制"><a href="#全局引导机制" class="headerlink" title="全局引导机制"></a>全局引导机制</h2><p>LSF低空间频率 双路跳跃网络[18]的启发，我们认为LFB能指导HFB使用输入的全局上下文特征来恢复更多详细信息。从全局级别注入反馈信息可能对细粒度的重构很有帮助。<br>the output feature maps of the l-th RRDB in the LFB <em>concatenated </em>into the input feature maps of the h-th RRDB in the HFB. </p>
+<h2 id="掩码网络"><a href="#掩码网络" class="headerlink" title="掩码网络"></a>掩码网络</h2><p>为了使SR图专注于高频细节，我们嵌入注意力机制。M个RRDB块。<br>非在最终输出时融合，而在重建过程中融合特征图。</p>
+<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><h2 id="训练设置"><a href="#训练设置" class="headerlink" title="训练设置"></a>训练设置</h2><p>DIV2K数据集，分800、100和100张图像，分别用于训练，验证和测试。<br>测试：Set5, Set14, BSD100, Urban100, Manga109. LR图像由Bicubic降采样得到。<br>以PI和RMSE作为评价尺度。<br><img src="https://i.loli.net/2020/08/24/jyPner7wvKIqDQa.png" alt="image.png"><br>硬件：2块2080Ti GPU</p>
+<h2 id="定量比较"><a href="#定量比较" class="headerlink" title="定量比较"></a>定量比较</h2><p>在所有基于GAN的方法（包括SRGAN [33]，EnhancedNet [34]，ESRGAN [15]，RankSRGAN [40]）中，我们的GDSR均具有最低的RMSE损耗和相对较低的PI值，并且可以生成具有更好的感知质量和相对较高的重建精度的SR图像</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1"><a href="#1" class="headerlink" title="1. "></a>1. </h2><h1 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h1><ol>
+<li></li>
+<li></li>
+<li>计算机学术会议分级列表</li>
+</ol>
+<p>根据网络资料整理的计算机领域国际学术会议分级列表<a href="http://idc.hust.edu.cn/~rxli/csrank.htm以及国际学术期刊分级列表http://idc.hust.edu.cn/~rxli/csjrank.htm" target="_blank" rel="noopener">http://idc.hust.edu.cn/~rxli/csrank.htm以及国际学术期刊分级列表http://idc.hust.edu.cn/~rxli/csjrank.htm</a></p>
+<p> <a href="https://www.cnblogs.com/bnuvincent/p/6809353.html" target="_blank" rel="noopener">https://www.cnblogs.com/bnuvincent/p/6809353.html</a></p>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>Super resolution</category>
+      </categories>
+      <tags>
+        <tag>Super resolution</tag>
+        <tag>GAN</tag>
+        <tag>GDSR</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Note ssh update</title>
+    <url>/2022/09/02/Note-ssh-update/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>&emsp;&emsp;因服务器安全管理要求，采用 升级ssh至较新版、修复漏洞、改为密钥登录 等措施，便查。</p>
+<a id="more"></a>
+<h1 id="ssh密钥生成"><a href="#ssh密钥生成" class="headerlink" title="ssh密钥生成"></a>ssh密钥生成</h1><h2 id="在服务器端操作，生成密钥对"><a href="#在服务器端操作，生成密钥对" class="headerlink" title="在服务器端操作，生成密钥对"></a>在服务器端操作，生成密钥对</h2><p><a href="https://www.wnark.com/archives/6.html" target="_blank" rel="noopener">参见<em>二、使用密钥登录的实现</em></a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> </span><br><span class="line">mkdir .ssh</span><br><span class="line"><span class="comment"># 当/home/your_username/下的.ssh文件夹不存在时，则新建一个。</span></span><br><span class="line"><span class="built_in">cd</span> .ssh</span><br><span class="line">ssh-keygen -b 2048 -t rsa</span><br></pre></td></tr></table></figure><br>ssh-keygen的基本用法：<br>-b后面是指定加密后的字符串长度<br>-t后面是指定加密算法，常用的加密算法有rsa,dsa等<br>默认生成的文件如下：<br>id_rsa.pub 公钥文件<br>id_rsa 私钥文件</p>
+<p>修改公钥的文件名为authorized_keys：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv id_rsa.pub authorized_keys</span><br></pre></td></tr></table></figure></p>
+<h2 id="也有添加公钥"><a href="#也有添加公钥" class="headerlink" title="也有添加公钥"></a>也有添加公钥</h2><p>把服务器端的id_rsa 私钥文件下载到客户机（若windows系统，或需另存为扩展名为.ppk的密钥文件，若linux，则可直接使用）。<br>私钥的使用暂略。具体见各软件。</p>
+<h1 id="ssh改为密钥登录，禁用密码登录"><a href="#ssh改为密钥登录，禁用密码登录" class="headerlink" title="ssh改为密钥登录，禁用密码登录"></a>ssh改为密钥登录，禁用密码登录</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># 在服务器端修改sshd的配置文件</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PasswordAuthentication no</span><br><span class="line"><span class="comment"># 配置PasswordAuthentication的值改为“no”，即关闭密码登录</span></span><br></pre></td></tr></table></figure>
+<h1 id="ssh登录调试"><a href="#ssh登录调试" class="headerlink" title="ssh登录调试"></a>ssh登录调试</h1><h2 id="查看sshd的日志"><a href="#查看sshd的日志" class="headerlink" title="查看sshd的日志"></a>查看sshd的日志</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tail -f /var/<span class="built_in">log</span>/auth.log</span><br></pre></td></tr></table></figure>
+<h2 id="ssh-debug"><a href="#ssh-debug" class="headerlink" title="ssh debug"></a>ssh debug</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hi@hi:~$ ssh hi -v</span><br></pre></td></tr></table></figure>
+<h1 id="ssh免密登录时导致连接错误的权限问题"><a href="#ssh免密登录时导致连接错误的权限问题" class="headerlink" title="ssh免密登录时导致连接错误的权限问题"></a>ssh免密登录时导致连接错误的权限问题</h1><p><a href="https://www.cnblogs.com/eos666/p/12926749.html" target="_blank" rel="noopener">参见</a><br>错误信息，如：Authentication refused: bad ownership or modes for directory /home/hi</p>
+<blockquote>
+<p>原因<br>sshd为了安全，对属主的目录和文件权限有所要求。如果权限不对，则ssh的免密码登陆不生效。<br>用户目录权限为 755 或者 700，就是不能是77x。<br>.ssh目录权限一般为755或者700。<br>rsa_id.pub 及authorized_keys权限一般为644<br>rsa_id权限必须为600</p>
+</blockquote>
+<p>解决方法：<br>检测目录权限，把不符合要求的按要求设置权限即可。</p>
+<h1 id="安全风险应对"><a href="#安全风险应对" class="headerlink" title="安全风险应对"></a>安全风险应对</h1><h2 id="OpenSSH-操作系统命令注入漏洞-CVE-2020-15778"><a href="#OpenSSH-操作系统命令注入漏洞-CVE-2020-15778" class="headerlink" title="OpenSSH 操作系统命令注入漏洞(CVE-2020-15778)"></a>OpenSSH 操作系统命令注入漏洞(CVE-2020-15778)</h2><p>详细描述<br>OpenSSH（OpenBSD Secure Shell）是OpenBSD计划组的一套用于安全访问远程计算机的连接工具。该工具是SSH协议的开源实现，支持对所有的传输进行加密，可有效阻止窃听、连接劫持以及其他网络级的攻击。 该漏洞源于外部输入数据构造操作系统可执行命令过程中，网络系统或产品未正确过滤其中的特殊字符、命令等。攻击者可利用该漏洞执行非法操作系统命令。目前openssh社区的答复是不修复该漏洞，因为scp为了传输文件而设计使用，应支持传输linux系统上符合文件名要求的文件，如果加入对特殊字符的校验，会使scp传输文件的范围变小，不符合简单使用的设计初衷。<br>修复建议<br>建议保管好ssh密码，设置较为复杂的密码或者直接禁用scp来防范此漏洞(命令:mv /usr/bin/scp /usr/bin/scp.bak )<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo mv /usr/bin/scp /usr/bin/scp.bak</span><br><span class="line"><span class="comment"># 这种方法，使得MobaXterm不能下载文件。被废弃。</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>使用技巧</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING&quot;Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition&quot;</title>
+    <url>/2020/12/30/Adversarial-Self-Supervised-Learning-for-Semi-Supervised-3D-Action-Recognition/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Si, Chenyang, Xuecheng Nie, Wei Wang, Liang Wang, Tieniu Tan, and Jiashi Feng. </span><br><span class="line"><span class="string">"Adversarial Self-Supervised Learning for Semi-Supervised 3D Action Recognition."</span> </span><br><span class="line">In European Conference on Computer Vision, pp. 35-51. Springer, Cham, 2020.</span><br></pre></td></tr></table></figure>
+<p>题目：对抗式自我监督学习，实现半监督3D动作识别<br>ECCV2020<br>一作 司晨阳，中科院自动化所博士生，新加坡国立大学访问学生<br>指导老师：Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item80.shtml" target="_blank" rel="noopener">Tieniu Tan</a>, Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item125.shtml" target="_blank" rel="noopener">Liang Wang</a> and associate Prof. <a href="http://cripac.ia.ac.cn/en/EN/column/item118.shtml" target="_blank" rel="noopener">Wei Wang</a><br>web：<a href="http://chenyangsi.top/" target="_blank" rel="noopener">http://chenyangsi.top/</a><br>无code。作者开源代码少。<br><a id="more"></a><br><strong>摘要</strong>：<br>&emsp;&emsp;We consider the problem of semi-supervised <strong>3D action recognition</strong> which has been rarely explored before. Its major challenge lies in how to effectively learn motion representations from unlabeled data. Self-supervised learning (SSL) has been proved very effective at learning representations from unlabeled data in the image domain. However, few effective self-supervised approaches exist for 3D action recognition, and directly applying SSL for semi-supervised learning suffers from misalignment of representations learned from SSL and supervised learning tasks. <strong>To address these issues, we present Adversarial Self-Supervised Learning (ASSL), a novel framework that tightly couples SSL and the semi-supervised scheme via neighbor relation exploration and adversarial learning.</strong> Specifically, we design an effective SSL scheme to improve the discrimination capability of learned representations for 3D action recognition, through exploring the data relations within a neighborhood. We further propose an adversarial regularization to align the feature distributions of labeled and unlabeled samples. To demonstrate effectiveness of the proposed ASSL in semi-supervised 3D action recognition, we conduct extensive experiments on <strong>NTU and N-UCLA datasets</strong>. The results confirm its advantageous performance over state-of-the-art semi-supervised methods in the few label regime for 3D action recognition.</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>3D-Action-Recognition，即，基于骨架的行为识别</li>
+<li>通过邻域关系结合了对抗学习和自监督</li>
+<li>NTU RGB+D dataset 40个人、60个动作类别，56880个样本。三个摄像机在不同水平视角位置同时采集。</li>
+</ol>
+<hr>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>行为识别</category>
+      </categories>
+      <tags>
+        <tag>行为识别</tag>
+        <tag>FSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Note-use-ubuntu</title>
+    <url>/2021/07/01/Note-use-ubuntu/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>&emsp;&emsp;记录一些日常使用的终端命令，便查。</p>
+<a id="more"></a>
+<h1 id="Linux通用"><a href="#Linux通用" class="headerlink" title="Linux通用"></a>Linux通用</h1><h2 id="设置grub开机等待时间"><a href="#设置grub开机等待时间" class="headerlink" title="设置grub开机等待时间"></a>设置grub开机等待时间</h2><p><a href="https://www.cnblogs.com/re1n/p/6009946.html" target="_blank" rel="noopener">参见</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br><span class="line"><span class="comment"># grub配置文件</span></span><br></pre></td></tr></table></figure><br>vim做如下修改，保存退出：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># GRUB_HIDDEN_TIMEOUT=0 # 需注释掉</span></span><br><span class="line">GRUB_TIMEOUT=3          <span class="comment"># 等待时间为3s</span></span><br></pre></td></tr></table></figure><br>更新grub，使之生效。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure></p>
+<h2 id="vi-vim-编辑器常用命令"><a href="#vi-vim-编辑器常用命令" class="headerlink" title="vi/vim 编辑器常用命令"></a>vi/vim 编辑器常用命令</h2><p>参见 <a href="https://blog.csdn.net/u010420283/article/details/119823293" target="_blank" rel="noopener">CSDN</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">##命令模式</span></span><br><span class="line"><span class="comment"># 复制</span></span><br><span class="line">yy    <span class="comment"># 复制单行</span></span><br><span class="line">2yy   <span class="comment"># 复制2行 n就n行</span></span><br><span class="line"><span class="comment"># 粘贴</span></span><br><span class="line">p     <span class="comment"># 小写，光标位置_下_一行粘贴</span></span><br><span class="line">P     <span class="comment"># 大写，光标位置^上^一行粘贴</span></span><br><span class="line"><span class="comment"># 删除</span></span><br><span class="line">dd    <span class="comment"># 删一行</span></span><br><span class="line">3dd   <span class="comment"># 删3行  n就n行</span></span><br><span class="line">dw    <span class="comment"># 删光标处的本单词</span></span><br><span class="line">3dw   <span class="comment"># 删光标处连续的3个单词</span></span><br><span class="line"><span class="comment"># 查找</span></span><br><span class="line">/word <span class="comment"># 找 “word”的字符串 （向下）</span></span><br><span class="line"><span class="comment"># 撤销</span></span><br><span class="line">u     <span class="comment"># 撤销上一步</span></span><br><span class="line">.     <span class="comment"># 小点 重复上一操作</span></span><br><span class="line">Ctrl+ r     <span class="comment">#多次撤销</span></span><br><span class="line"><span class="comment"># 保存与退出</span></span><br><span class="line">【:w】 保存文件</span><br><span class="line">【:w!】 若文件为只读，强制保存文件</span><br><span class="line">【:q】 离开vi</span><br><span class="line">【:q!】 不保存强制离开vi</span><br><span class="line">【:wq】 保存后离开</span><br><span class="line">【:wq!】 强制保存后离开</span><br><span class="line"><span class="comment">##</span></span><br><span class="line"></span><br><span class="line">在可视模式下选择要移动的列，操作为，esc从编辑模式退到命令模式，将光标移到需要缩进的行的行首，然后按<span class="built_in">shift</span>+v，可以看到该行已被选中，且左下角提示为“可视”;</span><br><span class="line">此时，按键盘上的上下左右方向键，如这里按向下的箭头，选中所有需要批量缩进的行;</span><br><span class="line">选择好了之后，按<span class="built_in">shift</span>+&gt;,是向前缩进一个tab值，按<span class="built_in">shift</span>+&lt;，则是缩回一个tab值。</span><br></pre></td></tr></table></figure></p>
+<h2 id="文件与目录管理"><a href="#文件与目录管理" class="headerlink" title="文件与目录管理"></a>文件与目录管理</h2><p> <a href="https://blog.csdn.net/QFJIZHI/article/details/103550371" target="_blank" rel="noopener">跳转CSDN</a></p>
+<h2 id="比较两个目录差异"><a href="#比较两个目录差异" class="headerlink" title="比较两个目录差异"></a><a href="https://baijiahao.baidu.com/s?id=1717681125622487958&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">比较两个目录差异</a></h2><p>diff<br>给定两个目录，如何找出哪些文件因内容不同</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">diff --brief --recursive dir1/ dir2/</span><br><span class="line"><span class="comment"># --brief仅显示有无差异</span></span><br></pre></td></tr></table></figure>
+<p>或者使用<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">diff -qr dir1/ dir2/</span><br><span class="line"><span class="comment"># -q 仅显示有无差异，不显示详细的信息</span></span><br><span class="line"><span class="comment"># -r 比较子目录中的文件</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="文件压缩和解压"><a href="#文件压缩和解压" class="headerlink" title="文件压缩和解压"></a>文件压缩和解压</h2><p>打包成tar.gz格式压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zcvf renwolesshel.tar.gz /renwolesshel</span><br></pre></td></tr></table></figure></p>
+<p>解压tar.gz格式压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf renwolesshel.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>打包成tar.bz2格式压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -jcvf renwolesshel.tar.bz2 /renwolesshel</span><br></pre></td></tr></table></figure></p>
+<p>解压tar.bz2格式的压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar jxvf renwolesshel.tar.bz2</span><br></pre></td></tr></table></figure></p>
+<p>压缩成zip格式<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">zip -q -r renwolesshel.zip renwolesshel/</span><br></pre></td></tr></table></figure></p>
+<p>解压zip格式的压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unzip renwolesshel.zip</span><br></pre></td></tr></table></figure></p>
+<h2 id="Ubuntu查找文件或文件夹"><a href="#Ubuntu查找文件或文件夹" class="headerlink" title="Ubuntu查找文件或文件夹"></a>Ubuntu查找文件或文件夹</h2><blockquote>
+<p>参见 <a href="https://blog.csdn.net/sunmingyang1987/article/details/107668149" target="_blank" rel="noopener">https://blog.csdn.net/sunmingyang1987/article/details/107668149</a></p>
+</blockquote>
+<h3 id="找文件"><a href="#找文件" class="headerlink" title="找文件"></a>找文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">locate 目录名/sh 		<span class="comment">#查找目录名下的sh开头文件</span></span><br><span class="line">locate -i 目录名/sh 		<span class="comment">#-i: 忽略大小写sh</span></span><br></pre></td></tr></table></figure>
+<h3 id="找文件夹"><a href="#找文件夹" class="headerlink" title="找文件夹"></a>找文件夹</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find [directory] -name filename 		<span class="comment">#查找目录名下的filename文件夹</span></span><br></pre></td></tr></table></figure>
+<p>加入额外的搜索条件,根据文件大小和文件名来搜索:让我们查找所有文件名匹配通配符模式“*.JPG”和文件大小大于 1M 的文件<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo find /home/hi -name ADE*    <span class="comment"># 命名为ADE开头的文件夹或文件</span></span><br><span class="line">find / -<span class="built_in">type</span>  f   -name   <span class="string">"*.JPG"</span>   -size   +1M</span><br><span class="line">find  / /home -xdev -name ngirc   <span class="comment"># 避免/run/user/1000/gvfs': Permission denied错误  加-xdev参数  [避免gvfs错误](https://unix.stackexchange.com/questions/77453/why-cannot-find-read-run-user-1000-gvfs-even-though-it-is-running-as-root)</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="查看文件夹大小-more"><a href="#查看文件夹大小-more" class="headerlink" title="查看文件夹大小 more"></a>查看文件夹大小 <a href="https://www.cnblogs.com/Sungeek/p/11661554.html" target="_blank" rel="noopener">more</a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">du -sh</span><br></pre></td></tr></table></figure>
+<h2 id="查看磁盘容量"><a href="#查看磁盘容量" class="headerlink" title="查看磁盘容量"></a>查看磁盘容量</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
+<h2 id="GCC版本切换"><a href="#GCC版本切换" class="headerlink" title="GCC版本切换"></a><a href="https://blog.csdn.net/QFJIZHI/article/details/103372864" target="_blank" rel="noopener">GCC版本切换</a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config gcc</span><br></pre></td></tr></table></figure>
+<h2 id="查找大文件（夹）"><a href="#查找大文件（夹）" class="headerlink" title="查找大文件（夹）"></a>查找大文件（夹）</h2><h3 id="找大文件夹"><a href="#找大文件夹" class="headerlink" title="找大文件夹"></a>找大文件夹</h3><ol>
+<li><p>方法一<br>（所有目录）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># du -am | sort -nr | head -n 15  # 运行时间较长</span></span><br><span class="line">1215060 .</span><br><span class="line">369830  ./data</span><br><span class="line">124092  ./myfolder</span><br><span class="line">119186  ./data/volleyball</span><br><span class="line">107788  ./LJ</span><br><span class="line">77811   ./rx</span><br><span class="line">73689   ./anaconda</span><br><span class="line">69774   ./.PyCharm2018.2</span><br><span class="line">69770   ./.PyCharm2018.2/system</span><br><span class="line">69069   ./.PyCharm2018.2/system/caches</span><br><span class="line">68741   ./.PyCharm2018.2/system/caches/content.dat.storageData</span><br><span class="line">66731   ./JRY</span><br><span class="line">59862   ./data/volleyball/videos</span><br><span class="line">59151   ./data/volleyball/volleyball.zip</span><br><span class="line">58626   ./anaconda/pkgs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法二<br>（当前目录）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># du -s * | sort -nr | head -n 15  # 运行时间较短</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法三<br>（优选 当前目录，显示单位为Gb/Mb）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># du -hsx * | sort -rh | head -n 15  # 运行时间较短</span></span><br><span class="line"><span class="comment"># du -h --max-depth=0 *              #当前目录下各文件占用情况</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="找大文件"><a href="#找大文件" class="headerlink" title="找大文件"></a>找大文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># find . -type f -printf "%k %p\n" | sort -rn | head -n 15</span></span><br><span class="line">70390696 ./.PyCharm2018.2/system/caches/content.dat.storageData</span><br><span class="line">60569632 ./data/volleyball/volleyball.zip</span><br><span class="line">**22718764 ./data/data/ucf101_tvl1_flow.zip**</span><br><span class="line">15956596 ./Conrad/1/SSTran-DSGG/ActionGenome-master/tools/dataset/ag/videos/Charades_v1_480.zip</span><br><span class="line">**9437188 ./tan/ucf101_tvl1_flow.zip.001**</span><br><span class="line">**9437188 ./data/data/ucf101_tvl1_flow.zip.002**</span><br><span class="line">7282032 ./rx/data/tiered_imagenet/compacted_datasets/train_images_png.pkl</span><br><span class="line">6954056 ./caffe/examples/UTD_CRC.zip</span><br><span class="line">**6770488 ./tan/five-video-classification-methods-master/data/UCF101.rar**</span><br><span class="line">5720616 ./space/Super-Resolution-Datasets/DIV2K2017.zip</span><br><span class="line">4193284 ./data/g</span><br><span class="line">3956776 ./data/BOBO/RefNet/data/ADE20K_2016_07_26.zip</span><br><span class="line">3956776 ./data/BOBO/AttentionSegModel/data/ADE20K_2016_07_26.zip</span><br><span class="line">3869568 ./caffe/models/model-zoo.zip</span><br><span class="line">**3844396 ./data/data/ucf101_tvl1_flow.zip.003**</span><br></pre></td></tr></table></figure>
+<!-- #数据下载
+Google Drive direct download 
+https://github.com/circulosmeos/gdown.pl
+./gdown.pl 'gdrive file url' ['desired file name']
+./gdown.pl https://drive.google.com/file/d/1DtPo-WP-hjaOwsbj6ZxTtOo_7R_4TKRG/view /home/yangyin/data/datasets/cityscapes/refinement_final_v0.zip
+curl -H "Authorization: Bearer ya29.a0ARrdaM_goUMCOrz3yrQB10myg2vHw5gS5PbbtPSQP2vl97sgg8TzFmuD3qysWLzm-bpO7oyATXE33damDUcsks8Lc9Kh8WxL6iu-gR8XrkW2LFF-T3KPIyZx8eAizHKLhb-FsVhjgFh6txNNaYkgdIidalRt" https://www.googleapis.com/drive/v3/files/1DtPo-WP-hjaOwsbj6ZxTtOo_7R_4TKRG?alt=media -o refinement_final_v0.zip
+
+Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCgv03_wPZGdJUKaMW6SH?alt=media -Method Get -Headers @{"Authorization"="Bearer ya29.a0ARrdaM9vAbT982bBbfNfmBeuGlSaGk8EZt3avTQ7EXJwDY6rK8dsmjtGqPtzJinq7V8j7XttelPs4a-MYwm8aUdFZTqqFwGRPItP9NwGs25EuqEKUXIHM5BF46TctQPj0CzANPM4Bv9knqyekZNs95FxrVrb"} -OutFile ocrnet.HRNet_industrious-chicken.pth -->
+<h1 id="显卡驱动cuda及软连接"><a href="#显卡驱动cuda及软连接" class="headerlink" title="显卡驱动cuda及软连接"></a>显卡驱动cuda及软连接</h1><blockquote>
+<p>参见 <a href="https://blog.csdn.net/qq_37424778/article/details/115293430" target="_blank" rel="noopener">https://blog.csdn.net/qq_37424778/article/details/115293430</a></p>
+</blockquote>
+<h2 id="查看-bashrc中环境配置"><a href="#查看-bashrc中环境配置" class="headerlink" title="查看.bashrc中环境配置"></a>查看.bashrc中环境配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~/.bashrc</span><br></pre></td></tr></table></figure>
+<h2 id="查看编译使用的cuda环境"><a href="#查看编译使用的cuda环境" class="headerlink" title="查看编译使用的cuda环境"></a>查看编译使用的cuda环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
+<p>启动/关闭vncserver<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vncserver :1</span><br><span class="line">vncserver -<span class="built_in">kill</span> :1</span><br></pre></td></tr></table></figure></p>
+<h1 id="CONDA使用"><a href="#CONDA使用" class="headerlink" title="CONDA使用"></a>CONDA使用</h1><blockquote>
+<p> <a href="https://blog.csdn.net/QFJIZHI/article/details/103963782" target="_blank" rel="noopener">conda 常用指令总结</a></p>
+</blockquote>
+<h2 id="国内镜像源"><a href="#国内镜像源" class="headerlink" title="国内镜像源"></a>国内镜像源</h2><blockquote>
+<p>添加通道 <a href="https://mirror.tuna.tsinghua.edu.cn/help/anaconda/" target="_blank" rel="noopener">more info</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/</span><br></pre></td></tr></table></figure>
+<p>查看channels<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat ~/.condarc</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n torch160 python=3.7 -y</span><br></pre></td></tr></table></figure>
+<p>-y ：表静默yes</p>
+<h2 id="安装torch-1-6-0"><a href="#安装torch-1-6-0" class="headerlink" title="安装torch 1.6.0"></a>安装torch 1.6.0</h2><p>for cuda10.1 <a href="https://pytorch.org/get-started/previous-versions/" target="_blank" rel="noopener">more info</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install pytorch==1.6.0 torchvision==0.7.0 cudatoolkit=10.1</span><br></pre></td></tr></table></figure></p>
+<h1 id="apex包-amp-inplace-abn"><a href="#apex包-amp-inplace-abn" class="headerlink" title="apex包 &amp; inplace-abn"></a>apex包 &amp; inplace-abn</h1><p>以前需要编译安装，现conda已加入此包。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge nvidia-apex</span><br></pre></td></tr></table></figure><br><a href="https://github.com/mapillary/inplace_abn" target="_blank" rel="noopener">inplace-abn</a>:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PyTorch &gt;=1.1  &amp; CUDA &gt;= 10.0</span></span><br><span class="line">pip install inplace-abn</span><br></pre></td></tr></table></figure></p>
+<h1 id="MMCV等包"><a href="#MMCV等包" class="headerlink" title="MMCV等包"></a>MMCV等包</h1><p>MMCV<a href="https://github.com/open-mmlab/mmcv" target="_blank" rel="noopener">github</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu101/torch1.6.0/index.html</span><br></pre></td></tr></table></figure></p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><h2 id="nohup命令"><a href="#nohup命令" class="headerlink" title="nohup命令"></a>nohup命令</h2><blockquote>
+<p>参见<a href="https://www.runoob.com/linux/linux-comm-nohup.html" target="_blank" rel="noopener">https://www.runoob.com/linux/linux-comm-nohup.html</a></p>
+</blockquote>
+<p>应对网络异常中断，使程序执行不受干扰。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nohup python -u train.py &gt; run_lr_02.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup python -u train.py &gt; run_r3.log &amp;</span><br><span class="line"><span class="comment">#CUDA_VISIBLE_DEVICES=1, python train.py</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="问题速查"><a href="#问题速查" class="headerlink" title="问题速查"></a>问题速查</h1><h2 id="连显示器无显示"><a href="#连显示器无显示" class="headerlink" title="连显示器无显示"></a>连显示器无显示</h2><p>因：nvidia-smi，可看到是输出关闭了<br>解：关闭显示服务，重启。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service lightdm stop</span><br></pre></td></tr></table></figure><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service lightdm restart</span><br></pre></td></tr></table></figure></p>
+<h2 id="程序中断后未释放内存"><a href="#程序中断后未释放内存" class="headerlink" title="程序中断后未释放内存"></a>程序中断后未释放内存</h2><p>参见 <a href="https://blog.csdn.net/yjl9122/article/details/78920986" target="_blank" rel="noopener">https://blog.csdn.net/yjl9122/article/details/78920986</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.先关闭ssh（或者shell）窗口，退出重新登录</span><br><span class="line"></span><br><span class="line">2.查看运行在gpu上的所有程序：</span><br><span class="line"></span><br><span class="line">fuser -v /dev/nvidia*</span><br><span class="line"></span><br><span class="line">3.kill掉所有（连号的）僵尸进程</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><h2 id="可视化-for-图像分割"><a href="#可视化-for-图像分割" class="headerlink" title="可视化 for 图像分割"></a>可视化 for 图像分割</h2><blockquote>
+<p>法1： 已尝试，可行<br>参见<a href="https://blog.csdn.net/qq_38861679/article/details/110096349" target="_blank" rel="noopener">CSDN_Pytorch可视化语义分割特征图</a><br>法2： 未试<br>参见<a href="https://blog.csdn.net/weixin_43117620/article/details/125574738" target="_blank" rel="noopener">CSDN_Grad-CAM在语义分割中的pytorch实现</a><br>法3：MMengine，原理同法1，附带其他的工具箱<br>参见<a href="https://github.com/open-mmlab/mmengine/blob/main/docs/zh_cn/advanced_tutorials/visualization.md" target="_blank" rel="noopener">mmengine的特征可视化中文教程</a></p>
+</blockquote>
+<h2 id="python中图像处理常用三包"><a href="#python中图像处理常用三包" class="headerlink" title="python中图像处理常用三包"></a>python中图像处理常用三包</h2><blockquote>
+<p>CV2、 PIL、 matplotlib<br>参见<a href="https://blog.csdn.net/qq_46717669/article/details/124702839" target="_blank" rel="noopener">CSDN_python中常用的图片处理的函数</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>使用技巧</tag>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -232,77 +346,24 @@
       </tags>
   </entry>
   <entry>
-    <title>Note-use-ubuntu</title>
-    <url>/2022/01/27/Note-use-ubuntu/</url>
-    <content><![CDATA[<!-- ---
-title: PAPER READING"Note-use-ubuntu"
-mathjax: false
-categories:
-  - Ubuntu
-tags:
-  - 使用技巧
-  - Ubuntu
-date: 2021-07-01 21:52:33
---- -->
-<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>&emsp;&emsp;记录一些日常使用的终端命令，便查。</p>
-<a id="more"></a>
-<h1 id="Linux通用"><a href="#Linux通用" class="headerlink" title="Linux通用"></a>Linux通用</h1><h2 id="文件与目录管理"><a href="#文件与目录管理" class="headerlink" title="文件与目录管理"></a>文件与目录管理</h2><p> <a href="https://blog.csdn.net/QFJIZHI/article/details/103550371" target="_blank" rel="noopener">跳转CSDN</a></p>
-<h2 id="比较两个目录差异"><a href="#比较两个目录差异" class="headerlink" title="比较两个目录差异"></a><a href="https://baijiahao.baidu.com/s?id=1717681125622487958&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">比较两个目录差异</a></h2><p>diff<br>给定两个目录，如何找出哪些文件因内容不同</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">diff --brief --recursive dir1/ dir2/</span><br><span class="line"><span class="comment"># --brief仅显示有无差异</span></span><br></pre></td></tr></table></figure>
-<p>或者使用<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">diff -qr dir1/ dir2/</span><br><span class="line"><span class="comment"># -q 仅显示有无差异，不显示详细的信息</span></span><br><span class="line"><span class="comment"># -r 比较子目录中的文件</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="文件压缩和解压"><a href="#文件压缩和解压" class="headerlink" title="文件压缩和解压"></a>文件压缩和解压</h2><p>打包成tar.gz格式压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zcvf renwolesshel.tar.gz /renwolesshel</span><br></pre></td></tr></table></figure></p>
-<p>解压tar.gz格式压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar zxvf renwolesshel.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>打包成tar.bz2格式压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -jcvf renwolesshel.tar.bz2 /renwolesshel</span><br></pre></td></tr></table></figure></p>
-<p>解压tar.bz2格式的压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar jxvf renwolesshel.tar.bz2</span><br></pre></td></tr></table></figure></p>
-<p>压缩成zip格式<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">zip -q -r renwolesshel.zip renwolesshel/</span><br></pre></td></tr></table></figure></p>
-<p>解压zip格式的压缩包<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unzip renwolesshel.zip</span><br></pre></td></tr></table></figure></p>
-<h2 id="Ubuntu查找文件或文件夹"><a href="#Ubuntu查找文件或文件夹" class="headerlink" title="Ubuntu查找文件或文件夹"></a>Ubuntu查找文件或文件夹</h2><blockquote>
-<p>参见 <a href="https://blog.csdn.net/sunmingyang1987/article/details/107668149" target="_blank" rel="noopener">https://blog.csdn.net/sunmingyang1987/article/details/107668149</a></p>
-</blockquote>
-<h3 id="找文件"><a href="#找文件" class="headerlink" title="找文件"></a>找文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">locate 目录名/sh 		<span class="comment">#查找目录名下的sh开头文件</span></span><br><span class="line">locate -i 目录名/sh 		<span class="comment">#-i: 忽略大小写sh</span></span><br></pre></td></tr></table></figure>
-<h3 id="找文件夹"><a href="#找文件夹" class="headerlink" title="找文件夹"></a>找文件夹</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find [directory] -name filename 		<span class="comment">#查找目录名下的filename文件夹</span></span><br></pre></td></tr></table></figure>
-<p>加入额外的搜索条件,根据文件大小和文件名来搜索:让我们查找所有文件名匹配通配符模式“*.JPG”和文件大小大于 1M 的文件<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find / -<span class="built_in">type</span>  f   -name   <span class="string">"*.JPG"</span>   -size   +1M</span><br></pre></td></tr></table></figure></p>
-<h3 id="查看文件夹大小-more"><a href="#查看文件夹大小-more" class="headerlink" title="查看文件夹大小 more"></a>查看文件夹大小 <a href="https://www.cnblogs.com/Sungeek/p/11661554.html" target="_blank" rel="noopener">more</a></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">du -sh</span><br></pre></td></tr></table></figure>
-<h2 id="查看磁盘容量"><a href="#查看磁盘容量" class="headerlink" title="查看磁盘容量"></a>查看磁盘容量</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
-<h2 id="GCC版本切换"><a href="#GCC版本切换" class="headerlink" title="GCC版本切换"></a><a href="https://blog.csdn.net/QFJIZHI/article/details/103372864" target="_blank" rel="noopener">GCC版本切换</a></h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config gcc</span><br></pre></td></tr></table></figure>
-<h2 id="查找大文件（夹）"><a href="#查找大文件（夹）" class="headerlink" title="查找大文件（夹）"></a>查找大文件（夹）</h2><h3 id="找大文件夹"><a href="#找大文件夹" class="headerlink" title="找大文件夹"></a>找大文件夹</h3><ol>
-<li>方法一<br>（所有目录）<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># du -am | sort -nr | head -n 15  # 运行时间较长</span></span><br><span class="line">1215060 .</span><br><span class="line">369830  ./data</span><br><span class="line">124092  ./myfolder</span><br><span class="line">119186  ./data/volleyball</span><br><span class="line">107788  ./LJ</span><br><span class="line">77811   ./rx</span><br><span class="line">73689   ./anaconda</span><br><span class="line">69774   ./.PyCharm2018.2</span><br><span class="line">69770   ./.PyCharm2018.2/system</span><br><span class="line">69069   ./.PyCharm2018.2/system/caches</span><br><span class="line">68741   ./.PyCharm2018.2/system/caches/content.dat.storageData</span><br><span class="line">66731   ./JRY</span><br><span class="line">59862   ./data/volleyball/videos</span><br><span class="line">59151   ./data/volleyball/volleyball.zip</span><br><span class="line">58626   ./anaconda/pkgs</span><br></pre></td></tr></table></figure></li>
-<li>方法二<br>（当前目录）<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># du -s * | sort -nr | head -n 15  # 运行时间较短</span></span><br><span class="line">``` </span><br><span class="line">3. 方法三</span><br><span class="line">（优选 当前目录，显示单位为Gb/Mb）</span><br><span class="line">``` bash</span><br><span class="line"><span class="comment"># du -hsx * | sort -rh | head -n 15  # 运行时间较短</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### 找大文件</span></span><br><span class="line">``` bash</span><br><span class="line"><span class="comment"># find . -type f -printf "%k %p\n" | sort -rn | head -n 15</span></span><br><span class="line">70390696 ./.PyCharm2018.2/system/caches/content.dat.storageData</span><br><span class="line">60569632 ./data/volleyball/volleyball.zip</span><br><span class="line">**22718764 ./data/data/ucf101_tvl1_flow.zip**</span><br><span class="line">15956596 ./Conrad/1/SSTran-DSGG/ActionGenome-master/tools/dataset/ag/videos/Charades_v1_480.zip</span><br><span class="line">**9437188 ./tan/ucf101_tvl1_flow.zip.001**</span><br><span class="line">**9437188 ./data/data/ucf101_tvl1_flow.zip.002**</span><br><span class="line">7282032 ./rx/data/tiered_imagenet/compacted_datasets/train_images_png.pkl</span><br><span class="line">6954056 ./caffe/examples/UTD_CRC.zip</span><br><span class="line">**6770488 ./tan/five-video-classification-methods-master/data/UCF101.rar**</span><br><span class="line">5720616 ./space/Super-Resolution-Datasets/DIV2K2017.zip</span><br><span class="line">4193284 ./data/g</span><br><span class="line">3956776 ./data/BOBO/RefNet/data/ADE20K_2016_07_26.zip</span><br><span class="line">3956776 ./data/BOBO/AttentionSegModel/data/ADE20K_2016_07_26.zip</span><br><span class="line">3869568 ./caffe/models/model-zoo.zip</span><br><span class="line">**3844396 ./data/data/ucf101_tvl1_flow.zip.003**</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<!-- #数据下载
-Google Drive direct download 
-https://github.com/circulosmeos/gdown.pl
-./gdown.pl 'gdrive file url' ['desired file name']
-./gdown.pl https://drive.google.com/file/d/1DtPo-WP-hjaOwsbj6ZxTtOo_7R_4TKRG/view /home/yangyin/data/datasets/cityscapes/refinement_final_v0.zip
-curl -H "Authorization: Bearer ya29.a0ARrdaM_goUMCOrz3yrQB10myg2vHw5gS5PbbtPSQP2vl97sgg8TzFmuD3qysWLzm-bpO7oyATXE33damDUcsks8Lc9Kh8WxL6iu-gR8XrkW2LFF-T3KPIyZx8eAizHKLhb-FsVhjgFh6txNNaYkgdIidalRt" https://www.googleapis.com/drive/v3/files/1DtPo-WP-hjaOwsbj6ZxTtOo_7R_4TKRG?alt=media -o refinement_final_v0.zip
-
-Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCgv03_wPZGdJUKaMW6SH?alt=media -Method Get -Headers @{"Authorization"="Bearer ya29.a0ARrdaM9vAbT982bBbfNfmBeuGlSaGk8EZt3avTQ7EXJwDY6rK8dsmjtGqPtzJinq7V8j7XttelPs4a-MYwm8aUdFZTqqFwGRPItP9NwGs25EuqEKUXIHM5BF46TctQPj0CzANPM4Bv9knqyekZNs95FxrVrb"} -OutFile ocrnet.HRNet_industrious-chicken.pth -->
-<h1 id="显卡驱动cuda及软连接"><a href="#显卡驱动cuda及软连接" class="headerlink" title="显卡驱动cuda及软连接"></a>显卡驱动cuda及软连接</h1><blockquote>
-<p>参见 <a href="https://blog.csdn.net/qq_37424778/article/details/115293430" target="_blank" rel="noopener">https://blog.csdn.net/qq_37424778/article/details/115293430</a></p>
-</blockquote>
-<h2 id="查看-bashrc中环境配置"><a href="#查看-bashrc中环境配置" class="headerlink" title="查看.bashrc中环境配置"></a>查看.bashrc中环境配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~/.bashrc</span><br></pre></td></tr></table></figure>
-<h2 id="查看编译使用的cuda环境"><a href="#查看编译使用的cuda环境" class="headerlink" title="查看编译使用的cuda环境"></a>查看编译使用的cuda环境</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
-<p>启动/关闭vncserver<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vncserver :1</span><br><span class="line">vncserver -<span class="built_in">kill</span> :1</span><br></pre></td></tr></table></figure></p>
-<h1 id="CONDA使用"><a href="#CONDA使用" class="headerlink" title="CONDA使用"></a>CONDA使用</h1><blockquote>
-<p> <a href="https://blog.csdn.net/QFJIZHI/article/details/103963782" target="_blank" rel="noopener">conda 常用指令总结</a></p>
-</blockquote>
-<h2 id="国内镜像源"><a href="#国内镜像源" class="headerlink" title="国内镜像源"></a>国内镜像源</h2><blockquote>
-<p>添加通道 <a href="https://mirror.tuna.tsinghua.edu.cn/help/anaconda/" target="_blank" rel="noopener">more info</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/</span><br></pre></td></tr></table></figure>
-<p>查看channels<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cat ~/.condarc</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda create -n torch160 python=3.7 -y</span><br></pre></td></tr></table></figure>
-<p>-y ：表静默yes</p>
-<h2 id="安装torch-1-6-0"><a href="#安装torch-1-6-0" class="headerlink" title="安装torch 1.6.0"></a>安装torch 1.6.0</h2><p>for cuda10.1 <a href="https://pytorch.org/get-started/previous-versions/" target="_blank" rel="noopener">more info</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install pytorch==1.6.0 torchvision==0.7.0 cudatoolkit=10.1</span><br></pre></td></tr></table></figure></p>
-<h1 id="apex包-amp-inplace-abn"><a href="#apex包-amp-inplace-abn" class="headerlink" title="apex包 &amp; inplace-abn"></a>apex包 &amp; inplace-abn</h1><p>以前需要编译安装，现conda已加入此包。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install -c conda-forge nvidia-apex</span><br></pre></td></tr></table></figure><br><a href="https://github.com/mapillary/inplace_abn" target="_blank" rel="noopener">inplace-abn</a>:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PyTorch &gt;=1.1  &amp; CUDA &gt;= 10.0</span></span><br><span class="line">pip install inplace-abn</span><br></pre></td></tr></table></figure></p>
-<h1 id="MMCV等包"><a href="#MMCV等包" class="headerlink" title="MMCV等包"></a>MMCV等包</h1><p>MMCV<a href="https://github.com/open-mmlab/mmcv" target="_blank" rel="noopener">github</a><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu101/torch1.6.0/index.html</span><br></pre></td></tr></table></figure></p>
-<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><h2 id="nohup命令"><a href="#nohup命令" class="headerlink" title="nohup命令"></a>nohup命令</h2><blockquote>
-<p>参见<a href="https://www.runoob.com/linux/linux-comm-nohup.html" target="_blank" rel="noopener">https://www.runoob.com/linux/linux-comm-nohup.html</a></p>
-</blockquote>
-<p>应对网络异常中断，使程序执行不受干扰。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nohup python -u train.py &gt; run_lr_02.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup python -u train.py &gt; run_r3.log &amp;</span><br><span class="line"><span class="comment">#CUDA_VISIBLE_DEVICES=1, python train.py</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="问题速查"><a href="#问题速查" class="headerlink" title="问题速查"></a>问题速查</h1><h2 id="连显示器无显示"><a href="#连显示器无显示" class="headerlink" title="连显示器无显示"></a>连显示器无显示</h2><p>因：nvidia-smi，可看到是输出关闭了<br>解：关闭显示服务，重启。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service lightdm stop</span><br></pre></td></tr></table></figure><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service lightdm restart</span><br></pre></td></tr></table></figure></p>
+    <title>Note &quot;generated_images.clamp_(0., 1.)&quot;</title>
+    <url>/2021/03/31/generated_images.clamp_/</url>
+    <content><![CDATA[<p>just for pin fuction clamp()</p>
+<p>torch.Tensor</p>
+<p>clamp_(min, max) → Tensor<br>clamp() 的in-place运算形式</p>
+<p>torch.clamp<br>torch.clamp(input, min, max, out=None) → Tensor<br>将输入input张量每个元素的夹紧到区间 [min,max]，并返回结果到一个新张量。</p>
+<p>操作定义如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">      | min, <span class="keyword">if</span> x_i &lt; min</span><br><span class="line">y_i = | x_i, <span class="keyword">if</span> min &lt;= x_i &lt;= max</span><br><span class="line">      | max, <span class="keyword">if</span> x_i &gt; max</span><br></pre></td></tr></table></figure>
+<hr>
 ]]></content>
+      <categories>
+        <category>Note</category>
+        <category>pytorch</category>
+      </categories>
+      <tags>
+        <tag>pytorch</tag>
+        <tag>fuction</tag>
+      </tags>
   </entry>
   <entry>
     <title>PAPER READING&quot;ZSL-action-recognition-survey&quot;</title>
@@ -338,26 +399,6 @@ Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCg
         <tag>行为识别</tag>
         <tag>综述</tag>
         <tag>Zero Shot Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Note &quot;generated_images.clamp_(0., 1.)&quot;</title>
-    <url>/2021/03/31/generated_images.clamp_/</url>
-    <content><![CDATA[<p>just for pin fuction clamp()</p>
-<p>torch.Tensor</p>
-<p>clamp_(min, max) → Tensor<br>clamp() 的in-place运算形式</p>
-<p>torch.clamp<br>torch.clamp(input, min, max, out=None) → Tensor<br>将输入input张量每个元素的夹紧到区间 [min,max]，并返回结果到一个新张量。</p>
-<p>操作定义如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">      | min, <span class="keyword">if</span> x_i &lt; min</span><br><span class="line">y_i = | x_i, <span class="keyword">if</span> min &lt;= x_i &lt;= max</span><br><span class="line">      | max, <span class="keyword">if</span> x_i &gt; max</span><br></pre></td></tr></table></figure>
-<hr>
-]]></content>
-      <categories>
-        <category>Note</category>
-        <category>pytorch</category>
-      </categories>
-      <tags>
-        <tag>pytorch</tag>
-        <tag>fuction</tag>
       </tags>
   </entry>
   <entry>
@@ -412,28 +453,6 @@ Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCg
       </tags>
   </entry>
   <entry>
-    <title>SLAM预备知识</title>
-    <url>/2020/07/26/note-slam-pre/</url>
-    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
-<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
-<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
-<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
-<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
-<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
-<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
-<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
-<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
-<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
-]]></content>
-      <categories>
-        <category>SLAM</category>
-      </categories>
-      <tags>
-        <tag>SLAM</tag>
-        <tag>notebook</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>如何做好学术报告</title>
     <url>/2020/07/28/how_to_do_Academic_report/</url>
     <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>PPT展示，作为一种报告方法，是沟通交流的重要组成，不仅限于学术交流中。在工作中，跟客户展示方案、跟领导述职汇报、项目演示评审，都离不开它。在使用计算机的场景下，想象不到没有它的地方。<br>balabala 很重要。<br>结合刚好看到的文章（见参考），归纳下重点和自己的一点收获。</p>
@@ -471,6 +490,43 @@ Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCg
         <tag>Research</tag>
         <tag>PPT</tag>
         <tag>presentation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>测试hello！</title>
+    <url>/2020/07/19/test1/</url>
+    <content><![CDATA[<p>你好！</p>
+<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
+<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
+]]></content>
+      <categories>
+        <category>测试分类</category>
+      </categories>
+      <tags>
+        <tag>ceshi_tags1</tag>
+        <tag>tags2</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SLAM预备知识</title>
+    <url>/2020/07/26/note-slam-pre/</url>
+    <content><![CDATA[<p>视觉slam<br>先说视觉这块，首先射影几何的一些内容相机模型，单视几何，双视几何和多视几何。这些内容可以在<a href="http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG" target="_blank" rel="noopener">http://www.robots.ox.ac.uk/~vgg/hzbook/这本书中找到。英文版的，另外中科院的吴福朝编著的“计算机视觉中的数学方法”也很好，他涵盖了上述了MVG</a> in CV book中的大部分内容，强烈安利。</p>
+<p>然后是一些视觉特征，这方面就是一些特征，描述子，匹配相关等。见SIFT，ORB、BRISK、SURF等文章。</p>
+<p>数学方面首先是三维空间的刚体运动，参考机器人学， 关于优化，SLAM中的优化方法十分基本，参考高斯牛顿，LM，结合稀疏线性代数，其实用的时候会使用一种g2o的图优化库或者ceres。</p>
+<p>最难的应该算是李群和李代数，这方面可以参考book state estimation for Robotics。当然不想看书的话可以参考博客<a href="http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。" target="_blank" rel="noopener">http://www.cnblogs.com/gaoxiang12/tag/%E6%9D%8E%E4%BB%A3%E6%95%B0/。</a></p>
+<p>为了看论文的时候能够比较流畅，还应该具备一些概率论的知识，这里推荐bookProbabilistic Robotics pdf</p>
+<p>话说高翔博士近期完成一本SLAM的入门book，有理论有实践，写的不错，推荐包含了上述在视觉slam需要的所有基础知识，真是造福大众啊。详细研读此书，以后读各种论文就不会显得那么吃力了吧。最后列举一些玩slam的一些必备工具和相关资源。</p>
+<p>tools<br>ubuntu, install, cmake, bash, vim, qt(optional).<br>OpenCV install, read the opencv reference manual and tutorial<br>ros, install, [tutorial}(<a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="noopener">http://wiki.ros.org/ROS/Tutorials</a>).<br>python. 可以使用pycharm,作为IDE.<br>为什么使用ubuntu？因为大家的代码，全是用linux，而且很多使用ros的，ros一定是要Linux的，同时还要cmake。Ubuntu是比较适合初学Linux的人，非常好用</p>
+<p>somethind about Calibration<br>opencv camera Calibration<br>matlab camera Calibration toolbox<br>svo camera Calibration<br>ros wiki camera Calibration<br>为什么要标定相机呢，因为slam的模型中假设 相机的内参数是已知的，因此有了这个内参数我们才能正确的初始化slam系统。</p>
+<p>ROS<br>ros usually used pakcage<br>svo<br>orb slam<br>ar_tracker_alvar githun page ros page<br>ros ptam,原始代码不支持ros, 这里给出ros版本的代码. 原始代码网站<br>DSO<br>ros books<br>Learning ROS for Robotics Programming<br>机器人操作系统（ROS）浅析<br>some blogs about ros<br><a href="http://www.guyuehome.com/page/1" target="_blank" rel="noopener">http://www.guyuehome.com/page/1</a><br>SLAM基础学习<br>Multiple View Geometry in Computer Vision。这本书基本涵盖了Vision-based SLAM这个领域的全部理论基础！读多少遍都不算多！另外建议配合Berkeley的课件学习。（更新：这本书书后附录也可以一并读完，包括附带bundle adjustment最基本的levenberg marquardt方法，newton方法等）．<br>Sparse Matrix，这是大型稀疏矩阵处理的一般办法。可以参考Dr. Tim Davis的课件：Tim Davis ，他的主页里有全部的课程视频和Project。针对SLAM问题，最常用的least square算法是Sparse Levenberg Marquardt algorithm，这里有一份开源的代码以及具体实现的paper：Sparse Non-Linear Least Squares in C/C++<br>openSLAM<br>dataset tum<br>PCL<br>opencv<br>推荐阅读的书<br>Multiple View Geometry in Computer Vision<br>Probabilistic Robotics pdf<br>state estimation for Robotics<br>Quaternion kinematics for the error-state KF<br>凸优化，<a href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" target="_blank" rel="noopener">https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf</a><br>线性系统理论，<a href="https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579" target="_blank" rel="noopener">https://www.amazon.com/Linear-System-Electrical-Computer-Engineering/dp/0199959579</a><br>An Invitation to 3-D Vision，<a href="https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf" target="_blank" rel="noopener">https://www.eecis.udel.edu/~cer/arv/readings/old_mkss.pdf</a><br>Modern Control Systems，<a href="https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580" target="_blank" rel="noopener">https://www.amazon.com/Modern-Control-Systems-12th-Richard/dp/0136024580</a><br>Rigid Body Dynamics，<a href="http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。" target="_blank" rel="noopener">http://authors.library.caltech.edu/25023/1/Housner-HudsonDyn80.pdf。说实话刚体动力学理论我没有找到特别好的书。但是刚体动力学理论很重要。</a><br>Feedback Systems: An Introduction for Scientists and Engineers，FBSwiki<br>《机器学习》，周志华老师的书。<br>线性估计，<a href="https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642" target="_blank" rel="noopener">https://www.amazon.com/Linear-Estimation-Thomas-Kailath/dp/0130224642</a><br>vision Navigation<br>Georg Klein and David Murray, “Parallel Tracking and Mapping for Small AR Workspaces”, In Proc. International Symposium on Mixed and Augmented Reality (ISMAR’07, Nara).<br>D. Scaramuzza, F. Fraundorfer, “Visual Odometry: Part I - The First 30 Years and Fundamentals IEEE Robotics and Automation Magazine”, Volume 18, issue 4, 2011.<br>F. Fraundorfer and D. Scaramuzza, “Visual Odometry : Part II: Matching, Robustness, Optimization, and Applications,” in IEEE Robotics &amp; Automation Magazine, vol. 19, no. 2, pp. 78-90, June 2012. doi: 10.1109/MRA.2012.2182810<br>A Kalman Filter-Based Algorithm for IMU-Camera Calibration Observability Analysis and Performance Evaluation<br>SVO- Fast Semi-Direct Monocular Visual Odometry<br>eth zasl sensor,<a href="http://wiki.ros.org/ethzasl_sensor_fusion" target="_blank" rel="noopener">http://wiki.ros.org/ethzasl_sensor_fusion</a><br>Stephan Weiss. Vision Based Navigation for Micro Helicopters PhD Thesis, 2012 pdf<br>Stephan Weiss, Markus W. Achtelik, Margarita Chli and Roland Siegwart. Versatile Distributed Pose Estimation and Sensor Self-Calibration for Autonomous MAVs. in IEEE International Conference on Robotics and Automation (ICRA), 2012. pdf<br>Stephan Weiss, Davide Scaramuzza and Roland Siegwart, Monocular-SLAM–based navigation for autonomous micro helicopters in GPS-denied environments, Journal of Field Robotics (JFR), Vol. 28, No. 6, 2011, 854-874. pdf<br>Stephan Weiss and Roland Siegwart. Real-Time Metric State Estimation for Modular Vision-Inertial Systems. in IEEE International Conference on Robotics and Automation (ICRA), 2011. pdf<br>Simon Lynen, Markus Achtelik, Stephan Weiss, Margarita Chli and Roland Siegwart, A Robust and Modular Multi-Sensor Fusion Approach Applied to MAV Navigation. in Proc. of the IEEE/RSJ Conference on - - Intelligent Robots and Systems (IROS), 2013. pdf<br>[orb slam]<br>Raúl Mur-Artal, J. M. M. Montiel and Juan D. Tardós. ORB-SLAM: A Versatile and Accurate Monocular SLAM System. IEEE Transactions on Robotics, vol. 31, no. 5, pp. 1147-1163, 2015. (2015 IEEE Transactions on Robotics Best Paper Award). PDF.<br>Dorian Gálvez-López and Juan D. Tardós. Bags of Binary Words for Fast Place Recognition in Image Sequences. IEEE Transactions on Robotics, vol. 28, no. 5, pp. 1188-1197, 2012.</p>
+<p>参考<br>大疆的YY硕<br><a href="https://www.zhihu.com/question/24492974/answer/29987148" target="_blank" rel="noopener">https://www.zhihu.com/question/24492974/answer/29987148</a><br><a href="https://zhuanlan.zhihu.com/p/22266788" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22266788</a><br>转载：<a href="https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/" target="_blank" rel="noopener">https://x007dwd.github.io/2017/03/02/SLAM-prerequisite/</a> Posted by Bobin on March 2, 2017</p>
+]]></content>
+      <categories>
+        <category>SLAM</category>
+      </categories>
+      <tags>
+        <tag>SLAM</tag>
+        <tag>notebook</tag>
       </tags>
   </entry>
   <entry>
@@ -758,6 +814,67 @@ Invoke-RestMethod -Uri https://www.googleapis.com/drive/v3/files/1qiMFxUn-AYaBCg
       </tags>
   </entry>
   <entry>
+    <title>XMind安卓版和PC端同步BY第三方云端</title>
+    <url>/2020/08/13/xmind-Android-sync-by-onedrive/</url>
+    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>之前一直使用幕布，由于种种原因（私档泄露、免费版功能已不能满足需求），不想使用此软件了。<br>故转而找替代产品。<br>定位需求是：<br>1、free；<br>2、思维导图基本功能（大纲），能图片更好；<br>3、多端多台（windows+Android）同步。</p>
+<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。<br><a id="more"></a></p>
+<h2 id="XMind同步问题"><a href="#XMind同步问题" class="headerlink" title="XMind同步问题"></a>XMind同步问题</h2><p><a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">XMind安卓版和PC端同步</a>不“完美”，IOS版官方有完美同步教程。</p>
+<hr>
+<h1 id="同步方案"><a href="#同步方案" class="headerlink" title="同步方案"></a>同步方案</h1><p>借助第三方云（本人使用OneDirve、类似云有许多，坚果云也可以）：<br>1、PC端同步至云（文件保存在OneDrive目录下);<br>2、Android端同步至云（本人使用FolderSync（名气大啊），类似软件有Autosync for OneDrive等）</p>
+<h2 id="PC端同步至OneDrive"><a href="#PC端同步至OneDrive" class="headerlink" title="PC端同步至OneDrive"></a>PC端同步至OneDrive</h2><p>这步简单。</p>
+<h2 id="使用FolderSync，Android端同步至OneDrive"><a href="#使用FolderSync，Android端同步至OneDrive" class="headerlink" title="使用FolderSync，Android端同步至OneDrive"></a>使用FolderSync，Android端同步至OneDrive</h2><p>FolderSync这类软件获取，需借梯子。安装后，继续下步。</p>
+<blockquote>
+<p>借鉴<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
+<blockquote>
+<p>FolderSync 是一款Android 端的文件同步工具，可以将手机中的文件自动同步到云端空间或者PC端。它目前支援 OneDrive, Dropbox, SugarSync, Box.net,  LiveDrive,  HiDrive,  Google Docs,  NetDocuments,  Amazon S3、 FTP,  FTP,  SFTP，WebDAV 。</p>
+<h3 id="添加账户OneDrive"><a href="#添加账户OneDrive" class="headerlink" title="添加账户OneDrive"></a>添加账户OneDrive</h3><p>注意此步不能添加OneDrive校园账户</p>
+</blockquote>
+</blockquote>
+<h3 id="添加同步的文件夹"><a href="#添加同步的文件夹" class="headerlink" title="添加同步的文件夹"></a>添加同步的文件夹</h3><p>名称：随便起（e.g. XMind同步onedrive）<br>同步类型：双向<br>远程文件夹：/XMind/  （云上自建的）<br>本地文件夹：安卓端本地储存中的 XMind -&gt; workbook 文件夹<br>保存OK。（计划设置可自行按需设置。）</p>
+<hr>
+<p>参考：<br>1、<a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">如何将 XMind 文件从电脑上传输至 XMind 安卓版？</a><br>2、<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
+]]></content>
+      <categories>
+        <category>Software</category>
+      </categories>
+      <tags>
+        <tag>XMind</tag>
+        <tag>FolderSync</tag>
+        <tag>OneDirve</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PAPER READING&quot;2020-Zhou-Cross-Scale Internal Graph Neural Network for Image Super-Resolution&quot;</title>
+    <url>/2021/01/29/zhouCrossScaleInternalGraph2020/</url>
+    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Zhou, Shangchen, Jiawei Zhang, Wangmeng Zuo, and Chen Change Loy. </span><br><span class="line">“Cross-Scale Internal Graph Neural Network <span class="keyword">for</span> Image Super-Resolution.”</span><br><span class="line">NeurIPS. virtual, 2020. </span><br><span class="line">https://proceedings.neurips.cc/paper/2020/<span class="built_in">hash</span>/23ad3e314e2a2b43b4c720507cec0723-Abstract.html.</span><br></pre></td></tr></table></figure>
+<p>题目：用于图像超分的 交叉尺度 内部 图神经网络<br>NeurIPS. 2020<br>NTU MMLab PHD 周尚晨, 导师：吕健勤（Chen Change Loy）2016届董超的联合导师<br>个人web：<a href="https://shangchenzhou.com/" target="_blank" rel="noopener">Zhou, Shangchen</a>, <a href="http://personal.ie.cuhk.edu.hk/~ccloy/" target="_blank" rel="noopener">Chen Change Loy</a>.<br><a href="https://github.com/sczhou/IGNN" target="_blank" rel="noopener">[Code]</a> pytorch版</p>
+<a id="more"></a>
+<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p>核心思想如图<br><img src="https://i.loli.net/2021/01/30/ghzVkGDL65HcfW2.png" alt="quicker_1a8c4dde-7140-4166-9845-619c8a251e1a.png"></p>
+<p>系统图<br><img src="https://i.loli.net/2021/01/30/1SIc7RdlUn6h4JQ.png" alt="quicker_dc08e518-1f82-4dd6-adc1-ba2ada5ba1ca.png"></p>
+<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><p>性能对比<br><img src="https://i.loli.net/2021/01/29/EHAb9xgnCWjqmQv.png" alt="quicker_e7b8893e-df50-4b7f-9a60-f6b92b4f8457.png"></p>
+<p>运行时间 （补充材料）<br><img src="https://i.loli.net/2021/01/29/5OuBA4weNhUTxL7.png" alt="quicker_4cf6300b-750a-43aa-8b8c-73fc96bdb5f6.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>四问</p>
+<pre><code>1. 作者想要完成什么（已经完成了什么）？
+</code></pre><p>通过图卷积网络，提出了一种基于交叉（缩放）尺度的自相关性SISR方法。是即插即用的。该文在EDSR基础上实现，效果上得到提升，计算时间上相比EDSR翻倍，但比另外的方法效率高。</p>
+<pre><code>2. 新方法的关键元素是什么？
+</code></pre><p>Different from previous non-local methods that explore and aggregate neighboring patches at the same scale, we search for similar patches at the downsampled LR scale but aggregate HR patches. It allows our network to perform more efficiently and effectively for SISR.</p>
+<pre><code>3. 对我有用吗？
+</code></pre><p>用处不大。理论上可用于盲SR。但该文未尝试。<br>讨论过程再看看。</p>
+<pre><code>4. 想看他的哪些参考文献？
+</code></pre><p>对比方法中，2019年的几个引用。maybe</p>
+<hr>
+]]></content>
+      <categories>
+        <category>Paper reading</category>
+        <category>Super resolution</category>
+      </categories>
+      <tags>
+        <tag>Super resolution</tag>
+        <tag>GNN</tag>
+        <tag>non-local</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Useful Links for Scholar</title>
     <url>/2022/03/21/useful-links-SC/</url>
     <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>&emsp;&emsp;记录一些有用的Link。</p>
@@ -914,82 +1031,6 @@ Jian Zhang     Yulun Zhang     Yang Zhao     He Zhang    Liming Zhao     Zhiyuan
       <tags>
         <tag>工具</tag>
         <tag>Links</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>测试hello！</title>
-    <url>/2020/07/19/test1/</url>
-    <content><![CDATA[<p>你好！</p>
-<h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题1-1"><a href="#标题1-1" class="headerlink" title="标题1.1"></a>标题1.1</h2><h3 id="标题1-1-1"><a href="#标题1-1-1" class="headerlink" title="标题1.1.1"></a>标题1.1.1</h3><a id="more"></a>
-<h3 id="标题1-1-2"><a href="#标题1-1-2" class="headerlink" title="标题1.1.2"></a>标题1.1.2</h3><h1 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h1><h2 id="标题2-1"><a href="#标题2-1" class="headerlink" title="标题2.1"></a>标题2.1</h2><h3 id="标题2-1-1"><a href="#标题2-1-1" class="headerlink" title="标题2.1.1"></a>标题2.1.1</h3><h3 id="标题2-1-2"><a href="#标题2-1-2" class="headerlink" title="标题2.1.2"></a>标题2.1.2</h3><h3 id="标题2-1-3"><a href="#标题2-1-3" class="headerlink" title="标题2.1.3"></a>标题2.1.3</h3><h2 id="标题2-2"><a href="#标题2-2" class="headerlink" title="标题2.2"></a>标题2.2</h2><h3 id="标题2-2-1"><a href="#标题2-2-1" class="headerlink" title="标题2.2.1"></a>标题2.2.1</h3><h3 id="标题2-2-2"><a href="#标题2-2-2" class="headerlink" title="标题2.2.2"></a>标题2.2.2</h3><p>good!</p>
-]]></content>
-      <categories>
-        <category>测试分类</category>
-      </categories>
-      <tags>
-        <tag>ceshi_tags1</tag>
-        <tag>tags2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PAPER READING&quot;2020-Zhou-Cross-Scale Internal Graph Neural Network for Image Super-Resolution&quot;</title>
-    <url>/2021/01/29/zhouCrossScaleInternalGraph2020/</url>
-    <content><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Zhou, Shangchen, Jiawei Zhang, Wangmeng Zuo, and Chen Change Loy. </span><br><span class="line">“Cross-Scale Internal Graph Neural Network <span class="keyword">for</span> Image Super-Resolution.”</span><br><span class="line">NeurIPS. virtual, 2020. </span><br><span class="line">https://proceedings.neurips.cc/paper/2020/<span class="built_in">hash</span>/23ad3e314e2a2b43b4c720507cec0723-Abstract.html.</span><br></pre></td></tr></table></figure>
-<p>题目：用于图像超分的 交叉尺度 内部 图神经网络<br>NeurIPS. 2020<br>NTU MMLab PHD 周尚晨, 导师：吕健勤（Chen Change Loy）2016届董超的联合导师<br>个人web：<a href="https://shangchenzhou.com/" target="_blank" rel="noopener">Zhou, Shangchen</a>, <a href="http://personal.ie.cuhk.edu.hk/~ccloy/" target="_blank" rel="noopener">Chen Change Loy</a>.<br><a href="https://github.com/sczhou/IGNN" target="_blank" rel="noopener">[Code]</a> pytorch版</p>
-<a id="more"></a>
-<h1 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h1><p>核心思想如图<br><img src="https://i.loli.net/2021/01/30/ghzVkGDL65HcfW2.png" alt="quicker_1a8c4dde-7140-4166-9845-619c8a251e1a.png"></p>
-<p>系统图<br><img src="https://i.loli.net/2021/01/30/1SIc7RdlUn6h4JQ.png" alt="quicker_dc08e518-1f82-4dd6-adc1-ba2ada5ba1ca.png"></p>
-<h1 id="实验结果与分析"><a href="#实验结果与分析" class="headerlink" title="实验结果与分析"></a>实验结果与分析</h1><p>性能对比<br><img src="https://i.loli.net/2021/01/29/EHAb9xgnCWjqmQv.png" alt="quicker_e7b8893e-df50-4b7f-9a60-f6b92b4f8457.png"></p>
-<p>运行时间 （补充材料）<br><img src="https://i.loli.net/2021/01/29/5OuBA4weNhUTxL7.png" alt="quicker_4cf6300b-750a-43aa-8b8c-73fc96bdb5f6.png"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>四问</p>
-<pre><code>1. 作者想要完成什么（已经完成了什么）？
-</code></pre><p>通过图卷积网络，提出了一种基于交叉（缩放）尺度的自相关性SISR方法。是即插即用的。该文在EDSR基础上实现，效果上得到提升，计算时间上相比EDSR翻倍，但比另外的方法效率高。</p>
-<pre><code>2. 新方法的关键元素是什么？
-</code></pre><p>Different from previous non-local methods that explore and aggregate neighboring patches at the same scale, we search for similar patches at the downsampled LR scale but aggregate HR patches. It allows our network to perform more efficiently and effectively for SISR.</p>
-<pre><code>3. 对我有用吗？
-</code></pre><p>用处不大。理论上可用于盲SR。但该文未尝试。<br>讨论过程再看看。</p>
-<pre><code>4. 想看他的哪些参考文献？
-</code></pre><p>对比方法中，2019年的几个引用。maybe</p>
-<hr>
-]]></content>
-      <categories>
-        <category>Paper reading</category>
-        <category>Super resolution</category>
-      </categories>
-      <tags>
-        <tag>Super resolution</tag>
-        <tag>GNN</tag>
-        <tag>non-local</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XMind安卓版和PC端同步BY第三方云端</title>
-    <url>/2020/08/13/xmind-Android-sync-by-onedrive/</url>
-    <content><![CDATA[<h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>之前一直使用幕布，由于种种原因（私档泄露、免费版功能已不能满足需求），不想使用此软件了。<br>故转而找替代产品。<br>定位需求是：<br>1、free；<br>2、思维导图基本功能（大纲），能图片更好；<br>3、多端多台（windows+Android）同步。</p>
-<p>此时，XMind出现了。虽然同步上有点小问题，但能完美解决。就是它。<br><a id="more"></a></p>
-<h2 id="XMind同步问题"><a href="#XMind同步问题" class="headerlink" title="XMind同步问题"></a>XMind同步问题</h2><p><a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">XMind安卓版和PC端同步</a>不“完美”，IOS版官方有完美同步教程。</p>
-<hr>
-<h1 id="同步方案"><a href="#同步方案" class="headerlink" title="同步方案"></a>同步方案</h1><p>借助第三方云（本人使用OneDirve、类似云有许多，坚果云也可以）：<br>1、PC端同步至云（文件保存在OneDrive目录下);<br>2、Android端同步至云（本人使用FolderSync（名气大啊），类似软件有Autosync for OneDrive等）</p>
-<h2 id="PC端同步至OneDrive"><a href="#PC端同步至OneDrive" class="headerlink" title="PC端同步至OneDrive"></a>PC端同步至OneDrive</h2><p>这步简单。</p>
-<h2 id="使用FolderSync，Android端同步至OneDrive"><a href="#使用FolderSync，Android端同步至OneDrive" class="headerlink" title="使用FolderSync，Android端同步至OneDrive"></a>使用FolderSync，Android端同步至OneDrive</h2><p>FolderSync这类软件获取，需借梯子。安装后，继续下步。</p>
-<blockquote>
-<p>借鉴<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
-<blockquote>
-<p>FolderSync 是一款Android 端的文件同步工具，可以将手机中的文件自动同步到云端空间或者PC端。它目前支援 OneDrive, Dropbox, SugarSync, Box.net,  LiveDrive,  HiDrive,  Google Docs,  NetDocuments,  Amazon S3、 FTP,  FTP,  SFTP，WebDAV 。</p>
-<h3 id="添加账户OneDrive"><a href="#添加账户OneDrive" class="headerlink" title="添加账户OneDrive"></a>添加账户OneDrive</h3><p>注意此步不能添加OneDrive校园账户</p>
-</blockquote>
-</blockquote>
-<h3 id="添加同步的文件夹"><a href="#添加同步的文件夹" class="headerlink" title="添加同步的文件夹"></a>添加同步的文件夹</h3><p>名称：随便起（e.g. XMind同步onedrive）<br>同步类型：双向<br>远程文件夹：/XMind/  （云上自建的）<br>本地文件夹：安卓端本地储存中的 XMind -&gt; workbook 文件夹<br>保存OK。（计划设置可自行按需设置。）</p>
-<hr>
-<p>参考：<br>1、<a href="https://support.xmind.net/hc/zh-cn/articles/360028527611" target="_blank" rel="noopener">如何将 XMind 文件从电脑上传输至 XMind 安卓版？</a><br>2、<a href="http://help.jianguoyun.com/?p=2887" target="_blank" rel="noopener">如何使用FolderSync在安卓手机上同步文件夹到坚果云？</a></p>
-]]></content>
-      <categories>
-        <category>Software</category>
-      </categories>
-      <tags>
-        <tag>XMind</tag>
-        <tag>FolderSync</tag>
-        <tag>OneDirve</tag>
       </tags>
   </entry>
 </search>
